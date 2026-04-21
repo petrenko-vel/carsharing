@@ -1,0 +1,22 @@
+@use "./helpers/" as *;
+
+:root {
+  --color-light: #F3F3F3;
+  --color-black: #121212;
+  --color-gray-s: #EEEEEE;
+  --color-gray-m: #999999;
+  --color-accent: #0EC261;
+
+  --gradient-button-one: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
+  --gradient-button-two: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
+  --gradient-button-three: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
+  --gradient-button-four: linear-gradient(90deg, #281349 0%, #720C7B 100%);
+
+
+  --font-family: 'Roboto', sans-serif;
+
+  --container-width: #{rem(1250)};
+  --container-padding-x: #{rem(16)};
+
+  --transition-duration: 0.2s all ease;
+}
