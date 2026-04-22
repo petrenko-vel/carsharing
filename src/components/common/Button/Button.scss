@@ -1,0 +1,45 @@
+@use '../../../styles' as *;
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: var(--transition);
+    color: var(--color-light);
+    border-radius: 1rem;
+
+    // Градиент 1 (зелёный)
+    &--green {
+        background: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
+    }
+
+    // Градиент 2 (сине-зелёный)
+    &--blue {
+        background: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
+    }
+
+    // Градиент 3 (розово-коричневый)
+    &--red {
+        background: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
+    }
+
+    // Градиент 4 (фиолетовый)
+    &--purple {
+        background: linear-gradient(90deg, #281349 0%, #720C7B 100%);
+    }
+
+    &:active {
+        transform: translateY(0);
+        transition: transform 0.05s ease;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
