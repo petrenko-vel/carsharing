@@ -1,0 +1,95 @@
+# Зависимости
+node_modules/
+
+# Сборка проекта
+dist/
+dist-ssr/
+build/
+*.local-build
+
+# Vite
+.vite/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Логи
+npm-debug.log*
+*.log
+
+# Переменные окружения
+.env
+.env.local
+.env.*.local
+.env.test.local
+.env.production.local
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.bs-config.js
+
+# Системные файлы
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Отчеты о покрытии кода
+coverage/
+.nyc_output/
+*.lcov
+
+# Кэш линтеров и форматеров
+.eslintcache
+.prettiercache
+.stylelintcache
+.cache/
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Debug
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Временные файлы
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# Тесты
+/screenshots/
+/playwright-report/
+/test-results/
+
+# Профилирование
+profile.json
+
+# PWA
+/sw.js
+/workbox-*.js
+
+# Storybook
+storybook-static/
+
+# Генераторы
+*.generated.ts
+*.generated.js
+
+# Резервные копии
+*.backup
+*.old
+
+.antigravity
