@@ -1,5 +1,5 @@
-import HeroContent from '@/shared/components/HeroContent';
-import AdvantagesSlider from '@/shared/components/AdvantagesSlider';
+import HeroContent from '@/features/heroHome/ui';
+import AdvantagesSlider from '@/features/advantages/ui';
 
 import './HeroSection.scss';
 
