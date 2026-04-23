@@ -7,6 +7,7 @@
   --color-gray-m: #999999;
   --color-accent: #0EC261;
 
+  --gradient-button-hero: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
   --gradient-button-one: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
   --gradient-button-two: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
   --gradient-button-three: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
@@ -16,6 +17,7 @@
 
   --font-family: 'Roboto', sans-serif;
 
+  --container-hero-content: #{rem(560)};
   --container-width: #{rem(1250)};
   --container-padding-x: #{rem(16)};
 

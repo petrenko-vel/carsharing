@@ -3,7 +3,7 @@ import './Button.scss';
 
 interface ButtonProps {
     children: React.ReactNode;
-    gradient: 'green' | 'blue' | 'red' | 'purple';  // 👈 только эти варианты
+    gradient?: string;
     href: string;
     className?: string;
 }
@@ -12,9 +12,8 @@ const Button = (props: ButtonProps) => {
 
     const {
         children,
-        gradient = 'green',      // primary, secondary, outline
-        href,                     // если ссылка
-        // onClick,                  // если кнопка
+        gradient = 'hero', // по умолчанию: градиент кнопки на главной странице
+        href,
         className = '',
     } = props
 

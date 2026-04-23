@@ -1,1 +1,1 @@
-export { default } from './HeroContent'
+export { default } from './HomeContent'
