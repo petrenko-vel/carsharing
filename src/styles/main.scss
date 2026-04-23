@@ -1,8 +1,5 @@
-@use "./helpers/" as *;
-
-
-@use "./fonts.scss";
-@use "./normalize.scss";
-@use "./variables.scss";
-@use "./utils.scss";
-@use "./global.scss";
+@forward 'fonts';
+@forward 'variables';
+@forward 'normalize';
+@forward 'global';
+@forward 'utils';

@@ -11,6 +11,16 @@ export default defineConfig({
     assetsDir: 'assets',
     emptyOutDir: true
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @use "@/styles/helpers/" as *;
+          @use "@/styles/main" as *;
+        `,
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve('src'), // @ → папка src

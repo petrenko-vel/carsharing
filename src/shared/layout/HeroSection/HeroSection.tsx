@@ -1,10 +1,10 @@
-import HeroContent from '@/components/ui/HeroContent/HeroContent';
-import AdvantagesSlider from '@/components/ui/AdvantagesSlider/AdvantagesSlider';
+import HeroContent from '@/shared/components/HeroContent';
+import AdvantagesSlider from '@/shared/components/AdvantagesSlider';
 
 import './HeroSection.scss';
 
 
-export const HeroSection = () => {
+const HeroSection = () => {
     return (
         <>
             <section className="hero">
@@ -18,3 +18,5 @@ export const HeroSection = () => {
         </>
     )
 }
+
+export default HeroSection

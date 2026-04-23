@@ -1,4 +1,4 @@
-import { HeroSection } from "@/components/layout/HeroSection/HeroSection"
+import HeroSection from "@/shared/layout/HeroSection"
 
 
 function App() {
