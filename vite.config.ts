@@ -1,10 +1,53 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import compression from 'vite-plugin-compression2';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(),
+  ViteImageOptimizer({
+    logStats: true,                    // Показывать статистику сжатия после сборки
+    ansiColors: true,
+
+    // Качество сжатия (можно подбирать под свой проект)
+    png: { quality: 82, effort: 7 },
+    jpeg: { quality: 80, mozjpeg: true },
+    webp: { quality: 80 },
+    avif: { quality: 70 },
+
+    // Лучшие настройки для SVG
+    svg: {
+      multipass: true,
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false,
+              cleanupIds: false,
+              convertPathData: false,
+            },
+          },
+        },
+        'sortAttrs',
+        'cleanupNumericValues',
+      ],
+    },
+
+
+    include: /\.(png|jpe?g|gif|webp|avif|svg)$/i,
+
+  }),
+
+
+  compression({
+    algorithms: ['brotliCompress', 'gzip'],
+    threshold: 1024,
+    deleteOriginalAssets: false,
+  }),
+  ],
   base: '/carsharing/',
   build: {
     outDir: 'dist',
