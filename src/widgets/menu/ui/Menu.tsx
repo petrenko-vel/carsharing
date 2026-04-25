@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import type { AdvantageSlide } from '@/entities/advantage/model/advantage-card.types';
 import { useEscape } from '@/shared/hooks/useEscape';
-import './Menu.scss';
 import clsx from 'clsx';
+
+import IconTelegram from '@/shared/ui/icons/IconTelegram';
+import IconFacebook from '@/shared/ui/icons/IconFacebook';
+import IconInstagram from '@/shared/ui/icons/IconInstagram';
+
+import './Menu.scss';
+
 
 type MenuProps = {
   items: AdvantageSlide[];
@@ -71,14 +77,14 @@ const Menu = (props: MenuProps) => {
             </nav>
 
             <div className="menu-panel__socials" aria-label="Социальные сети">
-              <a href="#" aria-label="Telegram">
-                tg
+              <a href="htt" aria-label="Telegram">
+                <IconTelegram className='menu-panel__icon' />
               </a>
               <a href="#" aria-label="Facebook">
-                f
+                <IconFacebook className='menu-panel__icon' />
               </a>
               <a href="#" aria-label="Instagram">
-                in
+                <IconInstagram className='menu-panel__icon' />
               </a>
             </div>
           </div>

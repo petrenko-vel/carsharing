@@ -1,5 +1,5 @@
 import Button from '@/shared/ui/Button';
-import { IconLocation } from '@/shared/ui/icons'
+import IconLocation from '@/shared/ui/icons/IconLocation';
 import './Hero.scss';
 import './Header.scss';
 import './Footer.scss'
