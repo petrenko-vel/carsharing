@@ -1,11 +1,11 @@
-import HeroSection from "@/shared/layout/HeroSection"
+import Home from "@/pages/home"
 
 
 function App() {
 
   return (
     <>
-      <HeroSection />
+      <Home />
     </>
   )
 }

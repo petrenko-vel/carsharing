@@ -28,8 +28,7 @@ body,
   Убираем внешние отступы вертикали нужным тегам,
   у которых есть атрибут class
  */
-:where(
-  h1,
+:where(h1,
   h2,
   h3,
   h4,
@@ -38,8 +37,7 @@ body,
   p,
   ul,
   ol,
-  dl
-):where([class]) {
+  dl):where([class]) {
   margin-block: 0;
 }
 
@@ -84,6 +82,11 @@ p:where(:not([class]):not(:last-child)) {
   margin-bottom: var(--paragraphMarginBottom);
 }
 
+
+li,
+ol {
+  list-style: none;
+}
 
 /**
   Упрощаем работу с изображениями и видео
@@ -153,6 +156,11 @@ label {
   cursor: pointer;
 }
 
+button {
+  border: 0;
+  background: none;
+}
+
 /**
   Приводим к единому цвету svg-элементы
  */
@@ -170,6 +178,7 @@ svg * {
   которые предпочитают их не использовать
  */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   ::before,
   ::after {

@@ -1,0 +1,65 @@
+.advantages-slider {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  @include mobile {
+    display: none;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3.875rem;
+    border: 0;
+    background: rgba(255, 255, 255, 0);
+    color: var(--color-light);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 2;
+    transition: var(--transition);
+
+    @include laptop-s {
+      width: 2rem;
+    }
+
+    &:hover {
+      background: rgba(14, 194, 97, 0.28);
+    }
+  }
+
+  &__arrow--prev {
+    left: 0;
+  }
+
+  &__arrow--next {
+    right: 0;
+  }
+
+  &__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+
+  &__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(238, 238, 238, 0.72);
+    padding: 0;
+    cursor: pointer;
+
+    &.is-active {
+      background: var(--color-accent);
+    }
+  }
+}

@@ -1,5 +1,7 @@
+@use './helpers/' as *;
+
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 1rem;
 }
 
@@ -9,13 +11,22 @@ a {
 
 .container-hero-content {
     max-width: var(--container-hero-content);
+    padding-inline: 2rem;
     margin: 0 auto;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 
+    @include mobile-s {
+        padding-inline: 0;
+    }
+
     .hero-content {
         flex: 1;
+
+        @include mobile-s {
+            margin-top: 2.5rem;
+        }
     }
 
 }

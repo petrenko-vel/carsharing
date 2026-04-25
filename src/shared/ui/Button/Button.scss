@@ -2,12 +2,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.875rem 2rem;
+    padding: 0.875rem 2.1875rem;
     font-size: 1.125rem;
     font-weight: 500;
     transition: var(--transition);
     color: var(--color-light);
     border-radius: 0.5rem;
+    line-height: 100%;
 
     // Градиент для кнопки на главном экране
     &--hero {
@@ -22,7 +23,7 @@
 
     // Градиент 2 (сине-зелёный)
     &--blue {
-        background: var(gradient-button-two);
+        background: var(--gradient-button-two);
     }
 
     // Градиент 3 (розово-коричневый)

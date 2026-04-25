@@ -1,0 +1,62 @@
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    @include mobile-s {
+        justify-content: flex-start;
+    }
+
+    &__title {
+        min-width: 30rem;
+        line-height: 93%;
+        color: var(--color-black);
+        font-size: 4.375rem;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+
+        @include laptop-s {
+            min-width: auto;
+        }
+
+        @include mobile {
+            @include fluid-text(70, 32);
+            padding-left: 1rem;
+        }
+
+        &-brand {
+            color: var(--color-accent);
+        }
+    }
+
+    &__subtitle {
+        margin-top: 2.125rem;
+        color: var(--color-gray-m);
+        line-height: 100%;
+        font-size: 1.625rem;
+        font-weight: 300;
+
+        @include mobile {
+            @include fluid-text(26, 18);
+            margin-top: .5rem;
+            padding-left: 1rem;
+        }
+    }
+
+    &__button {
+        margin-top: 3.75rem;
+
+        @include mobile-s {
+            width: 100%;
+            border-radius: 0;
+            margin-top: 2.5rem;
+        }
+    }
+}
+
+.hero-wrapper {
+    flex: 1;
+}
