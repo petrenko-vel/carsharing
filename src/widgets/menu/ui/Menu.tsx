@@ -30,7 +30,7 @@ const Menu = (props: MenuProps) => {
 
   return (
     <>
-      <div className={clsx('menu', { 'is-open': isOpen })} role="navigation" aria-label="Главное меню">
+      <aside className={clsx('menu', { 'is-open': isOpen })} role="navigation" aria-label="Главное меню">
         <button
           type="button"
           className="menu__toggle"
@@ -44,7 +44,7 @@ const Menu = (props: MenuProps) => {
         </button>
 
         <span className="menu__lang">Eng</span>
-      </div>
+      </aside>
 
       {isOpen && (
         <div className="menu-panel">
