@@ -36,9 +36,12 @@
         background: var(--gradient-button-four);
     }
 
+    &:hover {
+        opacity: 0.8;
+    }
+
     &:active {
         transform: translateY(0);
-        transition: transform 0.05s ease;
     }
 
     &:disabled {
