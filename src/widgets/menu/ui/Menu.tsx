@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import type { AdvantageSlide } from '@/entities/advantage/model/advantage-card.types';
 import { useEscape } from '@/shared/hooks/useEscape';
 import clsx from 'clsx';
@@ -21,10 +21,10 @@ const Menu = (props: MenuProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelect = (index: number) => {
+  const handleSelect = useCallback((index: number) => {
     onSelect(index);
     setIsOpen(false);
-  };
+  }, [onSelect]);
 
   useEscape(() => setIsOpen(false), isOpen);
 
