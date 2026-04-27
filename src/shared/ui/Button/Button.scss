@@ -1,52 +1,52 @@
 .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.875rem 2.1875rem;
-    font-size: 1.125rem;
-    font-weight: 500;
-    transition: var(--transition);
-    color: var(--color-light);
-    border-radius: 0.5rem;
-    line-height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2.1875rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  transition: var(--transition);
+  color: var(--color-light);
+  border-radius: 0.5rem;
+  line-height: 100%;
 
-    // Градиент для кнопки на главном экране
-    &--hero {
-        background: var(--gradient-button-hero);
-        padding: .9375rem 3.75rem;
-    }
+  // Градиент для кнопки на главном экране
+  &--hero {
+    background: var(--gradient-button-hero);
+    padding: 0.9375rem 3.75rem;
+  }
 
-    // Градиент 1 (зелёный)
-    &--green {
-        background: var(--gradient-button-one);
-    }
+  // Градиент 1 (зелёный)
+  &--green {
+    background: var(--gradient-button-one);
+  }
 
-    // Градиент 2 (сине-зелёный)
-    &--blue {
-        background: var(--gradient-button-two);
-    }
+  // Градиент 2 (сине-зелёный)
+  &--blue {
+    background: var(--gradient-button-two);
+  }
 
-    // Градиент 3 (розово-коричневый)
-    &--red {
-        background: var(--gradient-button-three);
-    }
+  // Градиент 3 (розово-коричневый)
+  &--red {
+    background: var(--gradient-button-three);
+  }
 
-    // Градиент 4 (фиолетовый)
-    &--purple {
-        background: var(--gradient-button-four);
-    }
+  // Градиент 4 (фиолетовый)
+  &--purple {
+    background: var(--gradient-button-four);
+  }
 
-    &:hover {
-        opacity: 0.8;
-    }
+  &:hover {
+    opacity: 0.8;
+  }
 
-    &:active {
-        transform: translateY(0);
-    }
+  &:active {
+    transform: translateY(0);
+  }
 
-    &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
-    }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
 }

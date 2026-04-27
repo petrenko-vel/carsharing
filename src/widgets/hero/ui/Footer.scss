@@ -1,55 +1,55 @@
 .footer {
-    padding-bottom: 2rem;
+  padding-bottom: 2rem;
+
+  @include mobile-s {
+    padding: 1.25rem 1rem 1rem;
+    background-color: var(--color-black);
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
 
     @include mobile-s {
-        padding: 1.25rem 1rem 1rem;
-        background-color: var(--color-black);
+      gap: 0.25rem;
+      flex-direction: column;
+      align-items: flex-end;
     }
 
-    &__container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
+    & * {
+      font-size: 0.8125rem;
+      font-weight: 400;
+    }
+  }
 
-        @include mobile-s {
-            gap: .25rem;
-            flex-direction: column;
-            align-items: flex-end;
-        }
+  &__copyright {
+    color: var(--color-gray-m);
 
-        & * {
-            font-size: .8125rem;
-            font-weight: 400;
-        }
+    @include mobile-s {
+      color: var(--color-gray-s);
+    }
+  }
+
+  &__contact {
+    font-style: normal;
+
+    @include mobile-s {
+      order: -1;
+    }
+  }
+
+  &__phone {
+    color: var(--color-black);
+
+    @include mobile-s {
+      color: var(--color-accent);
     }
 
-    &__copyright {
-        color: var(--color-gray-m);
-
-        @include mobile-s {
-            color: var(--color-gray-s);
-        }
+    &:hover {
+      opacity: 0.8;
     }
-
-    &__contact {
-        font-style: normal;
-
-        @include mobile-s {
-            order: -1;
-        }
-    }
-
-    &__phone {
-        color: var(--color-black);
-
-        @include mobile-s {
-            color: var(--color-accent);
-        }
-
-        &:hover {
-            opacity: 0.8;
-        }
-    }
+  }
 }

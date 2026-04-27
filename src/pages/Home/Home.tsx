@@ -9,7 +9,7 @@ const Home = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   return (
-    <main className='home'>
+    <main className="home">
       <Menu
         items={advantagesData}
         activeIndex={currentSlideIndex}

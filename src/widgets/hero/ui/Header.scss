@@ -1,58 +1,57 @@
 .header {
-    width: 100%;
-    margin-top: 2rem;
-    background: white;
+  width: 100%;
+  margin-top: 2rem;
+  background: white;
+
+  @include mobile-s {
+    margin-top: 0.625rem;
+    padding-right: 1rem;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
 
     @include mobile-s {
-        margin-top: .625rem;
-        padding-right: 1rem;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+
+  &__logo-text {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__city {
+    color: var(--color-gray-m);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 0.875rem;
+
+    &:hover {
+      opacity: 0.7;
     }
 
-    &__wrapper {
-        display: flex;
-        justify-content: space-between;
-
-        @include mobile-s {
-            flex-direction: column;
-            align-items: flex-end;
-        }
+    &-icon {
+      width: 18px;
+      height: 20px;
     }
 
-    &__logo-text {
-        font-size: 1.875rem;
-        font-weight: 700;
-        color: var(--color-accent);
+    &-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
     }
-
-    &__location {
-        display: flex;
-        align-items: center;
-        gap: .5rem;
-
-    }
-
-    &__city {
-        color: var(--color-gray-m);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        transition: opacity 0.2s;
-        font-size: 0.875rem;
-
-        &:hover {
-            opacity: 0.7;
-        }
-
-        &-icon {
-            width: 18px;
-            height: 20px;
-        }
-
-        &-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: #333;
-        }
-    }
+  }
 }

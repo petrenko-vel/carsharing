@@ -8,12 +8,16 @@ type AdvantagesSliderProps = {
   onSlideChange?: (index: number) => void;
 };
 
-const AdvantagesSlider = ({ currentIndex: externalIndex, onSlideChange }: AdvantagesSliderProps) => {
+const AdvantagesSlider = ({
+  currentIndex: externalIndex,
+  onSlideChange,
+}: AdvantagesSliderProps) => {
   const total = advantagesData.length;
   const [internalIndex, setInternalIndex] = useState(0);
 
   if (!total) return null;
-  const activeIndex = typeof externalIndex === 'number' ? externalIndex : internalIndex;
+  const activeIndex =
+    typeof externalIndex === 'number' ? externalIndex : internalIndex;
   const activeSlide = advantagesData[activeIndex] ?? advantagesData[0];
 
   const handleGoTo = (index: number) => {
@@ -61,7 +65,10 @@ const AdvantagesSlider = ({ currentIndex: externalIndex, onSlideChange }: Advant
         &#10095;
       </button>
 
-      <div className="advantages-slider__dots" aria-label="Навигация по слайдам">
+      <div
+        className="advantages-slider__dots"
+        aria-label="Навигация по слайдам"
+      >
         {advantagesData.map((slide, index) => (
           <button
             key={slide.id}
