@@ -1,17 +1,17 @@
-@use "./helpers/" as *;
+@use './helpers/' as *;
 
 :root {
-  --color-light: #F3F3F3;
+  --color-light: #f3f3f3;
   --color-black: #121212;
-  --color-gray-s: #EEEEEE;
+  --color-gray-s: #eeeeee;
   --color-gray-m: #999999;
-  --color-accent: #0EC261;
+  --color-accent: #0ec261;
 
-  --gradient-button-hero: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
-  --gradient-button-one: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
-  --gradient-button-two: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
-  --gradient-button-three: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
-  --gradient-button-four: linear-gradient(90deg, #281349 0%, #720C7B 100%);
+  --gradient-button-hero: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
+  --gradient-button-one: linear-gradient(90deg, #13493f 0%, #0c7b1b 100%);
+  --gradient-button-two: linear-gradient(90deg, #132949 0%, #0c7b67 100%);
+  --gradient-button-three: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
+  --gradient-button-four: linear-gradient(90deg, #281349 0%, #720c7b 100%);
 
   --transition: all 0.3s ease;
 

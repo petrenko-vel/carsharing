@@ -28,16 +28,7 @@ body,
   Убираем внешние отступы вертикали нужным тегам,
   у которых есть атрибут class
  */
-:where(h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  ul,
-  ol,
-  dl):where([class]) {
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl):where([class]) {
   margin-block: 0;
 }
 
@@ -81,7 +72,6 @@ p {
 p:where(:not([class]):not(:last-child)) {
   margin-bottom: var(--paragraphMarginBottom);
 }
-
 
 li,
 ol {
@@ -165,7 +155,6 @@ button {
   Приводим к единому цвету svg-элементы
  */
 
-
 /**
   Чиним баг задержки смены цвета при взаимодействии с svg-элементами
  */
@@ -178,7 +167,6 @@ svg * {
   которые предпочитают их не использовать
  */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   ::before,
   ::after {

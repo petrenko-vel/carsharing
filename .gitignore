@@ -51,6 +51,7 @@ coverage/
 .eslintcache
 .prettiercache
 .stylelintcache
+.prettierignore
 .cache/
 
 # TypeScript
