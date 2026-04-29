@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     react(),
     ViteImageOptimizer({
-      logStats: true, // Показывать статистику сжатия после сборки
+      logStats: true,
       ansiColors: true,
 
       png: { quality: 82, effort: 7 },

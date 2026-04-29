@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const useSlider = (length: number) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,6 +14,14 @@ export const useSlider = (length: number) => {
   const goTo = (index: number) => {
     setCurrentIndex(index);
   };
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setCurrentIndex((prev) => (prev === length - 1 ? 0 : prev + 1));
+    }, 4000);
+
+    return () => window.clearInterval(id);
+  }, [length]);
 
   return {
     currentIndex,

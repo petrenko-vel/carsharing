@@ -8,6 +8,37 @@
     display: none;
   }
 
+  &__viewport {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  &__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 1;
+    transition: opacity 450ms ease;
+  }
+
+  &__slide--current {
+    z-index: 1;
+  }
+
+  &__slide--previous {
+    z-index: 2;
+  }
+
+  &__slide--current.is-fading-in {
+    opacity: 0;
+    animation: slide-fade-in 450ms ease forwards;
+  }
+
+  &__slide--previous.is-fading-out {
+    opacity: 1;
+    animation: slide-fade-out 450ms ease forwards;
+  }
+
   &__arrow {
     position: absolute;
     top: 0;
@@ -61,5 +92,23 @@
     &.is-active {
       background: var(--color-accent);
     }
+  }
+}
+
+@keyframes slide-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
