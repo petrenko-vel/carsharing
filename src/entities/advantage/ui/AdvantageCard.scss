@@ -1,4 +1,6 @@
 .advantage-card {
+  display: flex;
+  align-items: center;
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -16,12 +18,11 @@
     z-index: 1;
     padding-inline: 3rem;
     max-width: 37rem;
-    margin: 15rem auto 0;
+    margin: -20% auto 0;
     color: var(--color-light);
 
     @include laptop-s {
       padding-inline: 4rem;
-      margin-top: 17.4rem;
     }
   }
 
