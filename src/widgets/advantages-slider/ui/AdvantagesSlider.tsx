@@ -1,5 +1,5 @@
-import AdvantageCard from '@/entities/advantage/ui/AdvantageCard';
-import { advantagesData } from '../lib/slides';
+import AdvantageCard from '@/widgets/advantages-slider/ui/AdvantageCard';
+import { advantagesData } from '../model/slides.mock';
 import './AdvantagesSlider.scss';
 
 interface Props {
@@ -28,18 +28,16 @@ const AdvantagesSlider = ({
       <div className="advantages-slider__viewport">
         {prevIndex !== null && (
           <div
-            className={`advantages-slider__slide advantages-slider__slide--previous ${
-              isTransitioning ? 'is-fading-out' : ''
-            }`}
+            className={`advantages-slider__slide advantages-slider__slide--previous ${isTransitioning ? 'is-fading-out' : ''
+              }`}
           >
             <AdvantageCard slide={advantagesData[prevIndex]} />
           </div>
         )}
 
         <div
-          className={`advantages-slider__slide advantages-slider__slide--current ${
-            isTransitioning ? 'is-fading-in' : ''
-          }`}
+          className={`advantages-slider__slide advantages-slider__slide--current ${isTransitioning ? 'is-fading-in' : ''
+            }`}
         >
           <AdvantageCard slide={activeSlide} />
         </div>
@@ -71,9 +69,8 @@ const AdvantagesSlider = ({
           <button
             key={slide.id}
             type="button"
-            className={`advantages-slider__dot ${
-              index === activeIndex ? 'is-active' : ''
-            }`}
+            className={`advantages-slider__dot ${index === activeIndex ? 'is-active' : ''
+              }`}
             aria-label={`Слайд ${slide.id}`}
             aria-current={index === activeIndex}
             onClick={() => onGoTo(index)}

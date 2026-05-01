@@ -3,7 +3,7 @@ import slideTwo from '@/assets/images/advantages/slide-2.jpg';
 import slideThree from '@/assets/images/advantages/slide-3.jpg';
 import slideFour from '@/assets/images/advantages/slide-4.jpg';
 
-import type { AdvantageSlide } from '@/entities/advantage/model/advantage-card.types';
+import type { AdvantageSlide } from '@/widgets/advantages-slider/model/advantage-card.types';
 
 export const advantagesData: AdvantageSlide[] = [
   {

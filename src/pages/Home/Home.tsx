@@ -3,7 +3,7 @@ import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnima
 import Hero from '@/widgets/hero';
 import AdvantagesSlider from '@/widgets/advantages-slider';
 import Menu from '@/widgets/menu';
-import { advantagesData } from '@/widgets/advantages-slider/lib/slides';
+import { advantagesData } from '@/widgets/advantages-slider/model/slides.mock';
 import './Home.scss';
 
 const Home = () => {
