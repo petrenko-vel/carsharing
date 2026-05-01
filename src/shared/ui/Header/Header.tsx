@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <header className="header">
             <div className="header__wrapper">
-                <span className="header__logo-text">Need for drive</span>
+                <a href='/' className="header__logo-text">Need for drive</a>
                 <div className="header__location">
                     <IconLocation className="header__icon" />
                     <span className="header__city">Ульяновск</span>
