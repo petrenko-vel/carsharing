@@ -53,7 +53,7 @@ const LocationStep = () => {
             {/* Временная заглушка для карты */}
             <div className="location-step__map">
                 <p>Выбрать на карте:</p>
-                <div className="location-step__map-placeholder" style={{ height: '350px', background: '#eaeaea', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="location-step__map-placeholder">
                     Здесь будет карта
                 </div>
             </div>
