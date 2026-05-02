@@ -1,0 +1,35 @@
+.stepper {
+    &__list {
+        display: flex;
+        gap: 2.375rem;
+    }
+
+    &__item {
+        position: relative;
+        flex: 1;
+        text-align: center;
+
+        // Стрелка-разделитель для всех, кроме последнего
+        &:not(:last-child)::after {
+            content: '▸';
+            position: absolute;
+            display: block;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #000000;
+        }
+
+        &--active {
+            color: var(--color-accent);
+        }
+
+        &--passed {
+            color: var(--color-gray-m);
+        }
+    }
+
+    &__step-text {
+        display: inline-block;
+    }
+}

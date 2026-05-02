@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '@/pages/home';
 import Booking from '@/pages/booking';
 
-
 function App() {
   return (
     <>

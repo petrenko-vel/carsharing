@@ -1,0 +1,92 @@
+.custom-input {
+    display: flex;
+    align-items: center; // Лейбл и инпут на одной линии
+    position: relative;
+    margin-bottom: 16px;
+
+    &__label {
+        width: 100px; // Фиксированная ширина для выравнивания
+        font-size: 14px;
+        color: #121212;
+        text-align: right;
+        margin-right: 16px;
+    }
+
+    &__wrapper {
+        position: relative;
+        flex-grow: 1;
+        max-width: 250px;
+    }
+
+    &__field {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #999999;
+        padding: 8px 24px 8px 0; // Место под крестик справа
+        font-size: 14px;
+        color: #121212;
+        background: transparent;
+        outline: none;
+        transition: border-color 0.2s;
+
+        &::placeholder {
+            color: #999999;
+        }
+
+        &:focus {
+            border-bottom: 1px solid #0EC261;
+        }
+
+        &:disabled {
+            background-color: transparent;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    }
+
+    &__clear {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #121212;
+        cursor: pointer;
+        padding: 0 4px;
+
+        &:hover {
+            color: #0EC261;
+        }
+    }
+
+    &__dropdown {
+        position: absolute;
+        top: 100%;
+        left: 116px; // Отступ на ширину лейбла + margin
+        width: 250px;
+        max-height: 200px;
+        overflow-y: auto;
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        padding: 0;
+        margin: 4px 0 0 0;
+        z-index: 10;
+    }
+
+    &__option {
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #999999;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #0EC261;
+            background-color: #f9f9f9;
+        }
+    }
+}
