@@ -1,10 +1,10 @@
 import './Booking.scss';
 
-const Booking = () => {
+const BookingLayout = () => {
     return (
         <>
         </>
     );
 };
 
-export default Booking;
+export default BookingLayout;
