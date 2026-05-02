@@ -1,9 +1,17 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '@/pages/home';
+import Booking from '@/pages/booking';
+
 
 function App() {
   return (
     <>
-      <Home />
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/booking" element={<Booking />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
