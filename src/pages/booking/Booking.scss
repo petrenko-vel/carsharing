@@ -1,0 +1,21 @@
+.booking {
+
+    &__wrapper {}
+
+    &__stepper-wrapper {
+        margin-top: 2rem;
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1.25rem;
+    }
+
+    &__content {
+        margin-top: 2rem;
+    }
+
+    &__sidebar {}
+}

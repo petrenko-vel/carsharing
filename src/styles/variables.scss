@@ -14,11 +14,12 @@
   --gradient-button-four: linear-gradient(90deg, #281349 0%, #720c7b 100%);
 
   --transition: all 0.3s ease;
+  --border: .0625rem solid var(--color-gray-s);
 
   --font-family: 'Roboto', sans-serif;
 
   --container-hero-content: #{rem(620)};
-  --container-width: #{rem(1250)};
+  --container-width: #{rem(1500)};
   --container-padding-x: #{rem(16)};
 
   --transition-duration: 0.2s all ease;

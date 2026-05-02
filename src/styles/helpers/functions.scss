@@ -2,14 +2,16 @@
 
 @function rem($pixel) {
   @if math.is-unitless($pixel) {
-    @return math.div($pixel, 16) + rem;
-  } @else {
+    @return math.div($pixel, 16)+rem;
+  }
+
+  @else {
     @error 'Не используйте единицы измерения при работе с функцией rem()! Передавайте аргументом только числа.';
   }
 }
 
-$container-desktop-width: 1440;
-$container-laptop-width: 1024;
+$container-desktop-width: 1920;
+$container-laptop-width: 1440;
 /* принимает максимальное и минимальное значение свойства (в пикселях) и возвращает CSS-значение, 
 которое плавно изменяется в зависимости от ширины экрана, оставаясь в заданных пределах */
 
@@ -27,15 +29,11 @@ $container-laptop-width: 1024;
   $minWidth: math.div($minViewportWidth, 16);
 
   // показывает, как быстро будет изменяться размер в зависимости от ширины экрана
-  $slope: math.div(
-    ($maxSize - $minSize),
-    ($maxWidth - $minWidth)
-  ); // (разница размеров) / (разница ширин)
+  $slope: math.div(($maxSize - $minSize),
+      ($maxWidth - $minWidth)); // (разница размеров) / (разница ширин)
   $yAxisIntersections: -$minWidth * $slope + $minSize;
 
-  @return clamp(
-    #{$minSize * 1rem},
+  @return clamp(#{$minSize * 1rem},
     #{$yAxisIntersections * 1rem} + #{$slope * 100vw},
-    #{$maxSize * 1rem}
-  );
+    #{$maxSize * 1rem});
 }

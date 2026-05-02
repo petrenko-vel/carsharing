@@ -3,7 +3,7 @@ import LocationStep from '@/features/location-step/ui/LocationStep';
 import OrderSummary from '@/widgets/order-summary/ui/OrderSummary';
 import { useBookingStore } from './model/bookingStore';
 import Header from '@/shared/ui/Header';
-// import './BookingPage.scss';
+import './Booking.scss';
 
 const BOOKING_STEPS = ['Местоположение', 'Модель', 'Дополнительно', 'Итого'];
 
@@ -25,26 +25,26 @@ const BookingPage = () => {
 
     return (
         <>
-            <div className="booking-page">
+            <div className="booking">
                 {/* 1. Левое навигационное меню */}
 
-                <div className="booking-page__wrapper container">
+                <div className="booking__wrapper container">
                     <Header />
 
                     {/* 3. Навигация по шагам */}
-                    <div className="booking-page__stepper-wrapper">
+                    <div className="booking__stepper-wrapper">
                         <Stepper steps={BOOKING_STEPS} currentStep={0} />
                     </div>
 
                     {/* 4. Основная рабочая область */}
-                    <main className="booking-page__main">
+                    <main className="booking__main">
                         {/* Левая колонка с инпутами и картой */}
-                        <section className="booking-page__content">
+                        <section className="booking__content">
                             <LocationStep />
                         </section>
 
                         {/* Правая колонка с чеком */}
-                        <section className="booking-page__sidebar">
+                        <section className="booking__sidebar">
                             <OrderSummary
                                 details={orderDetails}
                                 buttonText="Выбрать модель"

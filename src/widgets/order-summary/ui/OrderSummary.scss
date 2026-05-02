@@ -1,7 +1,9 @@
 .order-summary {
     display: flex;
     flex-direction: column;
-    height: 100%; // Чтобы кнопка могла прижаться к низу
+    padding: 2rem 0 0 2rem;
+    height: 100%;
+    border-left: var(--border);
 
     &__title {
         font-size: 18px;
@@ -58,17 +60,6 @@
     }
 
     &__button {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(90deg, #0EC261 0%, #039F67 100%);
-        color: #ffffff;
-        border: none;
-        border-radius: 8px;
-        font-size: 18px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.3s, opacity 0.3s;
-        margin-top: auto; // Если цены нет, кнопка все равно прижмется к низу
 
         &:hover:not(:disabled) {
             box-shadow: 0 4px 10px rgba(14, 194, 97, 0.3);

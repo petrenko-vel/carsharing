@@ -1,9 +1,14 @@
 import IconLocation from '@/shared/ui/icons/IconLocation';
 import './Header.scss';
 
-const Header = () => {
+interface HeaderProps {
+    className?: string
+}
+
+const Header = ({ className }: HeaderProps) => {
+
     return (
-        <header className="header">
+        <header className={`header ${className}`}>
             <div className="header__wrapper">
                 <a href='/' className="header__logo-text">Need for drive</a>
                 <div className="header__location">
