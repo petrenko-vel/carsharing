@@ -1,7 +1,4 @@
 .booking {
-
-    &__wrapper {}
-
     &__stepper-wrapper {
         margin-top: 2rem;
     }
@@ -11,11 +8,13 @@
         flex-direction: row;
         justify-content: space-between;
         gap: 1.25rem;
+
+        @include mobile {
+            flex-direction: column;
+        }
     }
 
     &__content {
         margin-top: 2rem;
     }
-
-    &__sidebar {}
 }

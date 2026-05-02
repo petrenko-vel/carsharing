@@ -20,14 +20,13 @@
         display: flex;
         flex-wrap: wrap;
         gap: fluid(32, 12);
-        // counter-reset: step;
+        counter-reset: step;
 
         @include mobile {
             justify-content: space-between;
             gap: fluid(24, 16);
         }
 
-        // На мобильных - вертикальный список
         @include mobile-s {
             flex-direction: column;
             gap: rem(12);
@@ -78,7 +77,6 @@
                 transition: all 0.3s ease;
             }
 
-            // Линия прогресса между шагами по вертикали
             &:not(:last-child)::after {
                 content: '';
                 position: absolute;
