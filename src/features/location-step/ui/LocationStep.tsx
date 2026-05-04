@@ -4,21 +4,16 @@ import locationsData from '../model/location.mock';
 import './LocationStep.scss';
 
 const LocationStep = () => {
-    // Достаем значения и экшены из хранилища
     const { city, point, setCity, setPoint, resetLocation } = useBookingStore();
 
-    // 1. Фильтруем города по введенному тексту для первого инпута
     const filteredCities = locationsData
         .map((c) => c.name)
         .filter((cityName) => cityName.toLowerCase().includes(city.toLowerCase()));
 
-    // 2. Ищем объект выбранного города (чтобы проверить, существует ли он в базе)
     const selectedCity = locationsData.find(
         (c) => c.name.toLowerCase() === city.toLowerCase()
     );
 
-    // 3. Если город найден — достаем его адреса и фильтруем по введенному тексту.
-    // Если город не выбран или введен с ошибкой — возвращаем пустой массив.
     const filteredPoints = selectedCity
         ? selectedCity.points
             .map((p) => p.name)
@@ -33,9 +28,9 @@ const LocationStep = () => {
                     placeholder="Начните вводить город..."
                     value={city}
                     options={filteredCities}
-                    onChange={setCity}        // Обновляем стейт при каждом нажатии клавиши
-                    onSelect={setCity}        // Обновляем стейт при клике по подсказке
-                    onClear={resetLocation}   // Полностью очищаем оба поля
+                    onChange={setCity}
+                    onSelect={setCity}
+                    onClear={resetLocation}
                 />
 
                 <Input
@@ -43,10 +38,10 @@ const LocationStep = () => {
                     placeholder="Начните вводить пункт..."
                     value={point}
                     options={filteredPoints}
-                    disabled={!selectedCity}  // Блокируем поле, если город не выбран/невалиден
+                    disabled={!selectedCity}
                     onChange={setPoint}
                     onSelect={setPoint}
-                    onClear={() => setPoint('')} // Очищаем только адрес
+                    onClear={() => setPoint('')}
                 />
             </div>
 

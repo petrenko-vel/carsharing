@@ -8,9 +8,9 @@ interface OrderDetail {
 
 interface OrderSummaryProps {
     className?: string;
-    details: OrderDetail[]; // Массив заполненных данных (например, [{label: 'Пункт выдачи', value: 'Ульяновск...'}])
+    details: OrderDetail[];
     price?: string;
-    buttonText: string;     // Текст на кнопке меняется в зависимости от шага
+    buttonText: string;
     isButtonDisabled: boolean;
     onButtonClick: () => void;
 }
@@ -33,14 +33,12 @@ const OrderSummary = (props: OrderSummaryProps) => {
                 {details.map((item, index) => (
                     <div key={index} className="order-summary__row">
                         <span className="order-summary__label">{item.label}</span>
-                        {/* Пунктирная линия между названием и значением */}
                         <span className="order-summary__dots"></span>
                         <span className="order-summary__value">{item.value}</span>
                     </div>
                 ))}
             </div>
 
-            {/* Блок цены отображается только если price передан */}
             {price && (
                 <div className="order-summary__price">
                     <strong>Цена: </strong> {price}
