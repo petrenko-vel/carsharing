@@ -3,10 +3,13 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import compression from 'vite-plugin-compression2';
+import { githubPagesSpa } from "@sctg/vite-plugin-github-pages-spa";
 
-export default defineConfig({
+
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
+    githubPagesSpa({ verbose: true }),
     ViteImageOptimizer({
       logStats: true,
       ansiColors: true,
@@ -43,7 +46,7 @@ export default defineConfig({
       deleteOriginalAssets: false,
     }),
   ],
-  base: '/carsharing/',
+  base: mode === 'production' ? '/carsharing/' : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -64,4 +67,4 @@ export default defineConfig({
       '@': path.resolve('src'), // @ → папка src
     },
   },
-});
+}));

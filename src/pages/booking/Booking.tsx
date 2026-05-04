@@ -4,7 +4,6 @@ import OrderSummary from '@/widgets/order-summary/ui/OrderSummary';
 import { useBookingStore } from './model/bookingStore';
 import Header from '@/shared/ui/Header';
 import './Booking.scss';
-import Menu from '@/widgets/menu';
 
 const BOOKING_STEPS = ['Местоположение', 'Модель', 'Дополнительно', 'Итого'];
 

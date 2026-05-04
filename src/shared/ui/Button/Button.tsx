@@ -1,4 +1,5 @@
 import './Button.scss';
+import { Link } from 'react-router-dom';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -23,9 +24,9 @@ const Button = (props: ButtonProps) => {
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <Link to={href} className={classes}>
         {children}
-      </a>
+      </Link>
     );
   }
 

@@ -1,4 +1,12 @@
 .booking {
+    &__wrapper {
+        padding: 0 3rem;
+
+        @include mobile {
+            padding: 0;
+        }
+    }
+
     &__stepper-wrapper {
         margin-top: 2rem;
     }

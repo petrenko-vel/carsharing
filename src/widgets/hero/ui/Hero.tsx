@@ -1,6 +1,7 @@
 import Button from '@/shared/ui/Button';
 import Header from '@/shared/ui/Header';
 import Footer from './Footer';
+
 import './Hero.scss';
 
 const Hero = () => {
@@ -17,7 +18,7 @@ const Hero = () => {
             <p className="hero-content__subtitle">
               Поминутная аренда авто твоего города
             </p>
-            <Button href="#" className="hero-content__button">
+            <Button href="/booking" className="hero-content__button">
               Забронировать
             </Button>
           </div>
