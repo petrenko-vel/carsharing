@@ -1,4 +1,4 @@
-import type { AdvantageSlide } from '@/entities/advantage/model/advantage-card.types';
+import type { AdvantageSlide } from '@/widgets/advantages-slider/model/advantage-card.types';
 import Button from '@/shared/ui/Button';
 
 import './AdvantageCard.scss';

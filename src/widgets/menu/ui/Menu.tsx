@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { AdvantageSlide } from '@/entities/advantage/model/advantage-card.types';
+import type { AdvantageSlide } from '@/widgets/advantages-slider/model/advantage-card.types';
 import { useEscape } from '@/shared/hooks/useEscape';
 import clsx from 'clsx';
 

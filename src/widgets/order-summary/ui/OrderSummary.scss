@@ -1,0 +1,75 @@
+.order-summary {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0 0 2rem;
+    height: 100%;
+    border-left: var(--border);
+
+    &__title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #121212;
+        text-align: right;
+        margin-bottom: 24px;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 32px;
+    }
+
+    &__row {
+        display: flex;
+        align-items: flex-end; // Прижимаем текст к нижней пунктирной линии
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &__label {
+        font-size: 14px;
+        color: #121212;
+        white-space: nowrap; // Чтобы текст не переносился
+    }
+
+    &__dots {
+        flex-grow: 1;
+        border-bottom: 1px dotted #999999;
+        margin: 0 8px 4px 8px; // Слегка приподнимаем линию
+        opacity: 0.5;
+    }
+
+    &__value {
+        font-size: 14px;
+        color: #999999;
+        text-align: right;
+        max-width: 50%;
+        white-space: pre-line; // Позволяет делать перенос строки в адресе
+    }
+
+    &__price {
+        margin-top: auto; // Отталкивает блок вниз
+        margin-bottom: 32px;
+        font-size: 16px;
+
+        strong {
+            color: #121212;
+            font-weight: 700;
+        }
+    }
+
+    &__button {
+
+        &:hover:not(:disabled) {
+            box-shadow: 0 4px 10px rgba(14, 194, 97, 0.3);
+        }
+
+        &:disabled {
+            background: #EEEEEE;
+            color: #999999;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    }
+}

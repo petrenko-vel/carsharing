@@ -5,6 +5,15 @@ body {
   font-size: 1rem;
 }
 
+.app-shell {
+  display: flex;
+}
+
+.home,
+.booking {
+  flex: 1;
+}
+
 a {
   text-decoration: none;
 }
