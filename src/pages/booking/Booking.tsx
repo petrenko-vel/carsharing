@@ -16,7 +16,7 @@ const STEPS: { label: string; slug: BookingStepSlug }[] = [
 const Booking = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { city, point, isStepValid } = useBookingStore();
+    const { city, point, selectedCar, isStepValid } = useBookingStore();
 
     // текущий шаг по URL
     const currentSlug = location.pathname.split('/').pop() as BookingStepSlug;
@@ -29,6 +29,14 @@ const Booking = () => {
         orderDetails.push({ label: 'Пункт выдачи', value: fullAddress });
     }
 
+    if (selectedCar) {
+        orderDetails.push({ label: 'Модель', value: selectedCar.name });
+    }
+
+    const priceLabel = selectedCar
+        ? `от ${selectedCar.priceMin.toLocaleString('ru-RU')} до ${selectedCar.priceMax.toLocaleString('ru-RU')} ₽`
+        : undefined;
+
     // Следующий шаг
     const nextStep = STEPS[currentStepIndex + 1];
     const canProceed = isStepValid(currentSlug);
@@ -39,10 +47,8 @@ const Booking = () => {
         }
     };
 
-    // Клик по шагу в Stepper — разрешён только для пройденных шагов
     const handleStepClick = (index: number) => {
         const targetSlug = STEPS[index].slug;
-        // Пройденный шаг — это любой шаг до текущего
         const isPassed = index < currentStepIndex;
         if (isPassed) {
             navigate(`/booking/${targetSlug}`);
@@ -70,6 +76,7 @@ const Booking = () => {
                         <section className="booking__sidebar">
                             <OrderSummary
                                 details={orderDetails}
+                                price={priceLabel}
                                 buttonText={nextStep ? `Перейти: ${nextStep.label}` : 'Готово'}
                                 isButtonDisabled={!canProceed}
                                 onButtonClick={handleNextStep}

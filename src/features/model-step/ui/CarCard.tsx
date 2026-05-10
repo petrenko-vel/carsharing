@@ -41,12 +41,6 @@ const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
                     }}
                 />
             </div>
-
-            <div className="car-card__specs">
-                <span className="car-card__spec">{car.tank}</span>
-                <span className="car-card__spec">{car.enginePower}</span>
-                <span className="car-card__spec">{car.transmission}</span>
-            </div>
         </article>
     );
 };

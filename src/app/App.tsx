@@ -40,7 +40,7 @@ function AppLayout() {
         <Route path="/booking" element={<Booking />}>
           <Route index element={<Navigate to="location" replace />} />
           <Route path="location" element={<LocationStep />} />
-          {/* <Route path="model" element={<ModelStep />} /> */}
+          <Route path="model" element={<ModelStep />} />
         </Route>
       </Routes>
     </div>
