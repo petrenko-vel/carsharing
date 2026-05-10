@@ -1,6 +1,6 @@
 type Coords = [number, number]; // [Широта, Долгота]
 
-interface MapPoint {
+export interface MapPoint {
     id: string;
     name: string;      // Название улицы/дома
     coords: Coords;    // Координаты маркера

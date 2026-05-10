@@ -14,7 +14,6 @@ function AppLayout() {
   const { currentIndex, next, prev, goTo } = useSlider(advantagesData.length);
   const { visibleIndex, prevIndex, isTransitioning } = useFadeAnimation(currentIndex);
 
-  // Пропсы для меню: на Home активные, на Booking — заглушки
   const menuProps = isHome
     ? { items: advantagesData, activeIndex: currentIndex, onSelect: goTo }
     : { items: advantagesData, activeIndex: -1, onSelect: () => { } };
