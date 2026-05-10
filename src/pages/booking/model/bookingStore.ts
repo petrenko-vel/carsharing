@@ -50,12 +50,12 @@ export const useBookingStore = create<BookingState>((set, get) => ({
 
     // --- Валидация шагов ---
     isStepValid: (step) => {
-        const { city, point } = get();
+        const { city, point, selectedCar } = get();
         switch (step) {
             case 'location':
                 return Boolean(city && point);
             case 'model':
-                return false; // пока нет данных шага 2
+                return Boolean(selectedCar);
             default:
                 return false;
         }
