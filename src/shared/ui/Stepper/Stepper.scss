@@ -39,17 +39,9 @@
         color: var(--color-gray-m);
         font-size: fluid(18, 14);
 
-        // // Стрелка-разделитель для всех, кроме последнего
-        // &:not(:last-child)::after {
-        //     content: '▸';
-        //     position: absolute;
-        //     display: block;
-        //     right: 0;
-        //     top: 50%;
-        //     transform: translateY(-50%);
-        //     color: #000000;
-        // }
-
+        &--clickable {
+            cursor: pointer;
+        }
 
         @include mobile-s {
             display: flex;
