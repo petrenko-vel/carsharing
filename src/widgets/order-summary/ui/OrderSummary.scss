@@ -60,6 +60,7 @@
     }
 
     &__button {
+        white-space: nowrap;
 
         &:hover:not(:disabled) {
             box-shadow: 0 4px 10px rgba(14, 194, 97, 0.3);
