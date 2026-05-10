@@ -1,4 +1,3 @@
-// features/location-step/ui/LocationMap.tsx
 import React, { useEffect, useRef } from 'react';
 import { YMaps, Map, Placemark, ZoomControl } from '@pbe/react-yandex-maps';
 import type { MarkerData } from '../model/useLocationMarkers';

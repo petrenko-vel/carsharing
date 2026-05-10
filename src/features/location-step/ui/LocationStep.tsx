@@ -1,4 +1,3 @@
-// features/location-step/ui/LocationStep.tsx
 import { lazy, Suspense } from 'react';
 import Input from '@/shared/ui/Input/Input';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
