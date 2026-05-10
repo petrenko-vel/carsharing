@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type CarCategory = 'economy' | 'premium';
 
@@ -31,33 +32,37 @@ interface BookingState {
     isStepValid: (step: BookingStepSlug) => boolean;
 }
 
-export const useBookingStore = create<BookingState>((set, get) => ({
-    // Шаг 1
-    city: '',
-    point: '',
+export const useBookingStore = create<BookingState>()(
+    persist(
+        (set, get) => ({
+            city: '',
+            point: '',
+            selectedCar: null,
 
-    // Шаг 2
-    selectedCar: null,
+            setCity: (newCity) => set({ city: newCity, point: '' }),
+            setPoint: (newPoint) => set({ point: newPoint }),
+            resetLocation: () => set({ city: '', point: '' }),
+            setSelectedCar: (car) => set({ selectedCar: car }),
 
-
-    // --- Шаг 1 ---
-    setCity: (newCity) => set({ city: newCity, point: '' }),    // при смене города должен сбрасываться пункт выдачи
-    setPoint: (newPoint) => set({ point: newPoint }),
-    resetLocation: () => set({ city: '', point: '' }),
-
-    // --- Шаг 2 ---
-    setSelectedCar: (car) => set({ selectedCar: car }),         // null — сброс выбора (например при возврате на шаг 1)
-
-    // --- Валидация шагов ---
-    isStepValid: (step) => {
-        const { city, point, selectedCar } = get();
-        switch (step) {
-            case 'location':
-                return Boolean(city && point);
-            case 'model':
-                return Boolean(selectedCar);
-            default:
-                return false;
+            isStepValid: (step) => {
+                const { city, point, selectedCar } = get();
+                switch (step) {
+                    case 'location':
+                        return Boolean(city && point);
+                    case 'model':
+                        return Boolean(selectedCar);
+                    default:
+                        return false;
+                }
+            },
+        }),
+        {
+            name: 'booking-storage',
+            partialize: (state) => ({
+                city: state.city,
+                point: state.point,
+                selectedCar: state.selectedCar,
+            }),
         }
-    },
-}));
+    )
+);
