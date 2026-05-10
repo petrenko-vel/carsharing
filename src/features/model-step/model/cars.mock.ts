@@ -2,18 +2,17 @@ import type { CarCategory } from '@/pages/booking/model/bookingStore';
 
 export interface CarModel {
     id: string;
-    brand: string;          // марка: "Hyundai"
-    model: string;          // модель: "i30 N"
+    brand: string;          // марка
+    model: string;          // модель
     category: CarCategory;  // 'economy' | 'premium'
-    priceMin: number;       // минимальная цена аренды (руб/день)
-    priceMax: number;       // максимальная цена аренды (руб/день)
+    priceMin: number;       // минимальная цена аренды
+    priceMax: number;       // максимальная цена аренды
     imageUrl: string;       // путь к картинке из public/
-    tank: string;           // объём бака, например "50л"
-    enginePower: string;    // мощность двигателя, например "249 л.с."
+    tank: string;           // объём бака
+    enginePower: string;    // мощность двигателя
     transmission: string;   // "Механика" | "Автомат"
 }
 
-// Мок-данные. В реальном проекте заменяется на API-запрос.
 // imageUrl указывает на /public/cars/ — положи туда картинки перед запуском.
 const carsData: CarModel[] = [
     {
