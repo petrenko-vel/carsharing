@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Home from '@/pages/home';
 import Booking from '@/pages/booking';
+import LocationStep from '@/features/location-step/ui/LocationStep';
 import Menu from '@/widgets/menu';
 import { useSlider } from '@/widgets/advantages-slider/model/useSlider';
 import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnimation';
@@ -14,7 +15,6 @@ function AppLayout() {
   const { currentIndex, next, prev, goTo } = useSlider(advantagesData.length);
   const { visibleIndex, prevIndex, isTransitioning } = useFadeAnimation(currentIndex);
 
-  // Пропсы для меню: на Home активные, на Booking — заглушки
   const menuProps = isHome
     ? { items: advantagesData, activeIndex: currentIndex, onSelect: goTo }
     : { items: advantagesData, activeIndex: -1, onSelect: () => { } };
@@ -37,7 +37,11 @@ function AppLayout() {
             />
           }
         />
-        <Route path="/booking" element={<Booking />} />
+        <Route path="/booking" element={<Booking />}>
+          <Route index element={<Navigate to="location" replace />} />
+          <Route path="location" element={<LocationStep />} />
+          {/* <Route path="model" element={<ModelStep />} /> */}
+        </Route>
       </Routes>
     </div>
   );

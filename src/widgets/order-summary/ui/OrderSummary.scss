@@ -5,6 +5,12 @@
     height: 100%;
     border-left: var(--border);
 
+    @include mobile {
+        border-radius: 1.25rem;
+        padding: 2rem;
+        border: var(--border);
+    }
+
     &__title {
         font-size: 18px;
         font-weight: 700;
@@ -60,6 +66,7 @@
     }
 
     &__button {
+        white-space: nowrap;
 
         &:hover:not(:disabled) {
             box-shadow: 0 4px 10px rgba(14, 194, 97, 0.3);

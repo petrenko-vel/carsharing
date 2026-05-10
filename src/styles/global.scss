@@ -12,6 +12,15 @@ body {
 .home,
 .booking {
   flex: 1;
+  padding-left: 4rem;
+
+  @include mobile {
+    padding-left: 5.3125rem;
+  }
+
+  @include mobile-s {
+    padding-left: 0;
+  }
 }
 
 a {

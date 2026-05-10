@@ -1,10 +1,18 @@
+// features/location-step/ui/LocationStep.tsx
+import { lazy, Suspense } from 'react';
 import Input from '@/shared/ui/Input/Input';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import locationsData from '../model/location.mock';
+import { useLocationMarkers } from '../model/useLocationMarkers';
 import './LocationStep.scss';
+
+const LocationMap = lazy(() => import('./LocationMap'));
 
 const LocationStep = () => {
     const { city, point, setCity, setPoint, resetLocation } = useBookingStore();
+
+    // zoom добавился — деструктурируем здесь
+    const { markers, center, zoom } = useLocationMarkers();
 
     const filteredCities = locationsData
         .map((c) => c.name)
@@ -45,12 +53,11 @@ const LocationStep = () => {
                 />
             </div>
 
-            {/* Временная заглушка для карты */}
             <div className="location-step__map">
-                <p>Выбрать на карте:</p>
-                <div className="location-step__map-placeholder">
-                    Здесь будет карта
-                </div>
+                <Suspense fallback={<div className="location-step__map-placeholder">Загрузка карты...</div>}>
+                    {/* zoom прокидываем как новый проп */}
+                    <LocationMap center={center} markers={markers} zoom={zoom} />
+                </Suspense>
             </div>
         </div>
     );
