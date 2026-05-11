@@ -1,5 +1,7 @@
 import type { CarCategory } from '@/pages/booking/model/bookingStore';
 
+const BASE = import.meta.env.BASE_URL; // локально: '/', на gh-pages: '/carsharing/'
+
 export interface CarModel {
     id: string;
     brand: string;          // марка
@@ -18,7 +20,7 @@ const carsData: CarModel[] = [
         category: 'economy',
         priceMin: 12000,
         priceMax: 25000,
-        imageUrl: '/cars/car-1.png',
+        imageUrl: `${BASE}cars/car-1.png`,
     },
     {
         id: '2',
@@ -27,7 +29,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 10000,
         priceMax: 32000,
-        imageUrl: '/cars/car-2.png',
+        imageUrl: `${BASE}cars/car-2.png`,
     },
     {
         id: '3',
@@ -36,7 +38,7 @@ const carsData: CarModel[] = [
         category: 'economy',
         priceMin: 12000,
         priceMax: 25000,
-        imageUrl: '/cars/car-3.png',
+        imageUrl: `${BASE}cars/car-3.png`,
     },
     {
         id: '4',
@@ -45,7 +47,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 10000,
         priceMax: 32000,
-        imageUrl: '/cars/car-4.png',
+        imageUrl: `${BASE}cars/car-4.png`,
     },
     {
         id: '5',
@@ -54,7 +56,7 @@ const carsData: CarModel[] = [
         category: 'economy',
         priceMin: 8000,
         priceMax: 18000,
-        imageUrl: '/cars/car-1.png',
+        imageUrl: `${BASE}cars/car-1.png`,
     },
     {
         id: '6',
@@ -63,7 +65,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 20000,
         priceMax: 50000,
-        imageUrl: '/cars/car-2.png',
+        imageUrl: `${BASE}cars/car-2.png`,
     },
 ];
 

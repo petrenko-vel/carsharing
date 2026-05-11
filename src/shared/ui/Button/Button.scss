@@ -9,6 +9,7 @@
   color: var(--color-light);
   border-radius: 0.5rem;
   line-height: 100%;
+  margin-top: 1rem;
 
   // Градиент для кнопки на главном экране
   &--hero {
@@ -16,7 +17,7 @@
     padding: 0.9375rem 3.75rem;
 
     @include mobile-s {
-      padding: .9375rem 0;
+      padding-inline: 0;
     }
   }
 
