@@ -1,0 +1,284 @@
+$color-accent: #27ae2e;      // зелёный
+$color-text: #1f1f1f;        // чёрный
+$color-muted: #7e7e7e;       // серый
+$color-border: #d3d3d3;      // лёгкий серый
+$color-bg-light: #f5f5f5;    // очень светлый серый
+$transition: 0.15s ease;
+
+.extra-step {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include mobile {
+        gap: 1.5rem;
+    }
+
+    @include mobile-s {
+        gap: 1rem;
+    }
+}
+
+.extra-step__section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.extra-step__section-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: $color-text;
+    margin: 0;
+    text-transform: none;
+}
+
+// --- Радио-кнопки (цвет, тариф) ---
+.extra-step__radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.extra-step__radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.extra-step__radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.extra-step__radio-text {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.9375rem;
+    color: $color-muted;
+    transition: color $transition;
+
+    // Кастомный radio-кружок через ::before
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0.875rem;
+        height: 0.875rem;
+        border-radius: 50%;
+        border: 2px solid $color-muted;
+        background: #fff;
+        transition: all $transition;
+    }
+
+    // Активная точка внутри кружка
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0.1875rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: $color-accent;
+        opacity: 0;
+        transition: opacity $transition;
+    }
+
+    &--active {
+        color: $color-text;
+
+        &::before {
+            border-color: $color-accent;
+        }
+
+        &::after {
+            opacity: 1;
+        }
+    }
+}
+
+// --- Датапикер ---
+.extra-step__date-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+
+    @include mobile-s {
+        gap: 0.75rem;
+    }
+}
+
+.extra-step__date-label {
+    font-size: 0.9375rem;
+    color: $color-text;
+    font-weight: 500;
+    min-width: 1.5rem;
+}
+
+.extra-step__date-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.extra-step__date-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid $color-border;
+    border-radius: 0.375rem;
+    font-size: 0.9375rem;
+    color: $color-text;
+    background: #fff;
+    transition: border-color $transition;
+
+    &:focus {
+        outline: none;
+        border-color: $color-accent;
+        box-shadow: 0 0 0 2px rgba($color-accent, 0.1);
+    }
+
+    &:disabled {
+        background-color: $color-bg-light;
+        color: $color-muted;
+        cursor: not-allowed;
+    }
+
+    // Переопределяем стили react-datepicker
+    &.react-datepicker-ignore-onclickoutside {
+        border-color: $color-accent;
+    }
+}
+
+// Кастомная кнопка очистки датапикера
+.extra-step__date-clear {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: $color-muted;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color $transition;
+
+    &:hover {
+        color: $color-text;
+    }
+}
+
+// --- Чекбоксы (доп услуги) ---
+.extra-step__checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.extra-step__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.extra-step__checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.extra-step__checkbox-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid $color-border;
+    border-radius: 0.25rem;
+    background: #fff;
+    transition: all $transition;
+    flex-shrink: 0;
+
+    // Галочка (появляется при checked)
+    &::after {
+        content: '✓';
+        color: $color-accent;
+        font-weight: bold;
+        font-size: 1rem;
+        opacity: 0;
+        transition: opacity $transition;
+    }
+
+    &--checked {
+        border-color: $color-accent;
+        background: rgba($color-accent, 0.05);
+
+        &::after {
+            opacity: 1;
+        }
+    }
+}
+
+.extra-step__checkbox-text {
+    font-size: 0.9375rem;
+    color: $color-text;
+}
+
+// Hover-эффекты
+.extra-step__radio-label:hover .extra-step__radio-text:not(.extra-step__radio-text--active)::before,
+.extra-step__checkbox-label:hover .extra-step__checkbox-box:not(.extra-step__checkbox-box--checked) {
+    border-color: darken($color-border, 10%);
+}
+
+// Переопределение стилей react-datepicker
+// (добавляешь в глобальные стили или сюда через :global())
+:global {
+    .react-datepicker {
+        border: 1px solid $color-border;
+        border-radius: 0.375rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: inherit;
+    }
+
+    .react-datepicker__header {
+        background-color: $color-accent;
+        border-color: $color-accent;
+    }
+
+    .react-datepicker__current-month {
+        color: #fff;
+    }
+
+    .react-datepicker__day-name,
+    .react-datepicker__day {
+        width: 2.5rem;
+        line-height: 2.5rem;
+    }
+
+    .react-datepicker__day--selected {
+        background-color: $color-accent;
+        border-radius: 0.25rem;
+    }
+
+    .react-datepicker__day:hover {
+        background-color: rgba($color-accent, 0.2);
+        border-radius: 0.25rem;
+    }
+
+    .react-datepicker__time-container {
+        border-left: 1px solid $color-border;
+    }
+}

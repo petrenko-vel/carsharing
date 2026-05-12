@@ -3,6 +3,7 @@ import Home from '@/pages/home';
 import Booking from '@/pages/booking';
 import LocationStep from '@/features/location-step/ui/LocationStep';
 import ModelStep from '@/features/model-step/ui/ModelStep';
+import ExtraStep from '@/features/extra-step/ui/ExtraStep';
 import Menu from '@/widgets/menu';
 import { useSlider } from '@/widgets/advantages-slider/model/useSlider';
 import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnimation';
@@ -42,6 +43,7 @@ function AppLayout() {
           <Route index element={<Navigate to="location" replace />} />
           <Route path="location" element={<LocationStep />} />
           <Route path="model" element={<ModelStep />} />
+          <Route path="extra" element={<ExtraStep />} />
         </Route>
       </Routes>
     </div>
