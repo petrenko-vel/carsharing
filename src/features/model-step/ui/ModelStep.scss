@@ -1,0 +1,103 @@
+.model-step {
+    max-width: 65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @include laptop {
+        max-width: 50rem;
+    }
+
+    &__filters {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    &__filter-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+
+    &__filter-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    &__filter-text {
+        position: relative;
+        padding-left: 1.5rem;
+        font-size: .875rem;
+        color: var(--color-gray-m);
+        font-weight: 300;
+        line-height: 1rem;
+        transition: var(--transition);
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            border: .125rem solid var(--color-gray-m);
+            transition: var(--transition);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background: var(--color-accent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+
+        &--active {
+            color: var(--color-black);
+
+            &::before {
+                border-color: var(--color-accent);
+            }
+
+            &::after {
+                opacity: 1;
+            }
+        }
+    }
+
+    &__filter-label:hover &__filter-text:not(&__filter-text--active) {
+        color: var(--color-gray);
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        @include tablet {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    &__empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 2rem;
+        color: var(--color-gray-m);
+        font-size: 0.9375rem;
+    }
+}

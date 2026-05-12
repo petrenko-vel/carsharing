@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import Home from '@/pages/home';
 import Booking from '@/pages/booking';
 import LocationStep from '@/features/location-step/ui/LocationStep';
+import ModelStep from '@/features/model-step/ui/ModelStep';
 import Menu from '@/widgets/menu';
 import { useSlider } from '@/widgets/advantages-slider/model/useSlider';
 import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnimation';
@@ -40,7 +41,7 @@ function AppLayout() {
         <Route path="/booking" element={<Booking />}>
           <Route index element={<Navigate to="location" replace />} />
           <Route path="location" element={<LocationStep />} />
-          {/* <Route path="model" element={<ModelStep />} /> */}
+          <Route path="model" element={<ModelStep />} />
         </Route>
       </Routes>
     </div>

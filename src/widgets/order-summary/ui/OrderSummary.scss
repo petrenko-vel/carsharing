@@ -1,7 +1,7 @@
 .order-summary {
     display: flex;
     flex-direction: column;
-    padding: 2rem 0 0 2rem;
+    padding: 2rem 0 2rem 2rem;
     height: 100%;
     border-left: var(--border);
 
@@ -11,56 +11,58 @@
         border: var(--border);
     }
 
+    @include mobile-s {
+        padding: 1rem;
+    }
+
     &__title {
-        font-size: 18px;
+        font-size: 1.125rem;
         font-weight: 700;
-        color: #121212;
+        color: var(--color-black);
         text-align: right;
-        margin-bottom: 24px;
+        margin-bottom: 1.5rem;
     }
 
     &__list {
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        margin-bottom: 32px;
+        gap: 1rem;
     }
 
     &__row {
         display: flex;
-        align-items: flex-end; // Прижимаем текст к нижней пунктирной линии
+        align-items: flex-end;
         justify-content: space-between;
         width: 100%;
     }
 
     &__label {
-        font-size: 14px;
-        color: #121212;
-        white-space: nowrap; // Чтобы текст не переносился
+        font-size: .875rem;
+        color: var(--color-black);
+        white-space: nowrap;
     }
 
     &__dots {
         flex-grow: 1;
-        border-bottom: 1px dotted #999999;
-        margin: 0 8px 4px 8px; // Слегка приподнимаем линию
+        border-bottom: .0625rem dotted var(--color-gray-m);
+        margin: 0 .5rem .25rem .5rem;
         opacity: 0.5;
     }
 
     &__value {
         font-size: 14px;
-        color: #999999;
+        color: var(--color-gray-m);
         text-align: right;
         max-width: 50%;
-        white-space: pre-line; // Позволяет делать перенос строки в адресе
+        white-space: pre-line;
     }
 
     &__price {
-        margin-top: auto; // Отталкивает блок вниз
-        margin-bottom: 32px;
-        font-size: 16px;
+        margin-block: 2rem 0;
+        font-size: 1rem;
 
         strong {
-            color: #121212;
+            color: var(--color-black);
             font-weight: 700;
         }
     }
@@ -69,12 +71,12 @@
         white-space: nowrap;
 
         &:hover:not(:disabled) {
-            box-shadow: 0 4px 10px rgba(14, 194, 97, 0.3);
+            box-shadow: 0 .25rem .625rem rgba(14, 194, 97, 0.3);
         }
 
         &:disabled {
-            background: #EEEEEE;
-            color: #999999;
+            background: var(--color-gray-s);
+            color: var(--color-gray-m);
             cursor: not-allowed;
             box-shadow: none;
         }
