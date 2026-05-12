@@ -11,21 +11,18 @@ const ExtraStep = () => {
     const dateFrom = extra.dateFrom ? new Date(extra.dateFrom) : null;
     const dateTo = extra.dateTo ? new Date(extra.dateTo) : null;
 
-    // --- Цвет ---
     const handleColorChange = (id: string, label: string) => {
         setExtra({ colorId: id, colorLabel: label });
     };
 
-    // --- Тариф ---
     const handleTariffChange = (id: string, label: string) => {
         setExtra({ tariffId: id, tariffLabel: label });
     };
 
-    // --- Даты ---
     const handleDateFrom = (date: Date | null) => {
         setExtra({
             dateFrom: date ? date.toISOString() : null,
-            // Если дата начала позже даты окончания — сбрасываем дату окончания
+            // Если дата начала позже даты окончания - сброс даты окончания
             dateTo: dateTo && date && date > dateTo ? null : extra.dateTo,
         });
     };
@@ -34,19 +31,16 @@ const ExtraStep = () => {
         setExtra({ dateTo: date ? date.toISOString() : null });
     };
 
-    // --- Доп услуги ---
     const handleServiceToggle = (id: string) => {
         const current = extra.services;
         const updated = current.includes(id)
-            ? current.filter((s) => s !== id)   // убираем если уже есть
-            : [...current, id];                  // добавляем если нет
+            ? current.filter((s) => s !== id)
+            : [...current, id];
         setExtra({ services: updated });
     };
 
-    // Минимальная дата для datepicker — сегодня (нельзя выбрать прошлое)
     const today = new Date();
 
-    // Минимальная дата окончания — дата начала + 1 час
     const minDateTo = dateFrom
         ? new Date(dateFrom.getTime() + 60 * 60 * 1000)
         : today;
@@ -54,7 +48,6 @@ const ExtraStep = () => {
     return (
         <div className="extra-step">
 
-            {/* --- Цвет --- */}
             <section className="extra-step__section">
                 <h3 className="extra-step__section-title">Цвет</h3>
                 <div className="extra-step__radio-group" role="radiogroup" aria-label="Цвет автомобиля">
@@ -81,7 +74,6 @@ const ExtraStep = () => {
                 </div>
             </section>
 
-            {/* --- Дата аренды --- */}
             <section className="extra-step__section">
                 <h3 className="extra-step__section-title">Дата аренды</h3>
 
@@ -96,13 +88,13 @@ const ExtraStep = () => {
                             endDate={dateTo}
                             minDate={today}
                             showTimeSelect
+                            popperPlacement="bottom-start"
                             timeFormat="HH:mm"
                             timeIntervals={60}
                             dateFormat="dd.MM.yyyy HH:mm"
                             locale={ru}
                             placeholderText="Введите дату и время"
                             className="extra-step__date-input"
-                            // Кастомный инпут чтобы добавить крестик
                             isClearable
                             clearButtonClassName="extra-step__date-clear"
                         />
@@ -126,7 +118,7 @@ const ExtraStep = () => {
                             locale={ru}
                             placeholderText="Введите дату и время"
                             className="extra-step__date-input"
-                            disabled={!dateFrom}  // нельзя выбрать дату окончания без начала
+                            disabled={!dateFrom}
                             isClearable
                             clearButtonClassName="extra-step__date-clear"
                         />
@@ -134,10 +126,9 @@ const ExtraStep = () => {
                 </div>
             </section>
 
-            {/* --- Тариф --- */}
             <section className="extra-step__section">
                 <h3 className="extra-step__section-title">Тариф</h3>
-                <div className="extra-step__radio-group" role="radiogroup" aria-label="Тариф аренды">
+                <div className="extra-step__radio-group" data-tarif role="radiogroup" aria-label="Тариф аренды">
                     {TARIFFS.map((tariff) => (
                         <label key={tariff.id} className="extra-step__radio-label">
                             <input
@@ -161,7 +152,6 @@ const ExtraStep = () => {
                 </div>
             </section>
 
-            {/* --- Доп услуги --- */}
             <section className="extra-step__section">
                 <h3 className="extra-step__section-title">Доп услуги</h3>
                 <div className="extra-step__checkbox-group">
@@ -182,7 +172,10 @@ const ExtraStep = () => {
                                     ].join(' ').trim()}
                                     aria-hidden="true"
                                 />
-                                <span className="extra-step__checkbox-text">
+                                <span className={[
+                                    'extra-step__checkbox-text',
+                                    isChecked ? 'extra-step__checkbox-text--checked' : '',
+                                ].join(' ').trim()}>
                                     {service.label}, {service.price}р
                                 </span>
                             </label>
