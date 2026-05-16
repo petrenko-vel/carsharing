@@ -30,4 +30,4 @@ const IconLocation = (props: IconProps) => {
   );
 };
 
-export default IconLocation;
+export { IconLocation };

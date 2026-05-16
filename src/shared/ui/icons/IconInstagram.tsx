@@ -1,6 +1,6 @@
 import { type IconProps } from './types';
 
-const iconInstagram = (props: IconProps) => {
+const IconInstagram = (props: IconProps) => {
   const { className = '', size = 32 } = props;
 
   return (
@@ -27,4 +27,4 @@ const iconInstagram = (props: IconProps) => {
   );
 };
 
-export default iconInstagram;
+export { IconInstagram };

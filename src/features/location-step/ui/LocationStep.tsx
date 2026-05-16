@@ -1,11 +1,13 @@
 import { lazy, Suspense } from 'react';
-import Input from '@/shared/ui/Input/Input';
+import { Input } from '@/shared/ui/Input/Input';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import locationsData from '../model/location.mock';
 import { useLocationMarkers } from '../model/useLocationMarkers';
 import './LocationStep.scss';
 
-const LocationMap = lazy(() => import('./LocationMap'));
+const LocationMap = lazy(() =>
+    import('./LocationMap').then((m) => ({ default: m.LocationMap }))
+);
 
 const LocationStep = () => {
     const { city, point, setCity, setPoint, resetLocation } = useBookingStore();
@@ -62,4 +64,4 @@ const LocationStep = () => {
     );
 };
 
-export default LocationStep;
+export { LocationStep };

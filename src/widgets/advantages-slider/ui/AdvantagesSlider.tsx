@@ -1,4 +1,4 @@
-import AdvantageCard from '@/widgets/advantages-slider/ui/AdvantageCard';
+import { AdvantageCard } from '@/widgets/advantages-slider/ui/AdvantageCard';
 import { advantagesData } from '../model/slides.mock';
 import './AdvantagesSlider.scss';
 
@@ -81,4 +81,4 @@ const AdvantagesSlider = ({
   );
 };
 
-export default AdvantagesSlider;
+export { AdvantagesSlider };

@@ -56,4 +56,4 @@ const Stepper = (props: StepperProps) => {
     );
 };
 
-export default Stepper;
+export { Stepper };

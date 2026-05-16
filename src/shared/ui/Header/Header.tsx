@@ -1,4 +1,4 @@
-import IconLocation from '@/shared/ui/icons/IconLocation';
+import { IconLocation } from '@/shared/ui/icons/IconLocation';
 import './Header.scss';
 
 interface HeaderProps {
@@ -20,4 +20,4 @@ const Header = ({ className }: HeaderProps) => {
     );
 };
 
-export default Header;
+export { Header };

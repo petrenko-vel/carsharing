@@ -1,4 +1,4 @@
-import Button from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/Button';
 import './OrderSummary.scss';
 
 interface OrderDetail {
@@ -56,4 +56,4 @@ const OrderSummary = (props: OrderSummaryProps) => {
     );
 };
 
-export default OrderSummary;
+export { OrderSummary };

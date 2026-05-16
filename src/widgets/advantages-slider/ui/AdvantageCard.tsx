@@ -1,5 +1,5 @@
 import type { AdvantageSlide } from '@/widgets/advantages-slider/model/advantage-card.types';
-import Button from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/Button';
 
 import './AdvantageCard.scss';
 
@@ -29,4 +29,4 @@ const AdvantageCard = ({ slide }: AdvantageCardProps) => {
   );
 };
 
-export default AdvantageCard;
+export { AdvantageCard };
