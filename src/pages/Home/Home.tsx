@@ -1,24 +1,40 @@
-import { useState } from 'react';
 import Hero from '@/widgets/hero';
 import AdvantagesSlider from '@/widgets/advantages-slider';
-import Menu from '@/widgets/menu';
-import { advantagesData } from '@/widgets/advantages-slider/lib/slides';
 import './Home.scss';
 
-const Home = () => {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+interface HomeProps {
+  activeIndex: number;
+  visibleIndex: number;
+  prevIndex: number | null;
+  isTransitioning: boolean;
+  onNext: () => void;
+  onPrev: () => void;
+  onGoTo: (index: number) => void;
+}
+
+const Home = (props: HomeProps) => {
+
+  const {
+    activeIndex,
+    visibleIndex,
+    prevIndex,
+    isTransitioning,
+    onNext,
+    onPrev,
+    onGoTo,
+  } = props;
 
   return (
-    <main className='home'>
-      <Menu
-        items={advantagesData}
-        activeIndex={currentSlideIndex}
-        onSelect={setCurrentSlideIndex}
-      />
+    <main className="home">
       <Hero />
       <AdvantagesSlider
-        currentIndex={currentSlideIndex}
-        onSlideChange={setCurrentSlideIndex}
+        activeIndex={activeIndex}
+        visibleIndex={visibleIndex}
+        prevIndex={prevIndex}
+        isTransitioning={isTransitioning}
+        onNext={onNext}
+        onPrev={onPrev}
+        onGoTo={onGoTo}
       />
     </main>
   );

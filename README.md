@@ -4,13 +4,13 @@
 
 ## 🛠 Стек технологий
 
-*   **Frontend**: React 19 + TypeScript
-*   **Сборка**: Vite
-*   **Управление состоянием**: Zustand
-*   **Работа с сетью**: Axios
-*   **Стилизация**: Sass (SCSS) + CSS Modules
-*   **Роутинг**: React Router 7
-*   **Качество кода**: ESLint (Airbnb config), Prettier, Stylelint
+- **Frontend**: React 19 + TypeScript
+- **Сборка**: Vite
+- **Управление состоянием**: Zustand
+- **Работа с сетью**: Axios
+- **Стилизация**: Sass (SCSS) + CSS Modules
+- **Роутинг**: React Router 7
+- **Качество кода**: ESLint (Airbnb config), Prettier, Stylelint
 
 ## 📂 Структура проекта
 
@@ -35,11 +35,13 @@ src/
 ## 🚀 Быстрый старт
 
 1.  **Установка зависимостей**:
+
     ```bash
     npm install
     ```
 
 2.  **Запуск в режиме разработки**:
+
     ```bash
     npm run dev
     ```
@@ -51,9 +53,9 @@ src/
 
 ## 🧹 Проверка кода
 
-*   **Линтинг**: `npm run lint`
-*   **Форматирование**: `npm run prettier`
-*   **Проверка стилей**: `npm run stylelint`
+- **Линтинг**: `npm run lint`
+- **Форматирование**: `npm run prettier`
+- **Проверка стилей**: `npm run stylelint`
 
 ## 🏗 Основные возможности (Roadmap)
 

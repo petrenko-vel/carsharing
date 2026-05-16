@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { AdvantageSlide } from '@/entities/advantage/model/advantage-card.types';
+import type { AdvantageSlide } from '@/widgets/advantages-slider/model/advantage-card.types';
 import { useEscape } from '@/shared/hooks/useEscape';
 import clsx from 'clsx';
 
@@ -8,7 +8,6 @@ import IconFacebook from '@/shared/ui/icons/IconFacebook';
 import IconInstagram from '@/shared/ui/icons/IconInstagram';
 
 import './Menu.scss';
-
 
 type MenuProps = {
   items: AdvantageSlide[];
@@ -21,16 +20,23 @@ const Menu = (props: MenuProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelect = useCallback((index: number) => {
-    onSelect(index);
-    setIsOpen(false);
-  }, [onSelect]);
+  const handleSelect = useCallback(
+    (index: number) => {
+      onSelect(index);
+      setIsOpen(false);
+    },
+    [onSelect],
+  );
 
   useEscape(() => setIsOpen(false), isOpen);
 
   return (
     <>
-      <aside className={clsx('menu', { 'is-open': isOpen })} role="navigation" aria-label="Главное меню">
+      <aside
+        className={clsx('menu', { 'is-open': isOpen })}
+        role="navigation"
+        aria-label="Главное меню"
+      >
         <button
           type="button"
           className="menu__toggle"
@@ -78,13 +84,13 @@ const Menu = (props: MenuProps) => {
 
             <div className="menu-panel__socials" aria-label="Социальные сети">
               <a href="htt" aria-label="Telegram">
-                <IconTelegram className='menu-panel__icon' />
+                <IconTelegram className="menu-panel__icon" />
               </a>
               <a href="#" aria-label="Facebook">
-                <IconFacebook className='menu-panel__icon' />
+                <IconFacebook className="menu-panel__icon" />
               </a>
               <a href="#" aria-label="Instagram">
-                <IconInstagram className='menu-panel__icon' />
+                <IconInstagram className="menu-panel__icon" />
               </a>
             </div>
           </div>

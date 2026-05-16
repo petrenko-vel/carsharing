@@ -1,19 +1,24 @@
 .menu {
+  height: 100vh;
   width: 4rem;
   background: var(--color-black);
   color: var(--color-accent);
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 0 1rem;
+  padding: 2.3125rem 0 2.3125rem;
   z-index: 15;
+
+  @include mobile {
+    width: 5.3125rem;
+  }
 
   @include mobile-s {
     position: absolute;
     background: transparent;
     padding: 1.375rem;
-
   }
 
   &__toggle {
@@ -30,7 +35,7 @@
     span {
       display: block;
       width: 100%;
-      height: .1875rem;
+      height: 0.1875rem;
       border-radius: 0.125rem;
       background: var(--color-light);
       transition: var(--transition);
@@ -87,7 +92,6 @@
       padding: 5rem 0 0 1.75rem;
       justify-content: start;
     }
-
   }
 
   &__close {

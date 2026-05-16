@@ -28,16 +28,7 @@ body,
   Убираем внешние отступы вертикали нужным тегам,
   у которых есть атрибут class
  */
-:where(h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  ul,
-  ol,
-  dl):where([class]) {
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl):where([class]) {
   margin-block: 0;
 }
 
@@ -82,7 +73,6 @@ p:where(:not([class]):not(:last-child)) {
   margin-bottom: var(--paragraphMarginBottom);
 }
 
-
 li,
 ol {
   list-style: none;
@@ -114,19 +104,8 @@ html {
     (когда, например, нужно будет "прижать" футер к низу сайта)
    */
   height: 100%;
-  /**
-    Убираем скачок интерфейса по горизонтали
-    при появлении / исчезновении скроллбара
-   */
-  scrollbar-gutter: stable;
-}
 
-/**
-  Плавный скролл
- */
-html,
-:has(:target) {
-  scroll-behavior: smooth;
+
 }
 
 body {
@@ -164,7 +143,6 @@ button {
 /**
   Приводим к единому цвету svg-элементы
  */
-
 
 /**
   Чиним баг задержки смены цвета при взаимодействии с svg-элементами
