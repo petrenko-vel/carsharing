@@ -45,4 +45,4 @@ const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
     );
 };
 
-export default CarCard;
+export { CarCard };

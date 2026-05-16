@@ -1,7 +1,7 @@
 import { useBookingStore, type SelectedCar } from '@/pages/booking/model/bookingStore';
 import { useCarFilter, type CarFilter } from '../model/useCarFilter';
 import type { CarModel } from '../model/cars.mock';
-import CarCard from './CarCard';
+import { CarCard } from './CarCard';
 import './ModelStep.scss';
 
 const FILTERS: { value: CarFilter; label: string }[] = [
@@ -75,4 +75,4 @@ const ModelStep = () => {
     );
 };
 
-export default ModelStep;
+export { ModelStep };

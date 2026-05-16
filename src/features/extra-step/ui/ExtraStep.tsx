@@ -22,7 +22,6 @@ const ExtraStep = () => {
     const handleDateFrom = (date: Date | null) => {
         setExtra({
             dateFrom: date ? date.toISOString() : null,
-            // Если дата начала позже даты окончания - сброс даты окончания
             dateTo: dateTo && date && date > dateTo ? null : extra.dateTo,
         });
     };
@@ -187,4 +186,4 @@ const ExtraStep = () => {
     );
 };
 
-export default ExtraStep;
+export { ExtraStep };

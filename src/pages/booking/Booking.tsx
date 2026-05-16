@@ -1,11 +1,11 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import Stepper from '@/shared/ui/Stepper/Stepper';
-import OrderSummary from '@/widgets/order-summary/ui/OrderSummary';
+import { Stepper } from '@/shared/ui/Stepper/Stepper';
+import { OrderSummary } from '@/widgets/order-summary/ui/OrderSummary';
 import { useBookingStore, type BookingStepSlug } from './model/bookingStore';
 import { useExtraStep } from '@/features/extra-step/model/useExtraStep';
 import { EXTRA_SERVICES } from '@/features/extra-step/model/extraOptions.mock';
 
-import Header from '@/shared/ui/Header';
+import { Header } from '@/shared/ui/Header';
 import './Booking.scss';
 
 // Порядок шагов
@@ -124,4 +124,4 @@ const Booking = () => {
     );
 };
 
-export default Booking;
+export { Booking };

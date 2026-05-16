@@ -3,9 +3,7 @@ import type { AdvantageSlide } from '@/widgets/advantages-slider/model/advantage
 import { useEscape } from '@/shared/hooks/useEscape';
 import clsx from 'clsx';
 
-import IconTelegram from '@/shared/ui/icons/IconTelegram';
-import IconFacebook from '@/shared/ui/icons/IconFacebook';
-import IconInstagram from '@/shared/ui/icons/IconInstagram';
+import { IconTelegram, IconFacebook, IconInstagram } from '@/shared/ui/icons';
 
 import './Menu.scss';
 
@@ -107,4 +105,4 @@ const Menu = (props: MenuProps) => {
   );
 };
 
-export default Menu;
+export { Menu };

@@ -64,4 +64,10 @@ const LocationMap: React.FC<LocationMapProps> = ({ center, markers, zoom }) => {
     );
 };
 
-export default React.memo(LocationMap);
+const LocationMapMemo = React.memo(LocationMap);
+
+// Для lazy() обязательно нужен default export!
+export default LocationMapMemo;
+
+// Именованный — для обычных импортов
+export { LocationMapMemo as LocationMap };

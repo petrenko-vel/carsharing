@@ -24,4 +24,4 @@ const IconFacebook = (props: IconProps) => {
   );
 };
 
-export default IconFacebook;
+export { IconFacebook };

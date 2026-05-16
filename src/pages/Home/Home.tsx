@@ -1,5 +1,5 @@
-import Hero from '@/widgets/hero';
-import AdvantagesSlider from '@/widgets/advantages-slider';
+import { Hero } from '@/widgets/hero';
+import { AdvantagesSlider } from '@/widgets/advantages-slider';
 import './Home.scss';
 
 interface HomeProps {
@@ -40,4 +40,4 @@ const Home = (props: HomeProps) => {
   );
 };
 
-export default Home;
+export { Home };
