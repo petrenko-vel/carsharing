@@ -1,6 +1,7 @@
 import type { CarCategory } from '@/pages/booking/model/bookingStore';
 
-const BASE = import.meta.env.BASE_URL; // локально: '/', на gh-pages: '/carsharing/'
+// локально: '/', на gh-pages: '/carsharing/'
+const BASE = import.meta.env.BASE_URL;
 
 export interface CarModel {
     id: string;
@@ -10,6 +11,10 @@ export interface CarModel {
     priceMin: number;       // минимальная цена аренды
     priceMax: number;       // максимальная цена аренды
     imageUrl: string;       // путь к картинке из public/
+
+    plateNumber: string;    // номерной знак
+    fuelLevel: number;      // уровень топлива в процентах
+    availableFrom: string;  // дата доступности: "2019-06-12T12:00:00"
 }
 
 const carsData: CarModel[] = [
@@ -21,6 +26,9 @@ const carsData: CarModel[] = [
         priceMin: 12000,
         priceMax: 25000,
         imageUrl: `${BASE}cars/car-1.png`,
+        plateNumber: 'А 123 ВС 77',
+        fuelLevel: 80,
+        availableFrom: '2019-06-12T10:00:00',
     },
     {
         id: '2',
@@ -30,6 +38,9 @@ const carsData: CarModel[] = [
         priceMin: 10000,
         priceMax: 32000,
         imageUrl: `${BASE}cars/car-2.png`,
+        plateNumber: 'А 123 ВС 77',
+        fuelLevel: 80,
+        availableFrom: '2019-06-12T10:00:00',
     },
     {
         id: '3',
@@ -39,6 +50,9 @@ const carsData: CarModel[] = [
         priceMin: 12000,
         priceMax: 25000,
         imageUrl: `${BASE}cars/car-3.png`,
+        plateNumber: 'А 123 ВС 77',
+        fuelLevel: 80,
+        availableFrom: '2019-06-12T10:00:00',
     },
     {
         id: '4',
@@ -48,6 +62,9 @@ const carsData: CarModel[] = [
         priceMin: 10000,
         priceMax: 32000,
         imageUrl: `${BASE}cars/car-4.png`,
+        plateNumber: 'К 761 НА 73',
+        fuelLevel: 100,
+        availableFrom: '2019-06-12T12:00:00'
     },
     {
         id: '5',
@@ -57,6 +74,10 @@ const carsData: CarModel[] = [
         priceMin: 8000,
         priceMax: 18000,
         imageUrl: `${BASE}cars/car-1.png`,
+        plateNumber: 'В 456 МН 99',
+        fuelLevel: 60,
+        availableFrom: '2019-06-13T09:00:00',
+
     },
     {
         id: '6',
@@ -66,6 +87,9 @@ const carsData: CarModel[] = [
         priceMin: 20000,
         priceMax: 50000,
         imageUrl: `${BASE}cars/car-2.png`,
+        plateNumber: 'Е 789 КР 50',
+        fuelLevel: 90,
+        availableFrom: '2019-06-12T14:00:00',
     },
 ];
 
