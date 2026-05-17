@@ -12,7 +12,6 @@ const LocationMap = lazy(() =>
 const LocationStep = () => {
     const { city, point, setCity, setPoint, resetLocation } = useBookingStore();
 
-    // zoom добавился — деструктурируем здесь
     const { markers, center, zoom } = useLocationMarkers();
 
     const filteredCities = locationsData
@@ -28,6 +27,8 @@ const LocationStep = () => {
             .map((p) => p.name)
             .filter((pointName) => pointName.toLowerCase().includes(point.toLowerCase()))
         : [];
+
+    const handleClearPoint = () => setPoint('');
 
     return (
         <div className="location-step">
@@ -50,13 +51,12 @@ const LocationStep = () => {
                     disabled={!selectedCity}
                     onChange={setPoint}
                     onSelect={setPoint}
-                    onClear={() => setPoint('')}
+                    onClear={handleClearPoint}
                 />
             </div>
 
             <div className="location-step__map">
                 <Suspense fallback={<div className="location-step__map-placeholder">Загрузка карты...</div>}>
-                    {/* zoom прокидываем как новый проп */}
                     <LocationMap center={center} markers={markers} zoom={zoom} />
                 </Suspense>
             </div>

@@ -5,7 +5,7 @@ import type { MarkerData } from '../model/useLocationMarkers';
 interface LocationMapProps {
     center: [number, number];
     markers: MarkerData[];
-    zoom: number; // новый проп
+    zoom: number;
 }
 
 const LocationMap: React.FC<LocationMapProps> = ({ center, markers, zoom }) => {
@@ -14,31 +14,34 @@ const LocationMap: React.FC<LocationMapProps> = ({ center, markers, zoom }) => {
     useEffect(() => {
         if (!mapRef.current) return;
 
-        // setCenter третьим аргументом принимает options —
-        // duration задаёт длительность анимации в миллисекундах
         mapRef.current.setCenter(center, zoom, { duration: 300 });
-    }, [center, zoom]); // следим за обоими — zoom тоже меняется при выборе точки
+    }, [center, zoom]);
 
     const apiKey = import.meta.env.VITE_YANDEX_MAPS_API_KEY;
 
     if (!apiKey) {
+        if (import.meta.env.DEV) {
+            console.error('[LocationMap] VITE_YANDEX_MAPS_API_KEY не настроен');
+        }
         return (
             <div className="location-step__map-placeholder">
-                ⚠️ API ключ не настроен. Добавьте VITE_YANDEX_MAPS_API_KEY в .env
+                Карта временно недоступна
             </div>
         );
     }
+
+    const handleMapInit = (map: ymaps.Map | null) => {
+        mapRef.current = map;
+    };
 
     return (
         <YMaps query={{ apikey: apiKey, lang: 'ru_RU' }}>
             <div className="location-step__map-container">
                 <Map
-                    instanceRef={(map) => {
-                        mapRef.current = map;
-                    }}
+                    instanceRef={handleMapInit}
                     defaultState={{
                         center,
-                        zoom,         // стартовый зум теперь тоже динамический
+                        zoom,
                         controls: [],
                     }}
                     width="100%"
@@ -65,9 +68,5 @@ const LocationMap: React.FC<LocationMapProps> = ({ center, markers, zoom }) => {
 };
 
 const LocationMapMemo = React.memo(LocationMap);
-
-// Для lazy() обязательно нужен default export!
 export default LocationMapMemo;
-
-// Именованный — для обычных импортов
 export { LocationMapMemo as LocationMap };

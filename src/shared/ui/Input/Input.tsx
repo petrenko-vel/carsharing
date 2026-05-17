@@ -74,7 +74,7 @@ const Input = (props: InputProps) => {
                         <li
                             key={index}
                             className="custom-input__option"
-                            onClick={() => {
+                            onMouseDown={() => {
                                 if (onSelect) onSelect(opt);
                                 setIsOpenList(false);
                             }}

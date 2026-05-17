@@ -26,7 +26,15 @@ const Menu = (props: MenuProps) => {
     [onSelect],
   );
 
-  useEscape(() => setIsOpen(false), isOpen);
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useEscape(handleClose, isOpen);
 
   return (
     <>
@@ -38,7 +46,7 @@ const Menu = (props: MenuProps) => {
         <button
           type="button"
           className="menu__toggle"
-          onClick={() => setIsOpen((prevState) => !prevState)}
+          onClick={handleToggle}
           aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
           aria-expanded={isOpen}
         >
@@ -56,7 +64,7 @@ const Menu = (props: MenuProps) => {
             <button
               type="button"
               className="menu-panel__close"
-              onClick={() => setIsOpen(false)}
+              onClick={handleClose}
               aria-label="Закрыть меню"
             >
               &#10005;
@@ -81,7 +89,7 @@ const Menu = (props: MenuProps) => {
             </nav>
 
             <div className="menu-panel__socials" aria-label="Социальные сети">
-              <a href="htt" aria-label="Telegram">
+              <a href="#" aria-label="Telegram">
                 <IconTelegram className="menu-panel__icon" />
               </a>
               <a href="#" aria-label="Facebook">
@@ -96,7 +104,7 @@ const Menu = (props: MenuProps) => {
           <button
             type="button"
             className="menu-panel__overlay"
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
             aria-label="Закрыть меню"
           />
         </div>
