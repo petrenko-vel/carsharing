@@ -25,6 +25,10 @@ const ModelStep = () => {
             name: `${car.brand} ${car.model}`,
             priceMin: car.priceMin,
             priceMax: car.priceMax,
+            imageUrl: car.imageUrl,
+            plateNumber: car.plateNumber,
+            fuelLevel: car.fuelLevel,
+            availableFrom: car.availableFrom,
         };
         setSelectedCar(payload);
     };

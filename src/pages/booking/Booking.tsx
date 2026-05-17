@@ -1,10 +1,11 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import { Stepper } from '@/shared/ui/Stepper/Stepper';
 import { OrderSummary } from '@/widgets/order-summary/ui/OrderSummary';
 import { useBookingStore, type BookingStepSlug } from './model/bookingStore';
 import { useExtraStep } from '@/features/extra-step/model/useExtraStep';
 import { useOrderDetails } from './model/useOrderDetails';
-
+import { Modal } from '@/shared/ui/Modal';
 import { Header } from '@/shared/ui/Header';
 import './Booking.scss';
 
@@ -22,8 +23,9 @@ const Booking = () => {
     const { isStepValid } = useBookingStore();
     const { totalPriceLabel } = useExtraStep();
     const orderDetails = useOrderDetails();
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-    // текущий шаг по URL
+    // Текущий шаг по URL
     const currentSlug = location.pathname.split('/').pop() as BookingStepSlug;
     const currentStepIndex = STEPS.findIndex((s) => s.slug === currentSlug);
 
@@ -32,16 +34,18 @@ const Booking = () => {
     const canProceed = isStepValid(currentSlug);
 
     const handleNextStep = () => {
+        if (currentSlug === 'summary') {
+            setIsConfirmOpen(true);
+            return;
+        }
         if (canProceed && nextStep) {
             navigate(`/booking/${nextStep.slug}`);
         }
     };
 
     const handleStepClick = (index: number) => {
-        const targetSlug = STEPS[index].slug;
-        const isPassed = index < currentStepIndex;
-        if (isPassed) {
-            navigate(`/booking/${targetSlug}`);
+        if (index <= currentStepIndex) {
+            navigate(`/booking/${STEPS[index].slug}`);
         }
     };
 
@@ -67,7 +71,7 @@ const Booking = () => {
                             <OrderSummary
                                 details={orderDetails}
                                 price={totalPriceLabel}
-                                buttonText={nextStep ? `Перейти: ${nextStep.label}` : 'Готово'}
+                                buttonText={currentSlug === 'summary' ? 'Заказать' : `Перейти: ${nextStep?.label ?? 'Готово'}`}
                                 isButtonDisabled={!canProceed}
                                 onButtonClick={handleNextStep}
                             />
@@ -75,6 +79,19 @@ const Booking = () => {
                     </div>
                 </div>
             </div>
+
+            <Modal
+                title="Заказ подтверждён"
+                isOpen={isConfirmOpen}
+                onClose={() => setIsConfirmOpen(false)}
+                actions={[
+                    {
+                        label: 'Закрыть',
+                        onClick: () => setIsConfirmOpen(false),
+                        variant: 'primary',
+                    },
+                ]}
+            />
         </main>
 
     );
