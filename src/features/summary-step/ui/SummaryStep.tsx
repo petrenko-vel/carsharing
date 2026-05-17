@@ -10,25 +10,25 @@ const SummaryStep = () => {
 
     return (
         <div className="summary-step">
-            <div className="summary-step__car">
-                {selectedCar?.imageUrl ? (
-                    <img
-                        className="summary-step__car-image"
-                        src={selectedCar.imageUrl}
-                        alt={selectedCar.name ?? 'Автомобиль'}
-                    />
-                ) : (
-                    <div className="summary-step__car-image-placeholder">Нет изображения</div>
-                )}
-
-                <h2 className="summary-step__car-title">
+            <div className="summary-step__info">
+                <h2 className="summary-step__title">
                     {selectedCar?.name ?? 'Автомобиль не выбран'}
                 </h2>
 
-                <p>Номер: {selectedCar?.plateNumber ?? '—'}</p>
+                <span className='summary-step__number'>{selectedCar?.plateNumber ?? '—'}</span>
                 <p>Топливо: {selectedCar?.fuelLevel ?? '—'}%</p>
                 <p>Доступна с: {availableFrom}</p>
             </div>
+
+            {selectedCar?.imageUrl ? (
+                <img
+                    className="summary-step__image"
+                    src={selectedCar.imageUrl}
+                    alt={selectedCar.name ?? 'Автомобиль'}
+                />
+            ) : (
+                <div className="summary-step__image-placeholder">Нет изображения</div>
+            )}
         </div>
     );
 };

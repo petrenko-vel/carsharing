@@ -49,6 +49,16 @@ const Booking = () => {
         }
     };
 
+    const handleConfirmOrder = () => {
+        console.log('Заказ подтверждён');
+        setIsConfirmOpen(false);
+        // Здесь можно добавить редирект или очистку стора
+    };
+
+    const handleCancelOrder = () => {
+        setIsConfirmOpen(false);
+    };
+
     return (
         <main className="booking">
             <div className="container">
@@ -81,13 +91,18 @@ const Booking = () => {
             </div>
 
             <Modal
-                title="Заказ подтверждён"
+                title="Подтверждение заказа"
                 isOpen={isConfirmOpen}
-                onClose={() => setIsConfirmOpen(false)}
+                onClose={handleCancelOrder}
                 actions={[
                     {
-                        label: 'Закрыть',
-                        onClick: () => setIsConfirmOpen(false),
+                        label: 'Отменить',
+                        onClick: handleCancelOrder,
+                        variant: 'danger',
+                    },
+                    {
+                        label: 'Подтвердить',
+                        onClick: handleConfirmOrder,
                         variant: 'primary',
                     },
                 ]}

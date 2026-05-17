@@ -5,18 +5,18 @@ import './Modal.scss';
 interface ModalAction {
     label: string;
     onClick: () => void;
-    variant?: 'primary' | 'danger'; // primary = зелёный, danger = тёмно-красный
+    variant?: 'primary' | 'danger';
 }
 
 interface ModalProps {
     title: string;
+    text?: string;
     isOpen: boolean;
     actions: ModalAction[];
     onClose: () => void;
 }
 
-const Modal = ({ title, isOpen, actions, onClose }: ModalProps) => {
-
+const Modal = ({ title, text, isOpen, actions, onClose }: ModalProps) => {
     useEffect(() => {
         if (!isOpen) return;
 
@@ -43,11 +43,10 @@ const Modal = ({ title, isOpen, actions, onClose }: ModalProps) => {
             aria-modal="true"
             aria-label={title}
         >
-            <div
-                className="modal"
-                onClick={(e) => e.stopPropagation()}
-            >
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <h2 className="modal__title">{title}</h2>
+
+                {text && <p className="modal__text">{text}</p>}
 
                 <div className="modal__actions">
                     {actions.map((action) => (

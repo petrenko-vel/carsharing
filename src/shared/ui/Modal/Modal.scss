@@ -43,7 +43,8 @@
             background: var(--color-danger) !important;
 
             &:hover {
-                background: lighten(var(--color-danger), 10%) !important;
+                background: var(--color-danger) !important;
+                opacity: 0.5;
             }
         }
     }
