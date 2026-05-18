@@ -4,12 +4,11 @@ import './SummaryStep.scss';
 const SummaryStep = () => {
     const { selectedCar, extra } = useBookingStore();
 
-    const availableFrom = selectedCar?.availableFrom
-        ? new Date(selectedCar.availableFrom).toLocaleDateString('ru-RU')
-        : '-';
-
-    const dateFrom = extra?.dateFrom
+    const dateFromFormatted = extra?.dateFrom
         ? new Date(extra.dateFrom).toLocaleString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
         })
@@ -24,7 +23,7 @@ const SummaryStep = () => {
 
                 <span className='summary-step__number'>{selectedCar?.plateNumber ?? '—'}</span>
                 <p><b>Топливо</b> {selectedCar?.fuelLevel ?? '—'}%</p>
-                <p><b>Доступна c</b> {availableFrom} {dateFrom}</p>
+                <p><b>Доступна c</b> {dateFromFormatted}</p>
             </div>
 
             {selectedCar?.imageUrl ? (
