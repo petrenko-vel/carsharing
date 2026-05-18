@@ -23,7 +23,7 @@ const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
         }
     };
 
-    const handleImageError = (e) => {
+    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         (e.currentTarget as HTMLImageElement).style.visibility = 'hidden';
     }
 
