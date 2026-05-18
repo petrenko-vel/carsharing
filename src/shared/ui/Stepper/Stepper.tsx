@@ -17,13 +17,12 @@ const Stepper = (props: StepperProps) => {
     } = props;
 
     return (
-        <nav className={`${className} stepper`} aria-label="Навигация по этапам">
+        <nav className={`stepper ${className}`} aria-label="Навигация по этапам">
             <ul className="stepper__list">
                 {steps.map((step, index) => {
                     const isActive = index === currentStep;
                     const isPassed = index < currentStep;
 
-                    // Кликабелен только пройденный шаг
                     const isClickable = isPassed && Boolean(onStepClick);
 
                     return (
