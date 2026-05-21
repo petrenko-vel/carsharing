@@ -1,5 +1,5 @@
 import type { AdvantageSlide } from '@/widgets/advantages-slider/model/advantage-card.types';
-import Button from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/Button';
 
 import './AdvantageCard.scss';
 
@@ -7,7 +7,7 @@ interface AdvantageCardProps {
   slide: AdvantageSlide;
 }
 
-const AdvantageCard = ({ slide }: AdvantageCardProps) => {
+export const AdvantageCard = ({ slide }: AdvantageCardProps) => {
   return (
     <article
       className="advantage-card"
@@ -28,5 +28,3 @@ const AdvantageCard = ({ slide }: AdvantageCardProps) => {
     </article>
   );
 };
-
-export default AdvantageCard;

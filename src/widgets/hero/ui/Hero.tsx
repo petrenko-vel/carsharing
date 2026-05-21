@@ -1,10 +1,10 @@
-import Button from '@/shared/ui/Button';
-import Header from '@/shared/ui/Header';
-import Footer from './Footer';
+import { Button } from '@/shared/ui/Button';
+import { Header } from '@/shared/ui/Header';
+import { Footer } from './Footer';
 
 import './Hero.scss';
 
-const Hero = () => {
+export const Hero = () => {
   return (
     <>
       <section className="hero-wrapper">
@@ -28,5 +28,3 @@ const Hero = () => {
     </>
   );
 };
-
-export default Hero;

@@ -1,9 +1,9 @@
 .booking {
     &__wrapper {
-        padding: 0 3rem;
+        padding-inline: 3rem;
 
-        @include mobile {
-            padding: 0;
+        @include tablet {
+            padding-inline: 0;
         }
     }
 
@@ -23,6 +23,13 @@
     }
 
     &__content {
-        margin-top: 2rem;
+        width: 100%;
+        margin-block: 2rem;
+    }
+
+    &__sidebar {
+        @include mobile {
+            padding-bottom: 2rem;
+        }
     }
 }

@@ -1,4 +1,4 @@
-import Button from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/Button';
 import './OrderSummary.scss';
 
 interface OrderDetail {
@@ -15,7 +15,7 @@ interface OrderSummaryProps {
     onButtonClick: () => void;
 }
 
-const OrderSummary = (props: OrderSummaryProps) => {
+export const OrderSummary = (props: OrderSummaryProps) => {
     const {
         className = "",
         details,
@@ -55,5 +55,3 @@ const OrderSummary = (props: OrderSummaryProps) => {
         </aside>
     );
 };
-
-export default OrderSummary;

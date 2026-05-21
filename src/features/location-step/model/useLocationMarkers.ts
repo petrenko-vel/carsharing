@@ -1,0 +1,81 @@
+import { useMemo } from 'react';
+import { useBookingStore } from '@/pages/booking/model/bookingStore';
+import locationsData, { type MapPoint } from './location.mock';
+
+export interface MarkerData {
+    id: string;
+    coordinates: [number, number];
+    hint: string;
+}
+
+const ZOOM = {
+    DEFAULT: 10,
+    CITY: 12,
+    POINT: 16,
+} as const;
+
+export const useLocationMarkers = () => {
+    const { city, point } = useBookingStore();
+
+    const markers = useMemo<MarkerData[]>(() => {
+        const cityObj = city
+            ? locationsData.find((c) => c.name.toLowerCase() === city.toLowerCase())
+            : undefined;
+
+        let pointsToShow: MapPoint[] = [];
+
+        if (point && cityObj) {
+            const pt = cityObj.points.find(
+                (p) => p.name.toLowerCase() === point.toLowerCase()
+            );
+            if (pt) pointsToShow = [pt];
+        } else if (cityObj) {
+            pointsToShow = cityObj.points;
+        } else {
+            pointsToShow = locationsData.flatMap((c) => c.points);
+        }
+
+        return pointsToShow.map((p) => ({
+            id: p.id,
+            coordinates: p.coords,
+            hint: p.name,
+        }));
+    }, [city, point]);
+
+    const { center, zoom } = useMemo<{
+        center: [number, number];
+        zoom: number;
+    }>(() => {
+        if (city && point) {
+            const cityObj = locationsData.find(
+                (c) => c.name.toLowerCase() === city.toLowerCase()
+            );
+            const pt = cityObj?.points.find(
+                (p) => p.name.toLowerCase() === point.toLowerCase()
+            );
+            if (pt) {
+                return { center: pt.coords, zoom: ZOOM.POINT };
+            }
+        }
+        if (city) {
+            const cityObj = locationsData.find(
+                (c) => c.name.toLowerCase() === city.toLowerCase()
+            );
+            if (cityObj) {
+                return { center: cityObj.coords, zoom: ZOOM.CITY };
+            }
+        }
+
+        if (markers.length > 0) {
+            const lats = markers.map((m) => m.coordinates[0]);
+            const lngs = markers.map((m) => m.coordinates[1]);
+            const avgLat = lats.reduce((a, b) => a + b, 0) / lats.length;
+            const avgLng = lngs.reduce((a, b) => a + b, 0) / lngs.length;
+            return { center: [avgLat, avgLng], zoom: ZOOM.DEFAULT };
+        }
+
+        return { center: [55.755864, 37.617698], zoom: ZOOM.DEFAULT };
+    }, [city, point, markers]);
+
+    return { markers, center, zoom };
+};

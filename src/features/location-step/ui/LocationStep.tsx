@@ -1,10 +1,18 @@
-import Input from '@/shared/ui/Input/Input';
+import { lazy, Suspense } from 'react';
+import { Input } from '@/shared/ui/Input/Input';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import locationsData from '../model/location.mock';
+import { useLocationMarkers } from '../model/useLocationMarkers';
 import './LocationStep.scss';
 
-const LocationStep = () => {
+const LocationMap = lazy(() =>
+    import('./LocationMap').then((m) => ({ default: m.LocationMap }))
+);
+
+export const LocationStep = () => {
     const { city, point, setCity, setPoint, resetLocation } = useBookingStore();
+
+    const { markers, center, zoom } = useLocationMarkers();
 
     const filteredCities = locationsData
         .map((c) => c.name)
@@ -19,6 +27,8 @@ const LocationStep = () => {
             .map((p) => p.name)
             .filter((pointName) => pointName.toLowerCase().includes(point.toLowerCase()))
         : [];
+
+    const handleClearPoint = () => setPoint('');
 
     return (
         <div className="location-step">
@@ -41,19 +51,15 @@ const LocationStep = () => {
                     disabled={!selectedCity}
                     onChange={setPoint}
                     onSelect={setPoint}
-                    onClear={() => setPoint('')}
+                    onClear={handleClearPoint}
                 />
             </div>
 
-            {/* Временная заглушка для карты */}
             <div className="location-step__map">
-                <p>Выбрать на карте:</p>
-                <div className="location-step__map-placeholder">
-                    Здесь будет карта
-                </div>
+                <Suspense fallback={<div className="location-step__map-placeholder">Загрузка карты...</div>}>
+                    <LocationMap center={center} markers={markers} zoom={zoom} />
+                </Suspense>
             </div>
         </div>
     );
 };
-
-export default LocationStep;

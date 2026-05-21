@@ -1,0 +1,269 @@
+.extra-step {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: .875rem;
+    font-weight: 300;
+    color: var(--color-gray-m);
+
+    @include mobile {
+        gap: 1.5rem;
+    }
+
+    @include mobile-s {
+        gap: 1rem;
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        &-title {
+            color: var(--color-black);
+        }
+    }
+
+    &__radio {
+        &-group {
+            display: flex;
+            gap: 0.5rem;
+
+            &[data-tarif="true"] {
+                flex-direction: column;
+            }
+        }
+
+        &-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        &-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        &-text {
+            position: relative;
+            padding-left: 1.25rem;
+            transition: color var(--transition);
+
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0.875rem;
+                height: 0.875rem;
+                border-radius: 50%;
+                border: 2px solid var(--color-gray-m);
+                background: #fff;
+                transition: all var(--transition);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: 0.189rem;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0.45rem;
+                height: 0.45rem;
+                border-radius: 50%;
+                background: var(--color-accent);
+                opacity: 0;
+                transition: opacity var(--transition);
+            }
+
+            &--active {
+                color: var(--color-black);
+
+                &::before {
+                    border-color: var(--color-accent);
+                }
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+
+    }
+
+    &__date {
+        &-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+
+            @include mobile-s {
+                gap: 0.75rem;
+            }
+        }
+
+        &-label {
+            min-width: 1.25rem;
+        }
+
+        &-input {
+            width: 100%;
+            padding: 0 0.75rem;
+            border-bottom: var(--border);
+            color: var(--color-black);
+            transition: border-color var(--transition);
+
+            &-wrapper {
+                position: relative;
+                flex: 1;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: var(--color-accent);
+                box-shadow: 0 0 0 2px rgba(var(--color-accent), 0.1);
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+            }
+
+            &.react-datepicker-ignore-onclickoutside {
+                border-color: var(--color-accent);
+            }
+        }
+
+        &-clear {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: color var(--transition);
+
+            &:hover {
+                color: var(--color-black);
+            }
+        }
+    }
+
+    &__checkbox {
+        &-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        &-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        &-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        &-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: .75rem;
+            height: .75rem;
+            border: .125rem solid var(--color-gray-m);
+            transition: all var(--transition);
+            flex-shrink: 0;
+
+            &::after {
+                content: '✓';
+                position: absolute;
+                left: .0625rem;
+                top: -0.625rem;
+                color: var(--color-black);
+                font-weight: bold;
+                font-size: 1rem;
+                opacity: 0;
+                transition: opacity var(--transition);
+            }
+
+            &--checked {
+                border-color: var(--color-accent);
+                background: rgba(var(--color-accent), 0.05);
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &-text {
+            &--checked {
+                color: var(--color-black);
+            }
+        }
+    }
+
+}
+
+
+
+.extra-step__radio-label:hover .extra-step__radio-text:not(.extra-step__radio-text--active)::before,
+.extra-step__checkbox-label:hover .extra-step__checkbox-box:not(.extra-step__checkbox-box--checked) {
+    border-color: var(--color-accent);
+}
+
+:global {
+    .react-datepicker {
+        border: var(--border);
+        border-radius: 0.375rem;
+        font-family: inherit;
+    }
+
+    .react-datepicker__header {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+    }
+
+    .react-datepicker__current-month {
+        color: var(--color-light);
+    }
+
+    .react-datepicker__day-name,
+    .react-datepicker__day {
+        width: 2.5rem;
+        line-height: 2.5rem;
+    }
+
+    .react-datepicker__day--selected {
+        background-color: var(--color-accent);
+        border-radius: 0.25rem;
+    }
+
+    .react-datepicker__day:hover {
+        background-color: rgba(var(--color-accent), 0.2);
+        border-radius: 0.25rem;
+    }
+
+    .react-datepicker__time-container {
+        border-left: var(--border);
+    }
+
+}
