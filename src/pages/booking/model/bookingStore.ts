@@ -50,12 +50,10 @@ interface BookingState {
     setExtra: (data: Partial<ExtraStepData>) => void;
     resetExtra: () => void;
 
-    // true, если шаг заполнен и можно идти дальше
     isStepValid: (step: BookingStepSlug) => boolean;
 }
 
-// Дефолтное состояние шага 3 — вынесено отдельно,
-// чтобы переиспользовать в resetExtra и при сбросе последующих шагов
+// Дефолтное состояние шага 3
 const DEFAULT_EXTRA: ExtraStepData = {
     colorId: '',
     colorLabel: '',

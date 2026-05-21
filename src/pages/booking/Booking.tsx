@@ -9,7 +9,6 @@ import { Modal } from '@/shared/ui/Modal';
 import { Header } from '@/shared/ui/Header';
 import './Booking.scss';
 
-// Порядок шагов
 const STEPS: { label: string; slug: BookingStepSlug }[] = [
     { label: 'Местоположение', slug: 'location' },
     { label: 'Модель', slug: 'model' },
@@ -52,7 +51,6 @@ export const Booking = () => {
     const handleConfirmOrder = () => {
         console.log('Заказ подтверждён');
         setIsConfirmOpen(false);
-        // Здесь можно добавить редирект или очистку стора
     };
 
     const handleCancelOrder = () => {

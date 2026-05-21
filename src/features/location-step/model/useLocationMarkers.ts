@@ -46,7 +46,6 @@ export const useLocationMarkers = () => {
         center: [number, number];
         zoom: number;
     }>(() => {
-        // Выбрана конкретная точка — зумимся прямо на неё
         if (city && point) {
             const cityObj = locationsData.find(
                 (c) => c.name.toLowerCase() === city.toLowerCase()
@@ -58,8 +57,6 @@ export const useLocationMarkers = () => {
                 return { center: pt.coords, zoom: ZOOM.POINT };
             }
         }
-
-        // Выбран город — центрируемся на нём
         if (city) {
             const cityObj = locationsData.find(
                 (c) => c.name.toLowerCase() === city.toLowerCase()
@@ -69,7 +66,6 @@ export const useLocationMarkers = () => {
             }
         }
 
-        // Ничего не выбрано — среднее по всем маркерам или дефолт Москва
         if (markers.length > 0) {
             const lats = markers.map((m) => m.coordinates[0]);
             const lngs = markers.map((m) => m.coordinates[1]);
