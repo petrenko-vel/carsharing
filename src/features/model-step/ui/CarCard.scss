@@ -1,0 +1,60 @@
+.car-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+    padding: 1rem;
+    border: var(--border);
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition);
+
+    &:hover,
+    &--selected,
+    &:focus-visible {
+        border-color: var(--color-accent);
+    }
+
+    &__name {
+        margin-top: -0.3125rem;
+        font-size: 1.125rem;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    &__price {
+        font-size: 0.875rem;
+        color: var(--color-gray-m);
+        margin: 0;
+    }
+
+    &__image-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        min-height: 8rem;
+    }
+
+    &__image {
+        object-fit: contain;
+        transition: transform var(--transition) ease;
+
+        .car-card:hover & {
+            transform: scale(1.03);
+        }
+    }
+
+    &__specs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.375rem;
+    }
+
+    &__spec {
+        font-size: 0.75rem;
+        color: var(--color-gray-s);
+        background-color: var(--color-light);
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        white-space: nowrap;
+    }
+}

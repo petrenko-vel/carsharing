@@ -1,8 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Home from '@/pages/home';
-import Booking from '@/pages/booking';
-import LocationStep from '@/features/location-step/ui/LocationStep';
-import Menu from '@/widgets/menu';
+import { Home } from '@/pages/home';
+import { Booking } from '@/pages/booking';
+
+import { LocationStep } from '@/features/location-step';
+import { ModelStep } from '@/features/model-step';
+import { ExtraStep } from '@/features/extra-step';
+import { SummaryStep } from '@/features/summary-step';
+
+import { Menu } from '@/widgets/menu';
+
 import { useSlider } from '@/widgets/advantages-slider/model/useSlider';
 import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnimation';
 import { advantagesData } from '@/widgets/advantages-slider/model/slides.mock';
@@ -40,7 +46,9 @@ function AppLayout() {
         <Route path="/booking" element={<Booking />}>
           <Route index element={<Navigate to="location" replace />} />
           <Route path="location" element={<LocationStep />} />
-          {/* <Route path="model" element={<ModelStep />} /> */}
+          <Route path="model" element={<ModelStep />} />
+          <Route path="extra" element={<ExtraStep />} />
+          <Route path="summary" element={<SummaryStep />} />
         </Route>
       </Routes>
     </div>

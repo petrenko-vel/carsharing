@@ -1,4 +1,3 @@
-// features/location-step/model/useLocationMarkers.ts
 import { useMemo } from 'react';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import locationsData, { type MapPoint } from './location.mock';
@@ -9,11 +8,10 @@ export interface MarkerData {
     hint: string;
 }
 
-// Выносим уровни зума в константы — удобно менять в одном месте
 const ZOOM = {
-    DEFAULT: 10,  // все города
-    CITY: 12,     // выбран город, видны все его точки
-    POINT: 16,    // выбрана конкретная точка выдачи
+    DEFAULT: 10,
+    CITY: 12,
+    POINT: 16,
 } as const;
 
 export const useLocationMarkers = () => {
@@ -44,13 +42,10 @@ export const useLocationMarkers = () => {
         }));
     }, [city, point]);
 
-    // center и zoom вычисляем вместе — они логически связаны,
-    // поэтому один useMemo вместо двух отдельных
     const { center, zoom } = useMemo<{
         center: [number, number];
         zoom: number;
     }>(() => {
-        // Выбрана конкретная точка — зумимся прямо на неё
         if (city && point) {
             const cityObj = locationsData.find(
                 (c) => c.name.toLowerCase() === city.toLowerCase()
@@ -62,8 +57,6 @@ export const useLocationMarkers = () => {
                 return { center: pt.coords, zoom: ZOOM.POINT };
             }
         }
-
-        // Выбран город — центрируемся на нём
         if (city) {
             const cityObj = locationsData.find(
                 (c) => c.name.toLowerCase() === city.toLowerCase()
@@ -73,7 +66,6 @@ export const useLocationMarkers = () => {
             }
         }
 
-        // Ничего не выбрано — среднее по всем маркерам или дефолт Москва
         if (markers.length > 0) {
             const lats = markers.map((m) => m.coordinates[0]);
             const lngs = markers.map((m) => m.coordinates[1]);
