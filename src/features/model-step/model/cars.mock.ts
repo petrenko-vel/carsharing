@@ -1,7 +1,7 @@
 import type { CarCategory } from '@/pages/booking/model/bookingStore';
 
 // локально: '/', на gh-pages: '/carsharing/'
-const BASE = import.meta.env.BASE_URL;
+const BASE_URL = import.meta.env.BASE_URL;
 
 export interface CarModel {
     id: string;
@@ -25,7 +25,7 @@ const carsData: CarModel[] = [
         category: 'economy',
         priceMin: 12000,
         priceMax: 25000,
-        imageUrl: `${BASE}cars/car-1.png`,
+        imageUrl: `${BASE_URL}cars/car-1.png`,
         plateNumber: 'А 123 ВС 77',
         fuelLevel: 80,
         availableFrom: '2019-06-12T10:00:00',
@@ -37,7 +37,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 10000,
         priceMax: 32000,
-        imageUrl: `${BASE}cars/car-2.png`,
+        imageUrl: `${BASE_URL}cars/car-2.png`,
         plateNumber: 'А 123 ВС 77',
         fuelLevel: 80,
         availableFrom: '2019-06-12T10:00:00',
@@ -49,7 +49,7 @@ const carsData: CarModel[] = [
         category: 'economy',
         priceMin: 12000,
         priceMax: 25000,
-        imageUrl: `${BASE}cars/car-3.png`,
+        imageUrl: `${BASE_URL}cars/car-3.png`,
         plateNumber: 'А 123 ВС 77',
         fuelLevel: 80,
         availableFrom: '2019-06-12T10:00:00',
@@ -61,7 +61,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 10000,
         priceMax: 32000,
-        imageUrl: `${BASE}cars/car-4.png`,
+        imageUrl: `${BASE_URL}cars/car-4.png`,
         plateNumber: 'К 761 НА 73',
         fuelLevel: 100,
         availableFrom: '2019-06-12T12:00:00'
@@ -73,7 +73,7 @@ const carsData: CarModel[] = [
         category: 'economy',
         priceMin: 8000,
         priceMax: 18000,
-        imageUrl: `${BASE}cars/car-1.png`,
+        imageUrl: `${BASE_URL}cars/car-1.png`,
         plateNumber: 'В 456 МН 99',
         fuelLevel: 60,
         availableFrom: '2019-06-13T09:00:00',
@@ -86,7 +86,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 20000,
         priceMax: 50000,
-        imageUrl: `${BASE}cars/car-2.png`,
+        imageUrl: `${BASE_URL}cars/car-2.png`,
         plateNumber: 'Е 789 КР 50',
         fuelLevel: 90,
         availableFrom: '2019-06-12T14:00:00',
