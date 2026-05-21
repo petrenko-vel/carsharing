@@ -10,7 +10,7 @@ const FILTERS: { value: CarFilter; label: string }[] = [
     { value: 'premium', label: 'Премиум' },
 ];
 
-const ModelStep = () => {
+export const ModelStep = () => {
     const { selectedCar, setSelectedCar } = useBookingStore();
     const { activeFilter, setActiveFilter, filteredCars } = useCarFilter();
 
@@ -25,6 +25,10 @@ const ModelStep = () => {
             name: `${car.brand} ${car.model}`,
             priceMin: car.priceMin,
             priceMax: car.priceMax,
+            imageUrl: car.imageUrl,
+            plateNumber: car.plateNumber,
+            fuelLevel: car.fuelLevel,
+            availableFrom: car.availableFrom,
         };
         setSelectedCar(payload);
     };
@@ -74,5 +78,3 @@ const ModelStep = () => {
         </div>
     );
 };
-
-export { ModelStep };

@@ -1,6 +1,6 @@
 import { type IconProps } from './types';
 
-const IconFacebook = (props: IconProps) => {
+export const IconFacebook = (props: IconProps) => {
   const { className = '' } = props;
 
   return (
@@ -24,4 +24,3 @@ const IconFacebook = (props: IconProps) => {
   );
 };
 
-export { IconFacebook };

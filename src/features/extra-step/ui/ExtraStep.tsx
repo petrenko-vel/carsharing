@@ -5,7 +5,7 @@ import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import { CAR_COLORS, TARIFFS, EXTRA_SERVICES } from '../model/extraOptions.mock';
 import './ExtraStep.scss';
 
-const ExtraStep = () => {
+export const ExtraStep = () => {
     const { extra, setExtra } = useBookingStore();
 
     const dateFrom = extra.dateFrom ? new Date(extra.dateFrom) : null;
@@ -185,5 +185,3 @@ const ExtraStep = () => {
         </div>
     );
 };
-
-export { ExtraStep };

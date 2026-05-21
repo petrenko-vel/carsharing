@@ -12,7 +12,7 @@ interface Props {
   onGoTo: (index: number) => void;
 }
 
-const AdvantagesSlider = ({
+export const AdvantagesSlider = ({
   activeIndex,
   visibleIndex,
   prevIndex,
@@ -80,5 +80,3 @@ const AdvantagesSlider = ({
     </section>
   );
 };
-
-export { AdvantagesSlider };

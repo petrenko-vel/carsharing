@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export type CarCategory = 'economy' | 'premium';
-
 export type BookingStepSlug = 'location' | 'model' | 'extra' | 'summary';
 
 export interface SelectedCar {
@@ -10,7 +9,12 @@ export interface SelectedCar {
     name: string;
     priceMin: number;
     priceMax: number;
+    imageUrl?: string;
+    plateNumber?: string;
+    fuelLevel?: number;
+    availableFrom?: string;
 }
+
 
 // Данные шага 3 — дополнительные опции
 export interface ExtraStepData {
@@ -18,8 +22,8 @@ export interface ExtraStepData {
     colorLabel: string;      // лейбл для отображения в OrderSummary
     tariffId: string;        // id выбранного тарифа
     tariffLabel: string;     // лейбл для OrderSummary
-    dateFrom: string | null; // ISO-строка даты начала
-    dateTo: string | null;   // ISO-строка даты окончания
+    dateFrom: string | null; // дата начала
+    dateTo: string | null;   // дата окончания
     services: string[];      // массив id выбранных доп услуг
 }
 
@@ -46,12 +50,10 @@ interface BookingState {
     setExtra: (data: Partial<ExtraStepData>) => void;
     resetExtra: () => void;
 
-    // true, если шаг заполнен и можно идти дальше
     isStepValid: (step: BookingStepSlug) => boolean;
 }
 
-// Дефолтное состояние шага 3 — вынесено отдельно,
-// чтобы переиспользовать в resetExtra и при сбросе последующих шагов
+// Дефолтное состояние шага 3
 const DEFAULT_EXTRA: ExtraStepData = {
     colorId: '',
     colorLabel: '',
@@ -62,23 +64,40 @@ const DEFAULT_EXTRA: ExtraStepData = {
     services: [],
 };
 
+const DEFAULT_STATE = {
+    city: '',
+    point: '',
+    selectedCar: null,
+    extra: DEFAULT_EXTRA,
+};
 
 export const useBookingStore = create<BookingState>()(
     persist(
         (set, get) => ({
-            city: '',
-            point: '',
-            selectedCar: null,
-            extra: DEFAULT_EXTRA,
+            ...DEFAULT_STATE,
 
+            setCity: (newCity) =>
+                set({
+                    city: newCity,
+                    point: '',
+                    selectedCar: null,
+                    extra: DEFAULT_EXTRA,
+                }),
 
-            setCity: (newCity) => set({ city: newCity, point: '' }),
             setPoint: (newPoint) => set({ point: newPoint }),
-            resetLocation: () => set({ city: '', point: '' }),
-            setSelectedCar: (car) => set({ selectedCar: car }),
-            setExtra: (data) => set((state) => ({
-                extra: { ...state.extra, ...data },
-            })),
+
+            resetLocation: () => set({ ...DEFAULT_STATE }),
+
+            setSelectedCar: (car) =>
+                set({
+                    selectedCar: car,
+                    extra: DEFAULT_EXTRA,
+                }),
+
+            setExtra: (data) =>
+                set((state) => ({
+                    extra: { ...state.extra, ...data },
+                })),
 
             resetExtra: () => set({ extra: DEFAULT_EXTRA }),
 
@@ -91,14 +110,21 @@ export const useBookingStore = create<BookingState>()(
                     case 'model':
                         return Boolean(selectedCar);
                     case 'extra':
-                        // Обязательны: цвет, тариф, обе даты
-                        // services — опциональны, не блокируют кнопку
                         return Boolean(
                             extra.colorId &&
                             extra.tariffId &&
                             extra.dateFrom &&
                             extra.dateTo
                         );
+                    case 'summary':
+                        return Boolean(
+                            city &&
+                            point &&
+                            selectedCar &&
+                            extra.colorId &&
+                            extra.tariffId &&
+                            extra.dateFrom &&
+                            extra.dateTo);
                     default:
                         return false;
                 }

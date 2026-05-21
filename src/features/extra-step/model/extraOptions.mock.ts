@@ -34,7 +34,6 @@ export const TARIFFS: Tariff[] = [
     },
 ];
 
-// Дополнительные услуги
 export interface ExtraService {
     id: string;
     label: string;

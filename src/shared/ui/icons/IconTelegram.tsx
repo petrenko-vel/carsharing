@@ -1,6 +1,6 @@
 import { type IconProps } from './types';
 
-const IconTelegram = (props: IconProps) => {
+export const IconTelegram = (props: IconProps) => {
   const { className = '' } = props;
   return (
     <svg
@@ -19,5 +19,3 @@ const IconTelegram = (props: IconProps) => {
     </svg>
   );
 };
-
-export { IconTelegram };

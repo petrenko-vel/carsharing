@@ -15,7 +15,7 @@ interface OrderSummaryProps {
     onButtonClick: () => void;
 }
 
-const OrderSummary = (props: OrderSummaryProps) => {
+export const OrderSummary = (props: OrderSummaryProps) => {
     const {
         className = "",
         details,
@@ -55,5 +55,3 @@ const OrderSummary = (props: OrderSummaryProps) => {
         </aside>
     );
 };
-
-export { OrderSummary };

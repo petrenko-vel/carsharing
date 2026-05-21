@@ -6,14 +6,14 @@ interface InputProps {
     label: string;
     placeholder: string;
     value: string;
-    options?: string[];                 // Массив строк для выпадающего списка
+    options?: string[];               
     disabled?: boolean;
-    onChange: (value: string) => void;  // Вызывается при вводе текста
-    onSelect?: (value: string) => void; // Вызывается при клике на элемент списка
-    onClear?: () => void;               // Вызывается при клике на крестик
+    onChange: (value: string) => void; 
+    onSelect?: (value: string) => void;
+    onClear?: () => void;
 }
 
-const Input = (props: InputProps) => {
+export const Input = (props: InputProps) => {
 
     const {
         className = "",
@@ -30,7 +30,6 @@ const Input = (props: InputProps) => {
     const [isOpenList, setIsOpenList] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
-    // Закрытие списка при клике в другое место экрана
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
@@ -74,7 +73,7 @@ const Input = (props: InputProps) => {
                         <li
                             key={index}
                             className="custom-input__option"
-                            onClick={() => {
+                            onMouseDown={() => {
                                 if (onSelect) onSelect(opt);
                                 setIsOpenList(false);
                             }}
@@ -87,6 +86,3 @@ const Input = (props: InputProps) => {
         </div>
     );
 };
-
-
-export { Input };

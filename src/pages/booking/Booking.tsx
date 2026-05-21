@@ -1,14 +1,14 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import { Stepper } from '@/shared/ui/Stepper/Stepper';
 import { OrderSummary } from '@/widgets/order-summary/ui/OrderSummary';
 import { useBookingStore, type BookingStepSlug } from './model/bookingStore';
 import { useExtraStep } from '@/features/extra-step/model/useExtraStep';
-import { EXTRA_SERVICES } from '@/features/extra-step/model/extraOptions.mock';
-
+import { useOrderDetails } from './model/useOrderDetails';
+import { Modal } from '@/shared/ui/Modal';
 import { Header } from '@/shared/ui/Header';
 import './Booking.scss';
 
-// Порядок шагов
 const STEPS: { label: string; slug: BookingStepSlug }[] = [
     { label: 'Местоположение', slug: 'location' },
     { label: 'Модель', slug: 'model' },
@@ -16,112 +16,96 @@ const STEPS: { label: string; slug: BookingStepSlug }[] = [
     { label: 'Итого', slug: 'summary' },
 ];
 
-const Booking = () => {
+export const Booking = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { city, point, selectedCar, extra, isStepValid } = useBookingStore();
+    const { isStepValid } = useBookingStore();
     const { totalPriceLabel } = useExtraStep();
+    const orderDetails = useOrderDetails();
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-
-    // текущий шаг по URL
+    // Текущий шаг по URL
     const currentSlug = location.pathname.split('/').pop() as BookingStepSlug;
     const currentStepIndex = STEPS.findIndex((s) => s.slug === currentSlug);
-
-    // Данные для OrderSummary
-    const orderDetails = [];
-
-    // Шаг 1
-    if (city) {
-        const fullAddress = point ? `${city},\n${point}` : city;
-        orderDetails.push({ label: 'Пункт выдачи', value: fullAddress });
-    }
-
-    // Шаг 2
-    if (selectedCar) {
-        orderDetails.push({ label: 'Модель', value: selectedCar.name });
-    }
-
-    // const priceLabel = selectedCar
-    //     ? `от ${selectedCar.priceMin.toLocaleString('ru-RU')} до ${selectedCar.priceMax.toLocaleString('ru-RU')} ₽`
-    //     : undefined;
-
-
-    // Шаг 3
-    if (extra.dateFrom && extra.dateTo) {
-        const fromDate = new Date(extra.dateFrom).toLocaleDateString('ru-RU');
-        const toDate = new Date(extra.dateTo).toLocaleDateString('ru-RU');
-        orderDetails.push({ label: 'Длительность аренды', value: `${fromDate} – ${toDate}` });
-    }
-
-    if (extra.colorLabel) {
-        orderDetails.push({ label: 'Цвет', value: extra.colorLabel });
-    }
-
-    if (extra.tariffLabel) {
-        orderDetails.push({ label: 'Тариф', value: extra.tariffLabel });
-    }
-
-    // Доп услуги — показываем только выбранные
-    if (extra.services.length > 0) {
-        const serviceLabels = EXTRA_SERVICES
-            .filter((s) => extra.services.includes(s.id))
-            .map((s) => s.label)
-            .join(', ');
-        orderDetails.push({ label: 'Доп услуги', value: serviceLabels });
-    }
 
     // Следующий шаг
     const nextStep = STEPS[currentStepIndex + 1];
     const canProceed = isStepValid(currentSlug);
 
     const handleNextStep = () => {
+        if (currentSlug === 'summary') {
+            setIsConfirmOpen(true);
+            return;
+        }
         if (canProceed && nextStep) {
             navigate(`/booking/${nextStep.slug}`);
         }
     };
 
     const handleStepClick = (index: number) => {
-        const targetSlug = STEPS[index].slug;
-        const isPassed = index < currentStepIndex;
-        if (isPassed) {
-            navigate(`/booking/${targetSlug}`);
+        if (index <= currentStepIndex) {
+            navigate(`/booking/${STEPS[index].slug}`);
         }
     };
 
+    const handleConfirmOrder = () => {
+        console.log('Заказ подтверждён');
+        setIsConfirmOpen(false);
+    };
+
+    const handleCancelOrder = () => {
+        setIsConfirmOpen(false);
+    };
+
     return (
-        <>
-            <main className="booking">
-                <div className="container">
-                    <div className="booking__wrapper">
-                        <Header />
+        <main className="booking">
+            <div className="container">
+                <div className="booking__wrapper">
+                    <Header />
 
-                        <div className="booking__stepper-wrapper">
-                            <Stepper
-                                steps={STEPS.map((s) => s.label)}
-                                currentStep={currentStepIndex}
-                                onStepClick={handleStepClick}
+                    <div className="booking__stepper-wrapper">
+                        <Stepper
+                            steps={STEPS.map((s) => s.label)}
+                            currentStep={currentStepIndex}
+                            onStepClick={handleStepClick}
+                        />
+                    </div>
+
+                    <div className="booking__main">
+                        <section className="booking__content">
+                            <Outlet />
+                        </section>
+                        <section className="booking__sidebar">
+                            <OrderSummary
+                                details={orderDetails}
+                                price={totalPriceLabel}
+                                buttonText={currentSlug === 'summary' ? 'Заказать' : `Перейти: ${nextStep?.label ?? 'Готово'}`}
+                                isButtonDisabled={!canProceed}
+                                onButtonClick={handleNextStep}
                             />
-                        </div>
-
-                        <main className="booking__main">
-                            <section className="booking__content">
-                                <Outlet />
-                            </section>
-                            <section className="booking__sidebar">
-                                <OrderSummary
-                                    details={orderDetails}
-                                    price={totalPriceLabel}
-                                    buttonText={nextStep ? `Перейти: ${nextStep.label}` : 'Готово'}
-                                    isButtonDisabled={!canProceed}
-                                    onButtonClick={handleNextStep}
-                                />
-                            </section>
-                        </main>
+                        </section>
                     </div>
                 </div>
-            </main>
-        </>
+            </div>
+
+            <Modal
+                title="Подтверждение заказа"
+                isOpen={isConfirmOpen}
+                onClose={handleCancelOrder}
+                actions={[
+                    {
+                        label: 'Отменить',
+                        onClick: handleCancelOrder,
+                        variant: 'danger',
+                    },
+                    {
+                        label: 'Подтвердить',
+                        onClick: handleConfirmOrder,
+                        variant: 'primary',
+                    },
+                ]}
+            />
+        </main>
+
     );
 };
-
-export { Booking };

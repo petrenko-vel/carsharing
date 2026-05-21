@@ -1,26 +1,57 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
+
+interface FadeState {
+  visibleIndex: number;
+  prevIndex: number | null;
+  isTransitioning: boolean;
+}
+
+type FadeAction =
+  | { type: 'START_TRANSITION'; nextIndex: number }
+  | { type: 'END_TRANSITION' };
+
+function fadeReducer(state: FadeState, action: FadeAction): FadeState {
+  switch (action.type) {
+    case 'START_TRANSITION':
+      return {
+        visibleIndex: action.nextIndex,
+        prevIndex: state.visibleIndex,
+        isTransitioning: true,
+      };
+
+    case 'END_TRANSITION':
+      return {
+        ...state,
+        prevIndex: null,
+        isTransitioning: false,
+      };
+
+    default:
+      return state;
+  }
+}
+
 
 export const useFadeAnimation = (activeIndex: number) => {
-  const [visibleIndex, setVisibleIndex] = useState(activeIndex);
-  const [prevIndex, setPrevIndex] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [state, dispatch] = useReducer(fadeReducer, {
+    visibleIndex: activeIndex,
+    prevIndex: null,
+    isTransitioning: false,
+  });
 
-  const timeoutRef = useRef<number | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (activeIndex === visibleIndex) return;
+    if (activeIndex === state.visibleIndex) return;
 
-    setPrevIndex(visibleIndex);
-    setIsTransitioning(true);
-    setVisibleIndex(activeIndex);
+    dispatch({ type: 'START_TRANSITION', nextIndex: activeIndex });
 
-    if (timeoutRef.current) {
+    if (timeoutRef.current !== null) {
       window.clearTimeout(timeoutRef.current);
     }
 
-    timeoutRef.current = window.setTimeout(() => {
-      setPrevIndex(null);
-      setIsTransitioning(false);
+    timeoutRef.current = setTimeout(() => {
+      dispatch({ type: 'END_TRANSITION' });
     }, 450);
 
     return () => {
@@ -28,11 +59,11 @@ export const useFadeAnimation = (activeIndex: number) => {
         window.clearTimeout(timeoutRef.current);
       }
     };
-  }, [activeIndex]);
+  }, [activeIndex, state.visibleIndex]);
 
   return {
-    visibleIndex,
-    prevIndex,
-    isTransitioning,
+    visibleIndex: state.visibleIndex,
+    prevIndex: state.prevIndex,
+    isTransitioning: state.isTransitioning,
   };
 };

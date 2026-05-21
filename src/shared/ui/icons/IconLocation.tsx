@@ -1,6 +1,6 @@
 import { type IconProps } from './types';
 
-const IconLocation = (props: IconProps) => {
+export const IconLocation = (props: IconProps) => {
   const { className = '', ...rest } = props;
   return (
     <svg
@@ -30,4 +30,3 @@ const IconLocation = (props: IconProps) => {
   );
 };
 
-export { IconLocation };
