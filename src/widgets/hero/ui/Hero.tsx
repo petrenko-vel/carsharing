@@ -4,7 +4,7 @@ import { Footer } from './Footer';
 
 import './Hero.scss';
 
-const Hero = () => {
+export const Hero = () => {
   return (
     <>
       <section className="hero-wrapper">
@@ -28,5 +28,3 @@ const Hero = () => {
     </>
   );
 };
-
-export { Hero };

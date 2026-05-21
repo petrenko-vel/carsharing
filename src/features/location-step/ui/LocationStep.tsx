@@ -9,7 +9,7 @@ const LocationMap = lazy(() =>
     import('./LocationMap').then((m) => ({ default: m.LocationMap }))
 );
 
-const LocationStep = () => {
+export const LocationStep = () => {
     const { city, point, setCity, setPoint, resetLocation } = useBookingStore();
 
     const { markers, center, zoom } = useLocationMarkers();
@@ -63,5 +63,3 @@ const LocationStep = () => {
         </div>
     );
 };
-
-export { LocationStep };

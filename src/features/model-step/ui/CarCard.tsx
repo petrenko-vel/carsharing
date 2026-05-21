@@ -7,7 +7,7 @@ interface CarCardProps {
     onSelect: (car: CarModel) => void;
 }
 
-const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
+export const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
     const fullName = `${car.brand} ${car.model}`;
     const priceLabel = `${car.priceMin.toLocaleString('ru-RU')} – ${car.priceMax.toLocaleString('ru-RU')} ₽`;
 
@@ -53,5 +53,3 @@ const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
         </article>
     );
 };
-
-export { CarCard };

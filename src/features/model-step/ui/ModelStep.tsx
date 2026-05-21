@@ -10,7 +10,7 @@ const FILTERS: { value: CarFilter; label: string }[] = [
     { value: 'premium', label: 'Премиум' },
 ];
 
-const ModelStep = () => {
+export const ModelStep = () => {
     const { selectedCar, setSelectedCar } = useBookingStore();
     const { activeFilter, setActiveFilter, filteredCars } = useCarFilter();
 
@@ -78,5 +78,3 @@ const ModelStep = () => {
         </div>
     );
 };
-
-export { ModelStep };

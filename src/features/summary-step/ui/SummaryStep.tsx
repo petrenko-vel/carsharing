@@ -1,7 +1,7 @@
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import './SummaryStep.scss';
 
-const SummaryStep = () => {
+export const SummaryStep = () => {
     const { selectedCar, extra } = useBookingStore();
 
     const dateFromFormatted = extra?.dateFrom
@@ -38,5 +38,3 @@ const SummaryStep = () => {
         </div>
     );
 };
-
-export { SummaryStep };

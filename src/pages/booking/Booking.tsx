@@ -17,7 +17,7 @@ const STEPS: { label: string; slug: BookingStepSlug }[] = [
     { label: 'Итого', slug: 'summary' },
 ];
 
-const Booking = () => {
+export const Booking = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { isStepValid } = useBookingStore();
@@ -111,5 +111,3 @@ const Booking = () => {
 
     );
 };
-
-export { Booking };

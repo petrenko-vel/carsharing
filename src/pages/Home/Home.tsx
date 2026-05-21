@@ -12,7 +12,7 @@ interface HomeProps {
   onGoTo: (index: number) => void;
 }
 
-const Home = (props: HomeProps) => {
+export const Home = (props: HomeProps) => {
 
   const {
     activeIndex,
@@ -39,5 +39,3 @@ const Home = (props: HomeProps) => {
     </main>
   );
 };
-
-export { Home };

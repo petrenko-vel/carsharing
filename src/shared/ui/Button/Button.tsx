@@ -10,7 +10,7 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button = (props: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
   const {
     children,
     gradient = 'hero',
@@ -36,5 +36,3 @@ const Button = (props: ButtonProps) => {
     </button>
   );
 };
-
-export { Button };

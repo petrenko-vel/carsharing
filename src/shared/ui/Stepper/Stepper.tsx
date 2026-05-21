@@ -8,7 +8,7 @@ interface StepperProps {
     onStepClick?: (index: number) => void;
 }
 
-const Stepper = (props: StepperProps) => {
+export const Stepper = (props: StepperProps) => {
     const {
         className = "",
         steps,
@@ -54,5 +54,3 @@ const Stepper = (props: StepperProps) => {
         </nav>
     );
 };
-
-export { Stepper };

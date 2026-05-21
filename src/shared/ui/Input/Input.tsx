@@ -13,7 +13,7 @@ interface InputProps {
     onClear?: () => void;               // Вызывается при клике на крестик
 }
 
-const Input = (props: InputProps) => {
+export const Input = (props: InputProps) => {
 
     const {
         className = "",
@@ -87,6 +87,3 @@ const Input = (props: InputProps) => {
         </div>
     );
 };
-
-
-export { Input };

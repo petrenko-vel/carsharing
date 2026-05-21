@@ -13,7 +13,7 @@ type MenuProps = {
   onSelect: (index: number) => void;
 };
 
-const Menu = (props: MenuProps) => {
+export const Menu = (props: MenuProps) => {
   const { items, activeIndex, onSelect } = props;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -112,5 +112,3 @@ const Menu = (props: MenuProps) => {
     </>
   );
 };
-
-export { Menu };

@@ -16,7 +16,7 @@ interface ModalProps {
     onClose: () => void;
 }
 
-const Modal = ({ title, text, isOpen, actions, onClose }: ModalProps) => {
+export const Modal = ({ title, text, isOpen, actions, onClose }: ModalProps) => {
     useEffect(() => {
         if (!isOpen) return;
 
@@ -63,5 +63,3 @@ const Modal = ({ title, text, isOpen, actions, onClose }: ModalProps) => {
         </div>
     );
 };
-
-export { Modal };
