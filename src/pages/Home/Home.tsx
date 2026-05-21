@@ -1,5 +1,5 @@
-import Hero from '@/widgets/hero';
-import AdvantagesSlider from '@/widgets/advantages-slider';
+import { Hero } from '@/widgets/hero';
+import { AdvantagesSlider } from '@/widgets/advantages-slider';
 import './Home.scss';
 
 interface HomeProps {
@@ -12,7 +12,7 @@ interface HomeProps {
   onGoTo: (index: number) => void;
 }
 
-const Home = (props: HomeProps) => {
+export const Home = (props: HomeProps) => {
 
   const {
     activeIndex,
@@ -39,5 +39,3 @@ const Home = (props: HomeProps) => {
     </main>
   );
 };
-
-export default Home;

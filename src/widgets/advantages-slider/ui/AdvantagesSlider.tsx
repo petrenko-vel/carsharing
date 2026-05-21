@@ -1,4 +1,4 @@
-import AdvantageCard from '@/widgets/advantages-slider/ui/AdvantageCard';
+import { AdvantageCard } from '@/widgets/advantages-slider/ui/AdvantageCard';
 import { advantagesData } from '../model/slides.mock';
 import './AdvantagesSlider.scss';
 
@@ -12,7 +12,7 @@ interface Props {
   onGoTo: (index: number) => void;
 }
 
-const AdvantagesSlider = ({
+export const AdvantagesSlider = ({
   activeIndex,
   visibleIndex,
   prevIndex,
@@ -80,5 +80,3 @@ const AdvantagesSlider = ({
     </section>
   );
 };
-
-export default AdvantagesSlider;

@@ -1,6 +1,6 @@
 import { type IconProps } from './types';
 
-const iconInstagram = (props: IconProps) => {
+export const IconInstagram = (props: IconProps) => {
   const { className = '', size = 32 } = props;
 
   return (
@@ -26,5 +26,3 @@ const iconInstagram = (props: IconProps) => {
     </svg>
   );
 };
-
-export default iconInstagram;

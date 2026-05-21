@@ -1,1 +1,1 @@
-export { default } from './ui/LocationStep';
+export { LocationStep } from './ui/LocationStep';
