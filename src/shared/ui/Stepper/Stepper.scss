@@ -19,7 +19,7 @@
         padding: fluid(16, 12) 0;
         display: flex;
         flex-wrap: wrap;
-        gap: fluid(32, 12);
+        gap: fluid(20, 8);
         counter-reset: step;
 
         &::before,
@@ -50,6 +50,25 @@
         @include mobile-s {
             flex-direction: column;
             gap: rem(12);
+        }
+    }
+
+    &__item-wrapper {
+        display: flex;
+        align-items: center;
+
+        &:not(:last-child)::after {
+            content: '▶';
+            color: var(--color-gray-m);
+            font-size: rem(10);
+            margin-left: fluid(20, 8);
+            opacity: 0.5;
+        }
+
+        @include mobile-s {
+            &:not(:last-child)::after {
+                display: none;
+            }
         }
     }
 
