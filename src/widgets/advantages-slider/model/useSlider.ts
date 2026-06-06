@@ -1,27 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+
+const AUTOPLAY_INTERVAL = 3000;
+const RESUME_DELAY = 10000;
 
 export const useSlider = (length: number) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const next = () => {
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const pauseAutoplay = useCallback(() => {
+    setIsPaused(true);
+
+    if (resumeTimeoutRef.current !== null) {
+      window.clearTimeout(resumeTimeoutRef.current);
+    }
+
+    resumeTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, RESUME_DELAY);
+  }, []);
+
+  const next = useCallback(() => {
+    pauseAutoplay();
     setCurrentIndex((prev) => (prev === length - 1 ? 0 : prev + 1));
-  };
+  }, [length, pauseAutoplay]);
 
-  const prev = () => {
+  const prev = useCallback(() => {
+    pauseAutoplay();
     setCurrentIndex((prev) => (prev === 0 ? length - 1 : prev - 1));
-  };
+  }, [length, pauseAutoplay]);
 
-  const goTo = (index: number) => {
-    setCurrentIndex(index);
-  };
+  const goTo = useCallback(
+    (index: number) => {
+      pauseAutoplay();
+      setCurrentIndex(index);
+    },
+    [pauseAutoplay],
+  );
 
+  // Автоматическая смена контента
   useEffect(() => {
+    if (isPaused) return;
+
     const id = window.setInterval(() => {
       setCurrentIndex((prev) => (prev === length - 1 ? 0 : prev + 1));
-    }, 4000);
+    }, AUTOPLAY_INTERVAL);
 
     return () => window.clearInterval(id);
-  }, [length]);
+  }, [length, isPaused]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current !== null) {
+        window.clearTimeout(resumeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return {
     currentIndex,
