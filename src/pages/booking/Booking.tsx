@@ -9,6 +9,8 @@ import { Modal } from '@/shared/ui/Modal';
 import { Header } from '@/shared/ui/Header';
 import './Booking.scss';
 
+const FIRST_STEP = 'location';
+
 const STEPS: { label: string; slug: BookingStepSlug }[] = [
     { label: 'Местоположение', slug: 'location' },
     { label: 'Модель', slug: 'model' },
@@ -19,10 +21,11 @@ const STEPS: { label: string; slug: BookingStepSlug }[] = [
 export const Booking = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { isStepValid } = useBookingStore();
+    const { isStepValid, resetLocation } = useBookingStore();
     const { totalPriceLabel } = useExtraStep();
     const orderDetails = useOrderDetails();
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
 
     // Текущий шаг по URL
     const currentSlug = location.pathname.split('/').pop() as BookingStepSlug;
@@ -31,6 +34,15 @@ export const Booking = () => {
     // Следующий шаг
     const nextStep = STEPS[currentStepIndex + 1];
     const canProceed = isStepValid(currentSlug);
+
+    // Шаг N доступен, если все предыдущие шаги валидны
+    const isStepAccessible = (index: number): boolean => {
+        if (index === 0) return true;
+        return STEPS.slice(0, index).every((s) => isStepValid(s.slug));
+    };
+
+    // Для каждого шага — можно ли на него кликнуть (доступен и не является текущим)
+    const clickableSteps = STEPS.map((_, index) => index !== currentStepIndex && isStepAccessible(index));
 
     const handleNextStep = () => {
         if (currentSlug === 'summary') {
@@ -43,18 +55,24 @@ export const Booking = () => {
     };
 
     const handleStepClick = (index: number) => {
-        if (index <= currentStepIndex) {
+        if (index !== currentStepIndex && isStepAccessible(index)) {
             navigate(`/booking/${STEPS[index].slug}`);
         }
     };
 
     const handleConfirmOrder = () => {
-        console.log('Заказ подтверждён');
+        setIsConfirmOpen(false);
+        setIsOrderConfirmed(true);
+    };
+
+    const handleCloseModal = () => {
         setIsConfirmOpen(false);
     };
 
-    const handleCancelOrder = () => {
-        setIsConfirmOpen(false);
+    const handleCancelConfirmedOrder = () => {
+        setIsOrderConfirmed(false);
+        resetLocation();
+        navigate(`/booking/${FIRST_STEP}`);
     };
 
     return (
@@ -67,6 +85,7 @@ export const Booking = () => {
                         <Stepper
                             steps={STEPS.map((s) => s.label)}
                             currentStep={currentStepIndex}
+                            clickableSteps={clickableSteps}
                             onStepClick={handleStepClick}
                         />
                     </div>
@@ -82,6 +101,8 @@ export const Booking = () => {
                                 buttonText={currentSlug === 'summary' ? 'Заказать' : `Перейти: ${nextStep?.label ?? 'Готово'}`}
                                 isButtonDisabled={!canProceed}
                                 onButtonClick={handleNextStep}
+                                isOrderConfirmed={isOrderConfirmed}
+                                onCancelOrder={handleCancelConfirmedOrder}
                             />
                         </section>
                     </div>
@@ -89,19 +110,19 @@ export const Booking = () => {
             </div>
 
             <Modal
-                title="Подтверждение заказа"
+                title="Подтвердить заказ"
                 isOpen={isConfirmOpen}
-                onClose={handleCancelOrder}
+                onClose={handleCloseModal}
                 actions={[
-                    {
-                        label: 'Отменить',
-                        onClick: handleCancelOrder,
-                        variant: 'danger',
-                    },
                     {
                         label: 'Подтвердить',
                         onClick: handleConfirmOrder,
                         variant: 'primary',
+                    },
+                    {
+                        label: 'Вернуться',
+                        onClick: handleCloseModal,
+                        variant: 'danger',
                     },
                 ]}
             />

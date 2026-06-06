@@ -84,7 +84,12 @@ export const useBookingStore = create<BookingState>()(
                     extra: DEFAULT_EXTRA,
                 }),
 
-            setPoint: (newPoint) => set({ point: newPoint }),
+            setPoint: (newPoint) =>
+                set({
+                    point: newPoint,
+                    selectedCar: null,
+                    extra: DEFAULT_EXTRA,
+                }),
 
             resetLocation: () => set({ ...DEFAULT_STATE }),
 

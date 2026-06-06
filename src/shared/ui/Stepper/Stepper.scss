@@ -109,5 +109,10 @@
         &--passed {
             color: var(--color-black);
         }
+
+        &--disabled {
+            opacity: 0.35;
+            pointer-events: none;
+        }
     }
 }
