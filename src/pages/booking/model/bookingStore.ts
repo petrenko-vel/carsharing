@@ -7,8 +7,8 @@ export type BookingStepSlug = 'location' | 'model' | 'extra' | 'summary';
 export interface SelectedCar {
     id: string;
     name: string;
-    priceMin: number;
-    priceMax: number;
+    priceMin?: number;
+    priceMax?: number;
     imageUrl?: string;
     plateNumber?: string;
     fuelLevel?: number;

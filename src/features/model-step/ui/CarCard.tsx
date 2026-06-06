@@ -11,7 +11,9 @@ interface CarCardProps {
 
 export const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
     const fullName = `${car.brand} ${car.model}`;
-    const priceLabel = `${car.priceMin.toLocaleString('ru-RU')} – ${car.priceMax.toLocaleString('ru-RU')} ₽`;
+    const priceLabel = (car.priceMin != null && car.priceMax != null)
+        ? `${car.priceMin.toLocaleString('ru-RU')} – ${car.priceMax.toLocaleString('ru-RU')} ₽`
+        : 'Цена не указана';
     const [imgFailed, setImgFailed] = useState(!car.imageUrl);
 
     useEffect(() => {
