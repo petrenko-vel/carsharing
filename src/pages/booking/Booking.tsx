@@ -26,6 +26,7 @@ export const Booking = () => {
     const orderDetails = useOrderDetails();
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
+    const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
     // Текущий шаг по URL
     const currentSlug = location.pathname.split('/').pop() as BookingStepSlug;
@@ -63,6 +64,7 @@ export const Booking = () => {
     const handleConfirmOrder = () => {
         setIsConfirmOpen(false);
         setIsOrderConfirmed(true);
+        setOrderNumber(`#${Math.random().toString(36).slice(2, 8).toUpperCase()}`);
     };
 
     const handleCloseModal = () => {
@@ -71,6 +73,7 @@ export const Booking = () => {
 
     const handleCancelConfirmedOrder = () => {
         setIsOrderConfirmed(false);
+        setOrderNumber(null);
         resetLocation();
         navigate(`/booking/${FIRST_STEP}`);
     };
@@ -82,12 +85,18 @@ export const Booking = () => {
                     <Header />
 
                     <div className="booking__stepper-wrapper">
-                        <Stepper
-                            steps={STEPS.map((s) => s.label)}
-                            currentStep={currentStepIndex}
-                            clickableSteps={clickableSteps}
-                            onStepClick={handleStepClick}
-                        />
+                        {orderNumber ? (
+                            <div className="booking__order-number">
+                                Номер заказа: <span className="booking__order-number-value">{orderNumber}</span>
+                            </div>
+                        ) : (
+                            <Stepper
+                                steps={STEPS.map((s) => s.label)}
+                                currentStep={currentStepIndex}
+                                clickableSteps={clickableSteps}
+                                onStepClick={handleStepClick}
+                            />
+                        )}
                     </div>
 
                     <div className="booking__main">

@@ -11,6 +11,19 @@
         margin-top: 2rem;
     }
 
+    &__order-number {
+        padding: fluid(16, 12) 0;
+        border-top: var(--border);
+        border-bottom: var(--border);
+        font-weight: 700;
+        font-size: fluid(18, 14);
+        color: var(--color-gray-m);
+    }
+
+    &__order-number-value {
+        color: var(--color-accent);
+    }
+
     &__main {
         display: flex;
         flex-direction: row;
