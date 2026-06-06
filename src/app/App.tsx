@@ -1,23 +1,38 @@
+import type { ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Home } from '@/pages/home';
 import { Booking } from '@/pages/booking';
-
+import { useBookingStore, type BookingStepSlug } from '@/pages/booking/model/bookingStore';
 import { LocationStep } from '@/features/location-step';
 import { ModelStep } from '@/features/model-step';
 import { ExtraStep } from '@/features/extra-step';
 import { SummaryStep } from '@/features/summary-step';
-
 import { Menu } from '@/widgets/menu';
-
 import { useSlider } from '@/widgets/advantages-slider/model/useSlider';
 import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnimation';
 import { advantagesData } from '@/widgets/advantages-slider/model/slides.mock';
+
+const STEP_SLUGS: BookingStepSlug[] = ['location', 'model', 'extra', 'summary'];
+
+/** Гвард: перенаправляет на первый незаполненный шаг, если шаг недоступен через URL */
+const BookingStepGuard = ({ slug, children }: { slug: BookingStepSlug; children: ReactNode }) => {
+  const { isStepValid } = useBookingStore();
+  const stepIndex = STEP_SLUGS.indexOf(slug);
+
+  const isAccessible = stepIndex === 0 || STEP_SLUGS.slice(0, stepIndex).every((s) => isStepValid(s));
+
+  if (!isAccessible) {
+    const firstIncomplete = STEP_SLUGS.find((s) => !isStepValid(s)) ?? 'location';
+    return <Navigate to={`/booking/${firstIncomplete}`} replace />;
+  }
+
+  return <>{children}</>;
+};
 
 function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  // Логика слайдера (только для Home)
   const { currentIndex, next, prev, goTo } = useSlider(advantagesData.length);
   const { visibleIndex, prevIndex, isTransitioning } = useFadeAnimation(currentIndex);
 
@@ -45,10 +60,10 @@ function AppLayout() {
         />
         <Route path="/booking" element={<Booking />}>
           <Route index element={<Navigate to="location" replace />} />
-          <Route path="location" element={<LocationStep />} />
-          <Route path="model" element={<ModelStep />} />
-          <Route path="extra" element={<ExtraStep />} />
-          <Route path="summary" element={<SummaryStep />} />
+          <Route path="location" element={<BookingStepGuard slug="location"><LocationStep /></BookingStepGuard>} />
+          <Route path="model" element={<BookingStepGuard slug="model"><ModelStep /></BookingStepGuard>} />
+          <Route path="extra" element={<BookingStepGuard slug="extra"><ExtraStep /></BookingStepGuard>} />
+          <Route path="summary" element={<BookingStepGuard slug="summary"><SummaryStep /></BookingStepGuard>} />
         </Route>
       </Routes>
     </div>

@@ -13,6 +13,8 @@ interface OrderSummaryProps {
     buttonText: string;
     isButtonDisabled: boolean;
     onButtonClick: () => void;
+    isOrderConfirmed?: boolean;
+    onCancelOrder?: () => void;
 }
 
 export const OrderSummary = (props: OrderSummaryProps) => {
@@ -22,7 +24,9 @@ export const OrderSummary = (props: OrderSummaryProps) => {
         price,
         buttonText,
         isButtonDisabled,
-        onButtonClick
+        onButtonClick,
+        isOrderConfirmed = false,
+        onCancelOrder,
     } = props;
 
     return (
@@ -45,13 +49,23 @@ export const OrderSummary = (props: OrderSummaryProps) => {
                 </div>
             )}
 
-            <Button
-                className="order-summary__button"
-                disabled={isButtonDisabled}
-                onClick={onButtonClick}
-            >
-                {buttonText}
-            </Button>
+            {isOrderConfirmed ? (
+                <Button
+                    className="order-summary__button"
+                    gradient="red"
+                    onClick={onCancelOrder}
+                >
+                    Отменить заказ
+                </Button>
+            ) : (
+                <Button
+                    className="order-summary__button"
+                    disabled={isButtonDisabled}
+                    onClick={onButtonClick}
+                >
+                    {buttonText}
+                </Button>
+            )}
         </aside>
     );
 };
