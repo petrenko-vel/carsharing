@@ -1,9 +1,29 @@
+import { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import { ru } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import { CAR_COLORS, TARIFFS, EXTRA_SERVICES } from '../model/extraOptions.mock';
 import './ExtraStep.scss';
+
+const CONTROL_KEYS = new Set([
+    'Backspace', 'Delete', 'Tab', 'Enter',
+    'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+    'Home', 'End',
+]);
+
+// Разрешаем только цифры, точку, двоеточие и пробел (формат dd.MM.yyyy HH:mm)
+const DateInput = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
+    (props, ref) => {
+        const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+            const isAllowed = /^[\d.:\s]$/.test(e.key) || CONTROL_KEYS.has(e.key) || e.ctrlKey || e.metaKey;
+            if (!isAllowed) e.preventDefault();
+            props.onKeyDown?.(e);
+        };
+
+        return <input {...props} ref={ref} onKeyDown={handleKeyDown} />;
+    }
+);
 
 export const ExtraStep = () => {
     const { extra, setExtra } = useBookingStore();
@@ -93,7 +113,7 @@ export const ExtraStep = () => {
                             dateFormat="dd.MM.yyyy HH:mm"
                             locale={ru}
                             placeholderText="Введите дату и время"
-                            className="extra-step__date-input"
+                            customInput={<DateInput className="extra-step__date-input" />}
                             isClearable
                             clearButtonClassName="extra-step__date-clear"
                         />
@@ -116,7 +136,7 @@ export const ExtraStep = () => {
                             dateFormat="dd.MM.yyyy HH:mm"
                             locale={ru}
                             placeholderText="Введите дату и время"
-                            className="extra-step__date-input"
+                            customInput={<DateInput className="extra-step__date-input" />}
                             disabled={!dateFrom}
                             isClearable
                             clearButtonClassName="extra-step__date-clear"

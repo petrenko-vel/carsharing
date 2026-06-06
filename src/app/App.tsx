@@ -7,6 +7,7 @@ import { LocationStep } from '@/features/location-step';
 import { ModelStep } from '@/features/model-step';
 import { ExtraStep } from '@/features/extra-step';
 import { SummaryStep } from '@/features/summary-step';
+import { OrderPage } from '@/pages/order';
 import { Menu } from '@/widgets/menu';
 import { useSlider } from '@/widgets/advantages-slider/model/useSlider';
 import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnimation';
@@ -64,6 +65,7 @@ function AppLayout() {
           <Route path="model" element={<BookingStepGuard slug="model"><ModelStep /></BookingStepGuard>} />
           <Route path="extra" element={<BookingStepGuard slug="extra"><ExtraStep /></BookingStepGuard>} />
           <Route path="summary" element={<BookingStepGuard slug="summary"><SummaryStep /></BookingStepGuard>} />
+          <Route path="order/:orderId" element={<OrderPage />} />
         </Route>
       </Routes>
     </div>
