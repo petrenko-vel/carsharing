@@ -55,12 +55,6 @@ export const Booking = () => {
         }
     };
 
-    const handleStepClick = (index: number) => {
-        if (index !== currentStepIndex && isStepAccessible(index)) {
-            navigate(`/booking/${STEPS[index].slug}`);
-        }
-    };
-
     const handleConfirmOrder = () => {
         setIsConfirmOpen(false);
         setIsOrderConfirmed(true);
@@ -69,6 +63,12 @@ export const Booking = () => {
 
     const handleCloseModal = () => {
         setIsConfirmOpen(false);
+    };
+
+    const handleStepClick = (index: number) => {
+        if (index !== currentStepIndex && isStepAccessible(index)) {
+            navigate(`/booking/${STEPS[index].slug}`);
+        }
     };
 
     const handleCancelConfirmedOrder = () => {
@@ -136,6 +136,5 @@ export const Booking = () => {
                 ]}
             />
         </main>
-
     );
 };

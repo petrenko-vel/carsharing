@@ -10,6 +10,19 @@
         gap: .625rem;
     }
 
+    &__input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    &__field-error {
+        font-size: 0.75rem;
+        color: #e04a4a;
+        padding-left: 0.125rem;
+        animation: fade-in-down 0.2s ease;
+    }
+
     &__map {
         display: flex;
         flex-direction: column;
@@ -44,5 +57,16 @@
         @include mobile {
             min-width: 100%;
         }
+    }
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

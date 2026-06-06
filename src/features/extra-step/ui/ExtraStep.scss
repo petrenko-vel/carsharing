@@ -24,6 +24,12 @@
         }
     }
 
+    &__field-error {
+        font-size: 0.75rem;
+        color: #e04a4a;
+        animation: fade-in-down 0.2s ease;
+    }
+
     &__radio {
         &-group {
             display: flex;
@@ -224,6 +230,17 @@
 }
 
 
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .extra-step__radio-label:hover .extra-step__radio-text:not(.extra-step__radio-text--active)::before,
 .extra-step__checkbox-label:hover .extra-step__checkbox-box:not(.extra-step__checkbox-box--checked) {
