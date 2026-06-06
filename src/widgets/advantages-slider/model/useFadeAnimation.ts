@@ -31,7 +31,6 @@ function fadeReducer(state: FadeState, action: FadeAction): FadeState {
   }
 }
 
-
 export const useFadeAnimation = (activeIndex: number) => {
   const [state, dispatch] = useReducer(fadeReducer, {
     visibleIndex: activeIndex,
@@ -40,9 +39,14 @@ export const useFadeAnimation = (activeIndex: number) => {
   });
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Track last processed index via ref to avoid depending on state.visibleIndex —
+  // including it in deps would cause the effect cleanup to cancel the END_TRANSITION
+  // timeout whenever dispatch(START_TRANSITION) updates state.visibleIndex.
+  const prevActiveIndex = useRef(activeIndex);
 
   useEffect(() => {
-    if (activeIndex === state.visibleIndex) return;
+    if (activeIndex === prevActiveIndex.current) return;
+    prevActiveIndex.current = activeIndex;
 
     dispatch({ type: 'START_TRANSITION', nextIndex: activeIndex });
 
@@ -52,14 +56,18 @@ export const useFadeAnimation = (activeIndex: number) => {
 
     timeoutRef.current = setTimeout(() => {
       dispatch({ type: 'END_TRANSITION' });
-    }, 450);
+      timeoutRef.current = null;
+    }, 820);
+  }, [activeIndex]);
 
+  // Cleanup only on unmount
+  useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
+      if (timeoutRef.current !== null) {
         window.clearTimeout(timeoutRef.current);
       }
     };
-  }, [activeIndex, state.visibleIndex]);
+  }, []);
 
   return {
     visibleIndex: state.visibleIndex,

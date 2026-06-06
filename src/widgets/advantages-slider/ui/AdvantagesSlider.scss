@@ -12,13 +12,13 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
+    background: #000;
   }
 
   &__slide {
     position: absolute;
     inset: 0;
     opacity: 1;
-    transition: opacity 450ms ease;
   }
 
   &__slide--current {
@@ -30,13 +30,11 @@
   }
 
   &__slide--current.is-fading-in {
-    opacity: 0;
-    animation: slide-fade-in 450ms ease forwards;
+    opacity: 1;
   }
 
   &__slide--previous.is-fading-out {
-    opacity: 1;
-    animation: slide-fade-out 450ms ease forwards;
+    animation: slide-dim-out 800ms ease-in-out forwards;
   }
 
   &__arrow {
@@ -95,16 +93,7 @@
   }
 }
 
-@keyframes slide-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slide-fade-out {
+@keyframes slide-dim-out {
   from {
     opacity: 1;
   }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-const AUTOPLAY_INTERVAL = 3000;
-const RESUME_DELAY = 10000;
+const AUTOPLAY_INTERVAL = 5000;
+const RESUME_DELAY = 5000;
 
 export const useSlider = (length: number) => {
   const [currentIndex, setCurrentIndex] = useState(0);
