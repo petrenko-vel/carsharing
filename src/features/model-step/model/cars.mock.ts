@@ -37,7 +37,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 10000,
         priceMax: 32000,
-        imageUrl: `${BASE_URL}cars/car-2.png`,
+        imageUrl: `${BASE_URL}cars/car-2.pn`,
         plateNumber: 'А 123 ВС 77',
         fuelLevel: 80,
         availableFrom: '2019-06-12T10:00:00',

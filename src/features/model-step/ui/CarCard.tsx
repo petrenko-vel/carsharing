@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { CarPlaceholder } from '@/shared/ui/CarPlaceholder';
 import type { CarModel } from '../model/cars.mock';
 import './CarCard.scss';
 
@@ -10,11 +12,13 @@ interface CarCardProps {
 export const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
     const fullName = `${car.brand} ${car.model}`;
     const priceLabel = `${car.priceMin.toLocaleString('ru-RU')} – ${car.priceMax.toLocaleString('ru-RU')} ₽`;
+    const [imgFailed, setImgFailed] = useState(!car.imageUrl);
 
+    useEffect(() => {
+        setImgFailed(!car.imageUrl);
+    }, [car.imageUrl]);
 
-    const handleCardClick = () => {
-        onSelect(car);
-    };
+    const handleCardClick = () => onSelect(car);
 
     const handleCardKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -22,10 +26,6 @@ export const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
             onSelect(car);
         }
     };
-
-    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        (e.currentTarget as HTMLImageElement).style.visibility = 'hidden';
-    }
 
     return (
         <article
@@ -43,12 +43,16 @@ export const CarCard = ({ car, isSelected, onSelect }: CarCardProps) => {
             </div>
 
             <div className="car-card__image-wrapper">
-                <img
-                    className="car-card__image"
-                    src={car.imageUrl}
-                    alt={fullName}
-                    onError={handleImageError}
-                />
+                {imgFailed ? (
+                    <CarPlaceholder className="car-card__placeholder" />
+                ) : (
+                    <img
+                        className="car-card__image"
+                        src={car.imageUrl}
+                        alt={fullName}
+                        onError={() => setImgFailed(true)}
+                    />
+                )}
             </div>
         </article>
     );
