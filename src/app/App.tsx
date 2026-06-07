@@ -8,6 +8,8 @@ import { ModelStep } from '@/features/model-step';
 import { ExtraStep } from '@/features/extra-step';
 import { SummaryStep } from '@/features/summary-step';
 import { OrderPage } from '@/pages/order';
+import { LoginPage } from '@/pages/login';
+import { RegisterPage } from '@/pages/register';
 import { Menu } from '@/widgets/menu';
 import { useSlider } from '@/widgets/advantages-slider/model/useSlider';
 import { useFadeAnimation } from '@/widgets/advantages-slider/model/useFadeAnimation';
@@ -33,6 +35,7 @@ const BookingStepGuard = ({ slug, children }: { slug: BookingStepSlug; children:
 function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const isAuth = location.pathname === '/login' || location.pathname === '/register';
 
   const { currentIndex, next, prev, goTo } = useSlider(advantagesData.length);
   const { visibleIndex, prevIndex, isTransitioning } = useFadeAnimation(currentIndex);
@@ -43,8 +46,10 @@ function AppLayout() {
 
   return (
     <div className="app-shell">
-      <Menu {...menuProps} />
+      {!isAuth && <Menu {...menuProps} />}
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/"
           element={

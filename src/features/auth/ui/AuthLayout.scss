@@ -1,0 +1,120 @@
+.auth {
+    min-height: 100dvh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    background: #f5f7fa;
+
+    &__logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    &__logo-mark {
+        display: inline-flex;
+        width: 2.75rem;
+        height: 2.75rem;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__logo-text {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #2a3a4a;
+    }
+
+    &__card {
+        width: 100%;
+        max-width: 30rem;
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem;
+
+        @include mobile-s {
+            padding: 1.75rem 1.25rem;
+        }
+    }
+
+    &__title {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #2a3a4a;
+        margin-bottom: 2rem;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    &__fields {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 0.5rem;
+
+        @include mobile-s {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+    }
+
+    &__link {
+        font-size: 0.875rem;
+        color: var(--color-accent);
+        cursor: pointer;
+        transition: opacity var(--transition);
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        @include mobile-s {
+            text-align: center;
+        }
+    }
+
+    &__submit {
+        margin: 0;
+        cursor: pointer;
+        border: none;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        @include mobile-s {
+            width: 100%;
+        }
+    }
+
+    &__notice {
+        margin-top: 1.5rem;
+        padding: 0.875rem 1rem;
+        border-radius: 0.5rem;
+        background: rgba(14, 194, 97, 0.1);
+        color: #0a8f47;
+        font-size: 0.875rem;
+        text-align: center;
+        animation: auth-error-in 0.25s ease;
+    }
+}
