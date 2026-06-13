@@ -94,3 +94,4 @@ storybook-static/
 *.old
 
 .antigravity
+.claude

@@ -12,7 +12,6 @@ const CONTROL_KEYS = new Set([
     'Home', 'End',
 ]);
 
-// Разрешаем только цифры, точку, двоеточие и пробел (формат dd.MM.yyyy HH:mm)
 const DateInput = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
     (props, ref) => {
         const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
