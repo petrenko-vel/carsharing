@@ -29,7 +29,7 @@
     &__logo-text {
         font-size: 1.75rem;
         font-weight: 700;
-        color: #2a3a4a;
+        color: var(--color-text-primary);
     }
 
     &__card {
@@ -49,7 +49,7 @@
         text-align: center;
         font-size: 1.5rem;
         font-weight: 500;
-        color: #2a3a4a;
+        color: var(--color-text-primary);
         margin-bottom: 2rem;
     }
 
@@ -80,7 +80,7 @@
 
     &__link {
         font-size: 0.875rem;
-        color: var(--color-accent);
+        color: var(--color-blue);
         cursor: pointer;
         transition: opacity var(--transition);
 
