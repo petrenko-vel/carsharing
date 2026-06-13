@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/shared/ui/Button';
 import { AuthLayout, AuthField, validateEmail, validatePassword } from '@/features/auth';
 
@@ -9,7 +9,6 @@ export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<{ email?: string | null; password?: string | null }>({});
-    const [submitted, setSubmitted] = useState(false);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -19,16 +18,11 @@ export const LoginPage = () => {
 
         setErrors({ email: emailError, password: passwordError });
 
-        if (emailError || passwordError) {
-            setSubmitted(false);
-            return;
-        }
+        if (emailError || passwordError) return;
 
-        // Отсекаем пробелы по краям перед «отправкой»
         const payload = { email: email.trim(), password };
-        // Здесь был бы запрос на сервер
         void payload;
-        setSubmitted(true);
+        navigate('/admin/orders');
     };
 
     return (
@@ -67,27 +61,14 @@ export const LoginPage = () => {
                 </div>
 
                 <div className="auth__footer">
-                    <Link to="/register" className="auth__link">
-                        Регистрация
-                    </Link>
-                    <Button gradient="green" className="auth__submit">
+                    <a href="#" className="auth__link" onClick={(e) => e.preventDefault()}>
+                        Запросить доступ
+                    </a>
+                    <Button gradient="primary" className="auth__submit">
                         Войти
                     </Button>
                 </div>
             </form>
-
-            {submitted && (
-                <p className="auth__notice" role="status">
-                    Вход выполнен успешно!{' '}
-                    <button
-                        type="button"
-                        className="auth__link"
-                        onClick={() => navigate('/')}
-                    >
-                        На главную
-                    </button>
-                </p>
-            )}
         </AuthLayout>
     );
 };
