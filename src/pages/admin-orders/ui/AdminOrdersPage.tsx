@@ -1,3 +1,6 @@
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEscape } from '@/shared/hooks/useEscape';
 import logoImg from '@/assets/icons/logo.png';
 import carImg from '@/assets/images/cars/car-2.png';
 import './AdminOrdersPage.scss';
@@ -50,6 +53,13 @@ const IconChevronDown = () => (
         <polyline points="6 9 12 15 18 9" />
     </svg>
 );
+const IconLogout = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        <polyline points="16 17 21 12 16 7" />
+        <line x1="21" y1="12" x2="9" y2="12" />
+    </svg>
+);
 
 // ── Order card action icons ────────────────────────────────────────────────────
 const IconCheck = () => (
@@ -99,7 +109,31 @@ const PAGINATION = ['«', '1', '...', '4', '5', '6', '...', '31', '»'];
 const ACTIVE_PAGE = '5';
 
 // ── Component ──────────────────────────────────────────────────────────────────
-export const AdminOrdersPage = () => (
+export const AdminOrdersPage = () => {
+    const navigate = useNavigate();
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const userMenuRef = useRef<HTMLDivElement>(null);
+
+    useEscape(() => setIsUserMenuOpen(false), isUserMenuOpen);
+
+    useEffect(() => {
+        if (!isUserMenuOpen) return;
+
+        const handleClickOutside = (e: MouseEvent) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+                setIsUserMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isUserMenuOpen]);
+
+    const handleLogout = () => {
+        setIsUserMenuOpen(false);
+        navigate('/login');
+    };
+
+    return (
     <div className="admin">
 
         {/* ── Sidebar ── */}
@@ -146,9 +180,40 @@ export const AdminOrdersPage = () => (
                         <IconBell />
                         <span className="admin-header__badge">2</span>
                     </button>
-                    <div className="admin-header__avatar" aria-hidden="true" />
-                    <span className="admin-header__username">Admin</span>
-                    <IconChevronDown />
+
+                    <div className="admin-header__dropdown" ref={userMenuRef}>
+                        <button
+                            type="button"
+                            className="admin-header__user-toggle"
+                            onClick={() => setIsUserMenuOpen((prev) => !prev)}
+                            aria-haspopup="true"
+                            aria-expanded={isUserMenuOpen}
+                        >
+                            <span className="admin-header__avatar" aria-hidden="true" />
+                            <span className="admin-header__username">Admin</span>
+                            <span
+                                className={[
+                                    'admin-header__chevron',
+                                    isUserMenuOpen ? 'admin-header__chevron--open' : '',
+                                ].filter(Boolean).join(' ')}
+                            >
+                                <IconChevronDown />
+                            </span>
+                        </button>
+
+                        {isUserMenuOpen && (
+                            <div className="admin-header__menu" role="menu">
+                                <button
+                                    type="button"
+                                    className="admin-header__menu-item"
+                                    role="menuitem"
+                                    onClick={handleLogout}
+                                >
+                                    <IconLogout /> Выход
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </header>
 
@@ -259,4 +324,5 @@ export const AdminOrdersPage = () => (
             </footer>
         </div>
     </div>
-);
+    );
+};
