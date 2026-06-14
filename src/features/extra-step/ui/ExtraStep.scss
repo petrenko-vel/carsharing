@@ -164,67 +164,10 @@
         }
     }
 
-    &__checkbox {
-        &-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        &-label {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        &-input {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
-            pointer-events: none;
-        }
-
-        &-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            width: .75rem;
-            height: .75rem;
-            border: .125rem solid var(--color-gray-m);
-            transition: all var(--transition);
-            flex-shrink: 0;
-
-            &::after {
-                content: '✓';
-                position: absolute;
-                left: .0625rem;
-                top: -0.625rem;
-                color: var(--color-black);
-                font-weight: bold;
-                font-size: 1rem;
-                opacity: 0;
-                transition: opacity var(--transition);
-            }
-
-            &--checked {
-                border-color: var(--color-accent);
-                background: rgba(var(--color-accent), 0.05);
-
-                &::after {
-                    opacity: 1;
-                }
-            }
-        }
-
-        &-text {
-            &--checked {
-                color: var(--color-black);
-            }
-        }
+    &__checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
 }
@@ -242,8 +185,7 @@
     }
 }
 
-.extra-step__radio-label:hover .extra-step__radio-text:not(.extra-step__radio-text--active)::before,
-.extra-step__checkbox-label:hover .extra-step__checkbox-box:not(.extra-step__checkbox-box--checked) {
+.extra-step__radio-label:hover .extra-step__radio-text:not(.extra-step__radio-text--active)::before {
     border-color: var(--color-accent);
 }
 

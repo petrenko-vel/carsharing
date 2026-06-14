@@ -4,6 +4,7 @@ import { useEscape } from '@/shared/hooks/useEscape';
 import { getAllOrders, type StoredOrder } from '@/pages/order/model/orderService';
 import { EXTRA_SERVICES } from '@/features/extra-step/model/extraOptions.mock';
 import { CarPlaceholder } from '@/shared/ui/CarPlaceholder';
+import { Checkbox } from '@/shared/ui/Checkbox';
 import logoImg from '@/assets/icons/logo.png';
 import './AdminOrdersPage.scss';
 
@@ -11,14 +12,14 @@ import './AdminOrdersPage.scss';
 const formatOrderDate = (iso: string | null): string =>
     iso
         ? new Date(iso)
-              .toLocaleString('ru-RU', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-              })
-              .replace(',', '')
+            .toLocaleString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            })
+            .replace(',', '')
         : '—';
 
 // ── Sidebar icons ──────────────────────────────────────────────────────────────
@@ -99,12 +100,8 @@ const IconDots = () => (
 // ── Data ───────────────────────────────────────────────────────────────────────
 const NAV_ITEMS = [
     { label: 'Карточка автомобиля', icon: <IconPencil /> },
-    { label: 'Список авто',         icon: <IconGrid /> },
-    { label: 'Заказы',              icon: <IconOrders />, active: true },
-    { label: 'Menu 4',              icon: <IconUser /> },
-    { label: 'Menu 5',              icon: <IconUser /> },
-    { label: 'Menu 6',              icon: <IconUser /> },
-    { label: 'Menu 7',              icon: <IconCircle /> },
+    { label: 'Список авто', icon: <IconGrid /> },
+    { label: 'Заказы', icon: <IconOrders />, active: true },
 ];
 
 const PAGINATION = ['«', '1', '...', '4', '5', '6', '...', '31', '»'];
@@ -146,27 +143,13 @@ const OrderCard = ({ order }: { order: StoredOrder }) => {
             </div>
 
             <div className="order-card__services">
-                {EXTRA_SERVICES.map((service) => {
-                    const checked = order.extra.services.includes(service.id);
-                    return (
-                        <span
-                            key={service.id}
-                            className={[
-                                'order-card__service',
-                                checked ? 'order-card__service--checked' : '',
-                            ].filter(Boolean).join(' ')}
-                        >
-                            <span className="order-card__service-box">
-                                {checked && (
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                        <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                )}
-                            </span>
-                            <span className="order-card__service-label">{service.label}</span>
-                        </span>
-                    );
-                })}
+                {EXTRA_SERVICES.map((service) => (
+                    <Checkbox
+                        key={service.id}
+                        checked={order.extra.services.includes(service.id)}
+                        label={service.label}
+                    />
+                ))}
             </div>
 
             <p className="order-card__price">{order.totalPrice || '—'}</p>
@@ -222,158 +205,158 @@ export const AdminOrdersPage = () => {
     };
 
     return (
-    <div className="admin">
+        <div className="admin">
 
-        {/* ── Sidebar ── */}
-        <aside className="admin-sidebar">
-            <div className="admin-sidebar__logo">
-                <img src={logoImg} alt="" className="admin-sidebar__logo-img" />
-                <span className="admin-sidebar__logo-text">Need for car</span>
-            </div>
-
-            <nav className="admin-sidebar__nav" aria-label="Навигация">
-                {NAV_ITEMS.map((item) => (
-                    <a
-                        key={item.label}
-                        href="#"
-                        className={[
-                            'admin-sidebar__nav-item',
-                            item.active ? 'admin-sidebar__nav-item--active' : '',
-                        ].filter(Boolean).join(' ')}
-                        onClick={(e) => e.preventDefault()}
-                    >
-                        <span className="admin-sidebar__nav-icon">{item.icon}</span>
-                        {item.label}
-                    </a>
-                ))}
-            </nav>
-        </aside>
-
-        {/* ── Main area ── */}
-        <div className="admin-main">
-
-            {/* Header */}
-            <header className="admin-header">
-                <div className="admin-header__search">
-                    <IconSearch />
-                    <input
-                        className="admin-header__search-input"
-                        placeholder="Поиск ..."
-                        readOnly
-                    />
+            {/* ── Sidebar ── */}
+            <aside className="admin-sidebar">
+                <div className="admin-sidebar__logo">
+                    <img src={logoImg} alt="" className="admin-sidebar__logo-img" />
+                    <span className="admin-sidebar__logo-text">Need for car</span>
                 </div>
 
-                <div className="admin-header__user">
-                    <button type="button" className="admin-header__bell" aria-label="Уведомления">
-                        <IconBell />
-                        <span className="admin-header__badge">2</span>
-                    </button>
-
-                    <div className="admin-header__dropdown" ref={userMenuRef}>
-                        <button
-                            type="button"
-                            className="admin-header__user-toggle"
-                            onClick={() => setIsUserMenuOpen((prev) => !prev)}
-                            aria-haspopup="true"
-                            aria-expanded={isUserMenuOpen}
+                <nav className="admin-sidebar__nav" aria-label="Навигация">
+                    {NAV_ITEMS.map((item) => (
+                        <a
+                            key={item.label}
+                            href="#"
+                            className={[
+                                'admin-sidebar__nav-item',
+                                item.active ? 'admin-sidebar__nav-item--active' : '',
+                            ].filter(Boolean).join(' ')}
+                            onClick={(e) => e.preventDefault()}
                         >
-                            <span className="admin-header__avatar" aria-hidden="true" />
-                            <span className="admin-header__username">Admin</span>
-                            <span
-                                className={[
-                                    'admin-header__chevron',
-                                    isUserMenuOpen ? 'admin-header__chevron--open' : '',
-                                ].filter(Boolean).join(' ')}
-                            >
-                                <IconChevronDown />
-                            </span>
+                            <span className="admin-sidebar__nav-icon">{item.icon}</span>
+                            {item.label}
+                        </a>
+                    ))}
+                </nav>
+            </aside>
+
+            {/* ── Main area ── */}
+            <div className="admin-main">
+
+                {/* Header */}
+                <header className="admin-header">
+                    <div className="admin-header__search">
+                        <IconSearch />
+                        <input
+                            className="admin-header__search-input"
+                            placeholder="Поиск ..."
+                            readOnly
+                        />
+                    </div>
+
+                    <div className="admin-header__user">
+                        <button type="button" className="admin-header__bell" aria-label="Уведомления">
+                            <IconBell />
+                            <span className="admin-header__badge">2</span>
                         </button>
 
-                        {isUserMenuOpen && (
-                            <div className="admin-header__menu" role="menu">
-                                <button
-                                    type="button"
-                                    className="admin-header__menu-item"
-                                    role="menuitem"
-                                    onClick={handleLogout}
-                                >
-                                    <IconLogout /> Выход
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </header>
-
-            {/* Content */}
-            <main className="admin-content">
-                <h1 className="admin-content__title">Заказы</h1>
-
-                {/* Filters */}
-                <div className="orders-filters">
-                    <select className="orders-filters__select" defaultValue="week">
-                        <option value="week">За неделю</option>
-                    </select>
-                    <select className="orders-filters__select" defaultValue="elantra">
-                        <option value="elantra">Elantra</option>
-                    </select>
-                    <select className="orders-filters__select" defaultValue="ulyanovsk">
-                        <option value="ulyanovsk">Ульяновск</option>
-                    </select>
-                    <select className="orders-filters__select" defaultValue="inprogress">
-                        <option value="inprogress">В процессе</option>
-                    </select>
-                    <button type="button" className="orders-filters__apply">
-                        Применить
-                    </button>
-                </div>
-
-                {/* Orders list */}
-                {orders.length > 0 ? (
-                    <div className="orders-list">
-                        {orders.map((order) => (
-                            <OrderCard key={order.id} order={order} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="orders-empty">
-                        Заказов пока нет. Оформите заказ через бронирование — он появится здесь.
-                    </div>
-                )}
-
-                {/* Pagination */}
-                {orders.length > 0 && (
-                    <nav className="admin-pagination" aria-label="Пагинация">
-                        {PAGINATION.map((page, i) =>
-                            page === '...' ? (
-                                <span key={i} className="admin-pagination__dots">...</span>
-                            ) : (
-                                <button
-                                    key={i}
-                                    type="button"
+                        <div className="admin-header__dropdown" ref={userMenuRef}>
+                            <button
+                                type="button"
+                                className="admin-header__user-toggle"
+                                onClick={() => setIsUserMenuOpen((prev) => !prev)}
+                                aria-haspopup="true"
+                                aria-expanded={isUserMenuOpen}
+                            >
+                                <span className="admin-header__avatar" aria-hidden="true" />
+                                <span className="admin-header__username">Admin</span>
+                                <span
                                     className={[
-                                        'admin-pagination__btn',
-                                        page === ACTIVE_PAGE ? 'admin-pagination__btn--active' : '',
+                                        'admin-header__chevron',
+                                        isUserMenuOpen ? 'admin-header__chevron--open' : '',
                                     ].filter(Boolean).join(' ')}
-                                    onClick={(e) => e.preventDefault()}
                                 >
-                                    {page}
-                                </button>
-                            )
-                        )}
-                    </nav>
-                )}
-            </main>
+                                    <IconChevronDown />
+                                </span>
+                            </button>
 
-            {/* Footer */}
-            <footer className="admin-footer">
-                <div className="admin-footer__links">
-                    <a href="#" onClick={(e) => e.preventDefault()}>Главная страница</a>
-                    <a href="#" onClick={(e) => e.preventDefault()}>Ссылка</a>
-                </div>
-                <p className="admin-footer__copy">Copyright © 2020 Simbirsoft</p>
-            </footer>
+                            {isUserMenuOpen && (
+                                <div className="admin-header__menu" role="menu">
+                                    <button
+                                        type="button"
+                                        className="admin-header__menu-item"
+                                        role="menuitem"
+                                        onClick={handleLogout}
+                                    >
+                                        <IconLogout /> Выход
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </header>
+
+                {/* Content */}
+                <main className="admin-content">
+                    <h1 className="admin-content__title">Заказы</h1>
+
+                    {/* Filters */}
+                    <div className="orders-filters">
+                        <select className="orders-filters__select" defaultValue="week">
+                            <option value="week">За неделю</option>
+                        </select>
+                        <select className="orders-filters__select" defaultValue="elantra">
+                            <option value="elantra">Elantra</option>
+                        </select>
+                        <select className="orders-filters__select" defaultValue="ulyanovsk">
+                            <option value="ulyanovsk">Ульяновск</option>
+                        </select>
+                        <select className="orders-filters__select" defaultValue="inprogress">
+                            <option value="inprogress">В процессе</option>
+                        </select>
+                        <button type="button" className="orders-filters__apply">
+                            Применить
+                        </button>
+                    </div>
+
+                    {/* Orders list */}
+                    {orders.length > 0 ? (
+                        <div className="orders-list">
+                            {orders.map((order) => (
+                                <OrderCard key={order.id} order={order} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="orders-empty">
+                            Заказов пока нет. Оформите заказ через бронирование — он появится здесь.
+                        </div>
+                    )}
+
+                    {/* Pagination */}
+                    {orders.length > 0 && (
+                        <nav className="admin-pagination" aria-label="Пагинация">
+                            {PAGINATION.map((page, i) =>
+                                page === '...' ? (
+                                    <span key={i} className="admin-pagination__dots">...</span>
+                                ) : (
+                                    <button
+                                        key={i}
+                                        type="button"
+                                        className={[
+                                            'admin-pagination__btn',
+                                            page === ACTIVE_PAGE ? 'admin-pagination__btn--active' : '',
+                                        ].filter(Boolean).join(' ')}
+                                        onClick={(e) => e.preventDefault()}
+                                    >
+                                        {page}
+                                    </button>
+                                )
+                            )}
+                        </nav>
+                    )}
+                </main>
+
+                {/* Footer */}
+                <footer className="admin-footer">
+                    <div className="admin-footer__links">
+                        <a href="#" onClick={(e) => e.preventDefault()}>Главная страница</a>
+                        <a href="#" onClick={(e) => e.preventDefault()}>Ссылка</a>
+                    </div>
+                    <p className="admin-footer__copy">Copyright © 2020 Simbirsoft</p>
+                </footer>
+            </div>
         </div>
-    </div>
     );
 };

@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import { ru } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
+import { Checkbox } from '@/shared/ui/Checkbox';
 import { CAR_COLORS, TARIFFS, EXTRA_SERVICES } from '../model/extraOptions.mock';
 import './ExtraStep.scss';
 
@@ -173,32 +174,14 @@ export const ExtraStep = () => {
             <section className="extra-step__section">
                 <h3 className="extra-step__section-title">Доп услуги</h3>
                 <div className="extra-step__checkbox-group">
-                    {EXTRA_SERVICES.map((service) => {
-                        const isChecked = extra.services.includes(service.id);
-                        return (
-                            <label key={service.id} className="extra-step__checkbox-label">
-                                <input
-                                    className="extra-step__checkbox-input"
-                                    type="checkbox"
-                                    checked={isChecked}
-                                    onChange={() => handleServiceToggle(service.id)}
-                                />
-                                <span
-                                    className={[
-                                        'extra-step__checkbox-box',
-                                        isChecked ? 'extra-step__checkbox-box--checked' : '',
-                                    ].join(' ').trim()}
-                                    aria-hidden="true"
-                                />
-                                <span className={[
-                                    'extra-step__checkbox-text',
-                                    isChecked ? 'extra-step__checkbox-text--checked' : '',
-                                ].join(' ').trim()}>
-                                    {service.label}, {service.price}р
-                                </span>
-                            </label>
-                        );
-                    })}
+                    {EXTRA_SERVICES.map((service) => (
+                        <Checkbox
+                            key={service.id}
+                            checked={extra.services.includes(service.id)}
+                            onChange={() => handleServiceToggle(service.id)}
+                            label={`${service.label}, ${service.price}р`}
+                        />
+                    ))}
                 </div>
             </section>
         </div>
