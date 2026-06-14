@@ -462,6 +462,7 @@
     // Мобильные — вертикальная раскладка
     @include mobile {
         flex-direction: column;
+        flex-wrap: nowrap;
         align-items: stretch;
         gap: 1rem;
 
