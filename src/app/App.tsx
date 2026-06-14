@@ -49,7 +49,6 @@ function AppLayout() {
       {!isAuth && !isAdmin && <Menu {...menuProps} />}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<Navigate to="/login" replace />} />
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
         <Route
           path="/"
