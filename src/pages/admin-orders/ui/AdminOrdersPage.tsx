@@ -72,10 +72,11 @@ const IconX = () => (
         <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
     </svg>
 );
-const IconEdit = () => (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+const IconDots = () => (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <circle cx="12" cy="5" r="1.6" />
+        <circle cx="12" cy="12" r="1.6" />
+        <circle cx="12" cy="19" r="1.6" />
     </svg>
 );
 
@@ -264,15 +265,22 @@ export const AdminOrdersPage = () => {
 
                         <div className="order-card__services">
                             {MOCK_ORDER.services.map((s) => (
-                                <label key={s.label} className="order-card__service">
-                                    <input
-                                        type="checkbox"
-                                        defaultChecked={s.checked}
-                                        readOnly
-                                        tabIndex={-1}
-                                    />
-                                    <span>{s.label}</span>
-                                </label>
+                                <span
+                                    key={s.label}
+                                    className={[
+                                        'order-card__service',
+                                        s.checked ? 'order-card__service--checked' : '',
+                                    ].filter(Boolean).join(' ')}
+                                >
+                                    <span className="order-card__service-box">
+                                        {s.checked && (
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                <polyline points="20 6 9 17 4 12" />
+                                            </svg>
+                                        )}
+                                    </span>
+                                    <span className="order-card__service-label">{s.label}</span>
+                                </span>
                             ))}
                         </div>
 
@@ -280,13 +288,22 @@ export const AdminOrdersPage = () => {
 
                         <div className="order-card__actions">
                             <button type="button" className="order-card__btn">
-                                <IconCheck /> Готово
+                                <span className="order-card__btn-icon order-card__btn-icon--success">
+                                    <IconCheck />
+                                </span>
+                                Готово
                             </button>
                             <button type="button" className="order-card__btn">
-                                <IconX /> Отмена
+                                <span className="order-card__btn-icon order-card__btn-icon--danger">
+                                    <IconX />
+                                </span>
+                                Отмена
                             </button>
                             <button type="button" className="order-card__btn">
-                                <IconEdit /> Изменить
+                                <span className="order-card__btn-icon">
+                                    <IconDots />
+                                </span>
+                                Изменить
                             </button>
                         </div>
                     </article>
