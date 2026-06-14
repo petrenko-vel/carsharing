@@ -436,6 +436,8 @@
 .order-card {
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
     gap: 1.25rem;
     background: #fff;
     border: 0.0625rem solid #e2e5ed;
@@ -443,7 +445,7 @@
     padding: 1rem 1.25rem;
 
     @include tablet-above {
-        height: 18.75rem; // 300px на десктопе
+        min-height: 18.75rem; // 300px на десктопе
     }
 
     // Планшет — переносим услуги/цену/кнопки на вторую строку
@@ -506,7 +508,7 @@
     }
 
     &__info {
-        flex: 1;
+        flex: 1 1 16rem;
         display: flex;
         flex-direction: column;
         gap: 0.1875rem;
