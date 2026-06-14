@@ -1,0 +1,1 @@
+export { CarPlaceholder } from './CarPlaceholder';

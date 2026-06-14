@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useBookingStore, type SelectedCar } from '@/pages/booking/model/bookingStore';
 import { useCarFilter, type CarFilter } from '../model/useCarFilter';
 import type { CarModel } from '../model/cars.mock';
@@ -10,9 +11,17 @@ const FILTERS: { value: CarFilter; label: string }[] = [
     { value: 'premium', label: 'Премиум' },
 ];
 
+const SKELETON_COUNT = 4;
+
 export const ModelStep = () => {
     const { selectedCar, setSelectedCar } = useBookingStore();
     const { activeFilter, setActiveFilter, filteredCars } = useCarFilter();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 1000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleSelect = (car: CarModel) => {
         if (selectedCar?.id === car.id) {
@@ -58,23 +67,38 @@ export const ModelStep = () => {
                 ))}
             </div>
 
-            <ul className="model-step__grid" role="list">
-                {filteredCars.map((car) => (
-                    <li key={car.id} role="listitem">
-                        <CarCard
-                            car={car}
-                            isSelected={selectedCar?.id === car.id}
-                            onSelect={handleSelect}
-                        />
-                    </li>
-                ))}
+            {isLoading ? (
+                <ul className="model-step__grid" aria-busy="true" aria-label="Загрузка автомобилей">
+                    {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+                        <li key={i} className="model-step__skeleton" aria-hidden="true">
+                            <div className="model-step__skeleton-header">
+                                <div className="model-step__skeleton-line model-step__skeleton-line--title" />
+                                <div className="model-step__skeleton-line model-step__skeleton-line--price" />
+                            </div>
+                            <div className="model-step__skeleton-image" />
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <ul className="model-step__grid" role="list">
+                    {filteredCars.map((car) => (
+                        <li key={car.id} role="listitem">
+                            <CarCard
+                                car={car}
+                                isSelected={selectedCar?.id === car.id}
+                                onSelect={handleSelect}
+                            />
+                        </li>
+                    ))}
 
-                {filteredCars.length === 0 && (
-                    <li className="model-step__empty">
-                        Нет доступных моделей в этой категории
-                    </li>
-                )}
-            </ul>
+                    {filteredCars.length === 0 && (
+                        <li className="model-step__empty">
+                            Нет доступных моделей в этой категории
+                        </li>
+                    )}
+                </ul>
+            )}
+
         </div>
     );
 };

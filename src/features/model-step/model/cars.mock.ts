@@ -8,8 +8,8 @@ export interface CarModel {
     brand: string;          // марка
     model: string;          // модель
     category: CarCategory;  // 'economy' | 'premium'
-    priceMin: number;       // минимальная цена аренды
-    priceMax: number;       // максимальная цена аренды
+    priceMin?: number;       // минимальная цена аренды
+    priceMax?: number;       // максимальная цена аренды
     imageUrl: string;       // путь к картинке из public/
 
     plateNumber: string;    // номерной знак
@@ -37,7 +37,7 @@ const carsData: CarModel[] = [
         category: 'premium',
         priceMin: 10000,
         priceMax: 32000,
-        imageUrl: `${BASE_URL}cars/car-2.png`,
+        imageUrl: `${BASE_URL}cars/car-2.pn`,
         plateNumber: 'А 123 ВС 77',
         fuelLevel: 80,
         availableFrom: '2019-06-12T10:00:00',
@@ -47,8 +47,6 @@ const carsData: CarModel[] = [
         brand: 'Hyundai',
         model: 'Creta',
         category: 'economy',
-        priceMin: 12000,
-        priceMax: 25000,
         imageUrl: `${BASE_URL}cars/car-3.png`,
         plateNumber: 'А 123 ВС 77',
         fuelLevel: 80,

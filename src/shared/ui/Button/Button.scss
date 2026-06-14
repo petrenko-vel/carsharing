@@ -41,6 +41,11 @@
     background: var(--gradient-button-four);
   }
 
+  // Синяя кнопка для страниц авторизации
+  &--primary {
+    background: var(--color-blue);
+  }
+
   &:hover {
     opacity: 0.8;
   }

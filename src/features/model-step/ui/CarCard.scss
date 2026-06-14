@@ -34,6 +34,10 @@
         min-height: 8rem;
     }
 
+    &__placeholder {
+        min-height: 8rem;
+    }
+
     &__image {
         object-fit: contain;
         transition: transform var(--transition) ease;

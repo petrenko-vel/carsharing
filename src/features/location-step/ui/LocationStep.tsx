@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Input } from '@/shared/ui/Input/Input';
+import { Spinner } from '@/shared/ui/Spinner';
 import { useBookingStore } from '@/pages/booking/model/bookingStore';
 import locationsData from '../model/location.mock';
 import { useLocationMarkers } from '../model/useLocationMarkers';
@@ -56,7 +57,13 @@ export const LocationStep = () => {
             </div>
 
             <div className="location-step__map">
-                <Suspense fallback={<div className="location-step__map-placeholder">Загрузка карты...</div>}>
+                <Suspense
+                    fallback={
+                        <div className="location-step__map-placeholder">
+                            <Spinner size="lg" />
+                        </div>
+                    }
+                >
                     <LocationMap center={center} markers={markers} zoom={zoom} />
                 </Suspense>
             </div>

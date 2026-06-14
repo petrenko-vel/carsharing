@@ -100,4 +100,65 @@
         color: var(--color-gray-m);
         font-size: 0.9375rem;
     }
+
+    &__hint {
+        font-size: 0.8125rem;
+        color: #e04a4a;
+        animation: fade-in-down 0.25s ease;
+    }
+
+    &__skeleton {
+        display: flex;
+        flex-direction: column;
+        gap: 2.25rem;
+        padding: 1rem;
+        border: var(--border);
+
+        &-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        &-line {
+            border-radius: 4px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+
+            &--title {
+                height: 1.25rem;
+                width: 60%;
+            }
+
+            &--price {
+                height: 0.875rem;
+                width: 40%;
+            }
+        }
+
+        &-image {
+            height: 8rem;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+        }
+    }
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
