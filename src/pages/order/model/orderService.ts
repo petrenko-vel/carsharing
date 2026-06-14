@@ -31,3 +31,7 @@ export const fetchOrderById = (id: string): Promise<StoredOrder | null> =>
     new Promise((resolve) =>
         setTimeout(() => resolve(readStorage()[id] ?? null), 800)
     );
+
+// Все сохранённые заказы, новые — сверху
+export const getAllOrders = (): StoredOrder[] =>
+    Object.values(readStorage()).sort((a, b) => b.createdAt.localeCompare(a.createdAt));

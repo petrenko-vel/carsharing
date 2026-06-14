@@ -1,9 +1,25 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEscape } from '@/shared/hooks/useEscape';
+import { getAllOrders, type StoredOrder } from '@/pages/order/model/orderService';
+import { EXTRA_SERVICES } from '@/features/extra-step/model/extraOptions.mock';
+import { CarPlaceholder } from '@/shared/ui/CarPlaceholder';
 import logoImg from '@/assets/icons/logo.png';
-import carImg from '@/assets/images/cars/car-2.png';
 import './AdminOrdersPage.scss';
+
+// Формат даты заказа: "12.06.2019 12:00"
+const formatOrderDate = (iso: string | null): string =>
+    iso
+        ? new Date(iso)
+              .toLocaleString('ru-RU', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+              })
+              .replace(',', '')
+        : '—';
 
 // ── Sidebar icons ──────────────────────────────────────────────────────────────
 const IconPencil = () => (
@@ -91,29 +107,100 @@ const NAV_ITEMS = [
     { label: 'Menu 7',              icon: <IconCircle /> },
 ];
 
-const MOCK_ORDER = {
-    car: 'ELANTRA',
-    city: 'Ульяновск',
-    address: 'Нариманова 42',
-    dateFrom: '12.06.2019 12:00',
-    dateTo: '13.06.2019 12:00',
-    color: 'Голубой',
-    services: [
-        { label: 'Полный бак',     checked: true },
-        { label: 'Детское кресло', checked: false },
-        { label: 'Правый руль',    checked: false },
-    ],
-    price: '4 300 ₽',
-};
-
 const PAGINATION = ['«', '1', '...', '4', '5', '6', '...', '31', '»'];
 const ACTIVE_PAGE = '5';
+
+// ── Order card ─────────────────────────────────────────────────────────────────
+const OrderCard = ({ order }: { order: StoredOrder }) => {
+    const [imgFailed, setImgFailed] = useState(!order.car.imageUrl);
+
+    const location = [order.city, order.point].filter(Boolean).join(', ');
+    const dateRange = `${formatOrderDate(order.extra.dateFrom)} — ${formatOrderDate(order.extra.dateTo)}`;
+
+    return (
+        <article className="order-card">
+            <div className="order-card__image-wrapper">
+                {imgFailed ? (
+                    <CarPlaceholder className="order-card__placeholder" />
+                ) : (
+                    <img
+                        className="order-card__image"
+                        src={order.car.imageUrl}
+                        alt={order.car.name}
+                        onError={() => setImgFailed(true)}
+                    />
+                )}
+            </div>
+
+            <div className="order-card__info">
+                <p className="order-card__title">
+                    <strong>{order.car.name}</strong>
+                    {location && <> в {location}</>}
+                </p>
+                <p className="order-card__dates">{dateRange}</p>
+                {order.extra.colorLabel && (
+                    <p className="order-card__color">
+                        Цвет: <span className="order-card__color-value">{order.extra.colorLabel}</span>
+                    </p>
+                )}
+            </div>
+
+            <div className="order-card__services">
+                {EXTRA_SERVICES.map((service) => {
+                    const checked = order.extra.services.includes(service.id);
+                    return (
+                        <span
+                            key={service.id}
+                            className={[
+                                'order-card__service',
+                                checked ? 'order-card__service--checked' : '',
+                            ].filter(Boolean).join(' ')}
+                        >
+                            <span className="order-card__service-box">
+                                {checked && (
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                )}
+                            </span>
+                            <span className="order-card__service-label">{service.label}</span>
+                        </span>
+                    );
+                })}
+            </div>
+
+            <p className="order-card__price">{order.totalPrice || '—'}</p>
+
+            <div className="order-card__actions">
+                <button type="button" className="order-card__btn">
+                    <span className="order-card__btn-icon order-card__btn-icon--success">
+                        <IconCheck />
+                    </span>
+                    Готово
+                </button>
+                <button type="button" className="order-card__btn">
+                    <span className="order-card__btn-icon order-card__btn-icon--danger">
+                        <IconX />
+                    </span>
+                    Отмена
+                </button>
+                <button type="button" className="order-card__btn">
+                    <span className="order-card__btn-icon">
+                        <IconDots />
+                    </span>
+                    Изменить
+                </button>
+            </div>
+        </article>
+    );
+};
 
 // ── Component ──────────────────────────────────────────────────────────────────
 export const AdminOrdersPage = () => {
     const navigate = useNavigate();
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const userMenuRef = useRef<HTMLDivElement>(null);
+    const [orders] = useState<StoredOrder[]>(() => getAllOrders());
 
     useEscape(() => setIsUserMenuOpen(false), isUserMenuOpen);
 
@@ -242,93 +329,40 @@ export const AdminOrdersPage = () => {
                 </div>
 
                 {/* Orders list */}
-                <div className="orders-list">
-                    <article className="order-card">
-                        <img
-                            className="order-card__image"
-                            src={carImg}
-                            alt={MOCK_ORDER.car}
-                        />
-
-                        <div className="order-card__info">
-                            <p className="order-card__title">
-                                <strong>{MOCK_ORDER.car}</strong>
-                                {' '}в {MOCK_ORDER.city}, {MOCK_ORDER.address}
-                            </p>
-                            <p className="order-card__dates">
-                                {MOCK_ORDER.dateFrom} — {MOCK_ORDER.dateTo}
-                            </p>
-                            <p className="order-card__color">
-                                Цвет: <span className="order-card__color-value">{MOCK_ORDER.color}</span>
-                            </p>
-                        </div>
-
-                        <div className="order-card__services">
-                            {MOCK_ORDER.services.map((s) => (
-                                <span
-                                    key={s.label}
-                                    className={[
-                                        'order-card__service',
-                                        s.checked ? 'order-card__service--checked' : '',
-                                    ].filter(Boolean).join(' ')}
-                                >
-                                    <span className="order-card__service-box">
-                                        {s.checked && (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                                <polyline points="20 6 9 17 4 12" />
-                                            </svg>
-                                        )}
-                                    </span>
-                                    <span className="order-card__service-label">{s.label}</span>
-                                </span>
-                            ))}
-                        </div>
-
-                        <p className="order-card__price">{MOCK_ORDER.price}</p>
-
-                        <div className="order-card__actions">
-                            <button type="button" className="order-card__btn">
-                                <span className="order-card__btn-icon order-card__btn-icon--success">
-                                    <IconCheck />
-                                </span>
-                                Готово
-                            </button>
-                            <button type="button" className="order-card__btn">
-                                <span className="order-card__btn-icon order-card__btn-icon--danger">
-                                    <IconX />
-                                </span>
-                                Отмена
-                            </button>
-                            <button type="button" className="order-card__btn">
-                                <span className="order-card__btn-icon">
-                                    <IconDots />
-                                </span>
-                                Изменить
-                            </button>
-                        </div>
-                    </article>
-                </div>
+                {orders.length > 0 ? (
+                    <div className="orders-list">
+                        {orders.map((order) => (
+                            <OrderCard key={order.id} order={order} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="orders-empty">
+                        Заказов пока нет. Оформите заказ через бронирование — он появится здесь.
+                    </div>
+                )}
 
                 {/* Pagination */}
-                <nav className="admin-pagination" aria-label="Пагинация">
-                    {PAGINATION.map((page, i) =>
-                        page === '...' ? (
-                            <span key={i} className="admin-pagination__dots">...</span>
-                        ) : (
-                            <button
-                                key={i}
-                                type="button"
-                                className={[
-                                    'admin-pagination__btn',
-                                    page === ACTIVE_PAGE ? 'admin-pagination__btn--active' : '',
-                                ].filter(Boolean).join(' ')}
-                                onClick={(e) => e.preventDefault()}
-                            >
-                                {page}
-                            </button>
-                        )
-                    )}
-                </nav>
+                {orders.length > 0 && (
+                    <nav className="admin-pagination" aria-label="Пагинация">
+                        {PAGINATION.map((page, i) =>
+                            page === '...' ? (
+                                <span key={i} className="admin-pagination__dots">...</span>
+                            ) : (
+                                <button
+                                    key={i}
+                                    type="button"
+                                    className={[
+                                        'admin-pagination__btn',
+                                        page === ACTIVE_PAGE ? 'admin-pagination__btn--active' : '',
+                                    ].filter(Boolean).join(' ')}
+                                    onClick={(e) => e.preventDefault()}
+                                >
+                                    {page}
+                                </button>
+                            )
+                        )}
+                    </nav>
+                )}
             </main>
 
             {/* Footer */}
