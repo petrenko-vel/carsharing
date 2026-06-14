@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEscape } from '@/shared/hooks/useEscape';
 import { getAllOrders, type StoredOrder } from '@/pages/order/model/orderService';
@@ -38,17 +38,6 @@ const IconGrid = () => (
 const IconOrders = () => (
     <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path fillRule="evenodd" clipRule="evenodd" d="M7 1H3C2.45 1 2.005 1.45 2.005 2L2 10C2 10.55 2.445 11 2.995 11H9C9.55 11 10 10.55 10 10V4L7 1ZM8 8H6.5V9.5H5.5V8H4V7H5.5V5.5H6.5V7H8V8ZM6.5 1.75V4.5H9.25L6.5 1.75Z" fill="currentColor" />
-    </svg>
-);
-const IconUser = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-    </svg>
-);
-const IconCircle = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-        <circle cx="12" cy="12" r="8" />
     </svg>
 );
 
@@ -106,6 +95,33 @@ const NAV_ITEMS = [
 
 const PAGINATION = ['«', '1', '...', '4', '5', '6', '...', '31', '»'];
 const ACTIVE_PAGE = '5';
+
+// ── Filters ────────────────────────────────────────────────────────────────────
+const ALL = 'all';
+
+interface Filters {
+    period: string;
+    model: string;
+    city: string;
+    status: string;
+}
+
+const DEFAULT_FILTERS: Filters = { period: ALL, model: ALL, city: ALL, status: ALL };
+
+const hasActiveFilters = (f: Filters): boolean =>
+    Object.values(f).some((value) => value !== ALL);
+
+const filterOrders = (orders: StoredOrder[], f: Filters): StoredOrder[] =>
+    orders.filter((order) => {
+        if (f.model !== ALL && order.car.name !== f.model) return false;
+        if (f.city !== ALL && order.city !== f.city) return false;
+        if (f.period === 'week') {
+            const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+            if (new Date(order.createdAt).getTime() < weekAgo) return false;
+        }
+        // Все сохранённые заказы считаются «в процессе» — статус не отсекает их
+        return true;
+    });
 
 // ── Order card ─────────────────────────────────────────────────────────────────
 const OrderCard = ({ order }: { order: StoredOrder }) => {
@@ -184,6 +200,37 @@ export const AdminOrdersPage = () => {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const userMenuRef = useRef<HTMLDivElement>(null);
     const [orders] = useState<StoredOrder[]>(() => getAllOrders());
+
+    // Черновик фильтров (в селектах) и применённые фильтры (к списку)
+    const [draftFilters, setDraftFilters] = useState<Filters>(DEFAULT_FILTERS);
+    const [appliedFilters, setAppliedFilters] = useState<Filters>(DEFAULT_FILTERS);
+
+    // Уникальные модели и города для опций
+    const modelOptions = useMemo(
+        () => [...new Set(orders.map((o) => o.car.name))],
+        [orders],
+    );
+    const cityOptions = useMemo(
+        () => [...new Set(orders.map((o) => o.city).filter(Boolean))],
+        [orders],
+    );
+
+    const visibleOrders = useMemo(
+        () => filterOrders(orders, appliedFilters),
+        [orders, appliedFilters],
+    );
+
+    const showReset = hasActiveFilters(draftFilters) || hasActiveFilters(appliedFilters);
+
+    const setFilter = (key: keyof Filters, value: string) =>
+        setDraftFilters((prev) => ({ ...prev, [key]: value }));
+
+    const handleApplyFilters = () => setAppliedFilters(draftFilters);
+
+    const handleResetFilters = () => {
+        setDraftFilters(DEFAULT_FILTERS);
+        setAppliedFilters(DEFAULT_FILTERS);
+    };
 
     useEscape(() => setIsUserMenuOpen(false), isUserMenuOpen);
 
@@ -294,38 +341,80 @@ export const AdminOrdersPage = () => {
 
                     {/* Filters */}
                     <div className="orders-filters">
-                        <select className="orders-filters__select" defaultValue="week">
+                        <select
+                            className="orders-filters__select"
+                            value={draftFilters.period}
+                            onChange={(e) => setFilter('period', e.target.value)}
+                        >
+                            <option value={ALL}>За всё время</option>
                             <option value="week">За неделю</option>
                         </select>
-                        <select className="orders-filters__select" defaultValue="elantra">
-                            <option value="elantra">Elantra</option>
+                        <select
+                            className="orders-filters__select"
+                            value={draftFilters.model}
+                            onChange={(e) => setFilter('model', e.target.value)}
+                        >
+                            <option value={ALL}>Все модели</option>
+                            {modelOptions.map((model) => (
+                                <option key={model} value={model}>{model}</option>
+                            ))}
                         </select>
-                        <select className="orders-filters__select" defaultValue="ulyanovsk">
-                            <option value="ulyanovsk">Ульяновск</option>
+                        <select
+                            className="orders-filters__select"
+                            value={draftFilters.city}
+                            onChange={(e) => setFilter('city', e.target.value)}
+                        >
+                            <option value={ALL}>Все города</option>
+                            {cityOptions.map((city) => (
+                                <option key={city} value={city}>{city}</option>
+                            ))}
                         </select>
-                        <select className="orders-filters__select" defaultValue="inprogress">
+                        <select
+                            className="orders-filters__select"
+                            value={draftFilters.status}
+                            onChange={(e) => setFilter('status', e.target.value)}
+                        >
+                            <option value={ALL}>Все статусы</option>
                             <option value="inprogress">В процессе</option>
                         </select>
-                        <button type="button" className="orders-filters__apply">
-                            Применить
-                        </button>
+
+                        <div className="orders-filters__actions">
+                            {showReset && (
+                                <button
+                                    type="button"
+                                    className="orders-filters__reset"
+                                    onClick={handleResetFilters}
+                                >
+                                    Отменить
+                                </button>
+                            )}
+                            <button
+                                type="button"
+                                className="orders-filters__apply"
+                                onClick={handleApplyFilters}
+                            >
+                                Применить
+                            </button>
+                        </div>
                     </div>
 
                     {/* Orders list */}
-                    {orders.length > 0 ? (
+                    {visibleOrders.length > 0 ? (
                         <div className="orders-list">
-                            {orders.map((order) => (
+                            {visibleOrders.map((order) => (
                                 <OrderCard key={order.id} order={order} />
                             ))}
                         </div>
                     ) : (
                         <div className="orders-empty">
-                            Заказов пока нет. Оформите заказ через бронирование — он появится здесь.
+                            {orders.length === 0
+                                ? 'Заказов пока нет. Оформите заказ через бронирование — он появится здесь.'
+                                : 'По выбранным фильтрам ничего не найдено.'}
                         </div>
                     )}
 
                     {/* Pagination */}
-                    {orders.length > 0 && (
+                    {visibleOrders.length > 0 && (
                         <nav className="admin-pagination" aria-label="Пагинация">
                             {PAGINATION.map((page, i) =>
                                 page === '...' ? (
