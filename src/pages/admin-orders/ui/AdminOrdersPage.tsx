@@ -59,6 +59,13 @@ const IconChevronDown = () => (
         <polyline points="6 9 12 15 18 9" />
     </svg>
 );
+const IconBurger = () => (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+);
 const IconLogout = () => (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -198,6 +205,7 @@ const OrderCard = ({ order }: { order: StoredOrder }) => {
 export const AdminOrdersPage = () => {
     const navigate = useNavigate();
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const userMenuRef = useRef<HTMLDivElement>(null);
     const [orders] = useState<StoredOrder[]>(() => getAllOrders());
 
@@ -233,6 +241,7 @@ export const AdminOrdersPage = () => {
     };
 
     useEscape(() => setIsUserMenuOpen(false), isUserMenuOpen);
+    useEscape(() => setIsSidebarOpen(false), isSidebarOpen);
 
     useEffect(() => {
         if (!isUserMenuOpen) return;
@@ -255,7 +264,19 @@ export const AdminOrdersPage = () => {
         <div className="admin">
 
             {/* ── Sidebar ── */}
-            <aside className="admin-sidebar">
+            {isSidebarOpen && (
+                <div
+                    className="admin-sidebar-overlay"
+                    onClick={() => setIsSidebarOpen(false)}
+                    aria-hidden="true"
+                />
+            )}
+            <aside
+                className={[
+                    'admin-sidebar',
+                    isSidebarOpen ? 'admin-sidebar--open' : '',
+                ].filter(Boolean).join(' ')}
+            >
                 <div className="admin-sidebar__logo">
                     <img src={logoImg} alt="" className="admin-sidebar__logo-img" />
                     <span className="admin-sidebar__logo-text">Need for car</span>
@@ -270,7 +291,10 @@ export const AdminOrdersPage = () => {
                                 'admin-sidebar__nav-item',
                                 item.active ? 'admin-sidebar__nav-item--active' : '',
                             ].filter(Boolean).join(' ')}
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setIsSidebarOpen(false);
+                            }}
                         >
                             <span className="admin-sidebar__nav-icon">{item.icon}</span>
                             {item.label}
@@ -284,6 +308,15 @@ export const AdminOrdersPage = () => {
 
                 {/* Header */}
                 <header className="admin-header">
+                    <button
+                        type="button"
+                        className="admin-header__burger"
+                        onClick={() => setIsSidebarOpen(true)}
+                        aria-label="Открыть меню"
+                    >
+                        <IconBurger />
+                    </button>
+
                     <div className="admin-header__search">
                         <IconSearch />
                         <input
